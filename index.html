@@ -3,62 +3,66 @@ layout: default
 ---
 
 <style>
+.home-simple {
+  max-width: 920px;
+  margin: 1rem auto 0;
+}
+
 .home-hero {
-  margin-top: 1.5rem;
-  margin-bottom: 2.5rem;
   padding: 2.2rem;
   border-radius: 28px;
   background:
-    radial-gradient(circle at top left, rgba(59, 130, 246, 0.22), transparent 34%),
-    linear-gradient(135deg, #f8fbff 0%, #edf4ff 55%, #f7faff 100%);
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+    radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 36%),
+    linear-gradient(135deg, #f8fbff 0%, #eef4ff 100%);
+  box-shadow: 0 16px 42px rgba(15, 23, 42, 0.07);
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) 280px;
+  grid-template-columns: minmax(0, 1.5fr) 240px;
   gap: 2rem;
   align-items: center;
 }
 
-.hero-badge {
+.home-badge {
   display: inline-block;
   margin-bottom: 1rem;
-  padding: 0.4rem 0.85rem;
+  padding: 0.35rem 0.78rem;
   border-radius: 999px;
-  background: rgba(37, 99, 235, 0.12);
+  background: rgba(37, 99, 235, 0.10);
   color: #2563eb;
   font-size: 0.85rem;
   font-weight: 700;
 }
 
-.hero-title {
+.home-title {
   margin: 0 0 1rem;
-  font-size: 2.4rem;
+  font-size: 2.25rem;
   font-weight: 800;
   line-height: 1.25;
   letter-spacing: -0.04em;
 }
 
-.hero-title span {
+.home-title span {
   color: #2563eb;
 }
 
-.hero-desc {
-  margin: 0 0 1rem;
+.home-desc {
+  margin: 0;
+  max-width: 580px;
   color: #5f6b7a;
   font-size: 1rem;
   line-height: 1.9;
 }
 
-.hero-actions {
-  margin-top: 1.4rem;
+.home-actions {
+  margin-top: 1.3rem;
   display: flex;
   gap: 0.8rem;
   flex-wrap: wrap;
 }
 
-.hero-actions a {
+.home-actions a {
   display: inline-block;
-  padding: 0.72rem 1.18rem;
-  border-radius: 14px;
+  padding: 0.68rem 1.1rem;
+  border-radius: 13px;
   font-weight: 700;
   text-decoration: none;
 }
@@ -71,106 +75,72 @@ layout: default
 .btn-sub {
   background: #fff;
   color: #2563eb !important;
-  border: 1px solid rgba(37, 99, 235, 0.18);
+  border: 1px solid rgba(37, 99, 235, 0.16);
 }
 
-.profile-card {
-  padding: 1.5rem;
-  border-radius: 24px;
+.home-profile {
+  padding: 1.3rem;
+  border-radius: 22px;
   background: rgba(255, 255, 255, 0.86);
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.07);
   text-align: center;
 }
 
-.profile-card img {
-  width: 118px;
-  height: 118px;
+.home-profile img {
+  width: 108px;
+  height: 108px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 1rem;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.18);
+  margin-bottom: 0.9rem;
 }
 
-.profile-card h2 {
-  margin: 0.2rem 0 0.3rem;
+.home-profile h2 {
+  margin: 0.2rem 0 0.35rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.home-profile p {
+  margin: 0.2rem 0;
+  color: #667085;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.latest-title {
+  margin: 2rem 0 1rem;
   font-size: 1.35rem;
   font-weight: 800;
 }
 
-.profile-card p {
-  margin: 0.25rem 0;
-  color: #667085;
-  line-height: 1.6;
-}
-
-.topic-grid {
-  margin: 2rem 0 2.5rem;
+.post-list-simple {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1rem;
-}
-
-.topic-card {
-  padding: 1.1rem;
-  border-radius: 20px;
-  background: #fff;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
-}
-
-.topic-card .icon {
-  font-size: 1.5rem;
-  margin-bottom: 0.6rem;
-}
-
-.topic-card h3 {
-  margin: 0 0 0.4rem;
-  font-size: 1.05rem;
-  font-weight: 800;
-}
-
-.topic-card p {
-  margin: 0;
-  color: #6b7280;
-  font-size: 0.92rem;
-  line-height: 1.7;
-}
-
-.section-title {
-  margin: 2rem 0 1rem;
-  font-size: 1.45rem;
-  font-weight: 800;
-}
-
-.post-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
 }
 
 .home-post-card {
   display: block;
-  padding: 1.25rem;
+  padding: 1.2rem 1.35rem;
   border-radius: 20px;
-  background: #fff;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+  background: var(--card-bg);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
   text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
 .home-post-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.09);
+  transform: translateY(-3px);
 }
 
 .home-post-card .meta {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
   color: #8a94a6;
   font-size: 0.85rem;
 }
 
 .home-post-card h3 {
-  margin: 0 0 0.55rem;
-  font-size: 1.12rem;
+  margin: 0 0 0.45rem;
+  font-size: 1.08rem;
   line-height: 1.5;
   font-weight: 800;
 }
@@ -178,131 +148,88 @@ layout: default
 .home-post-card p {
   margin: 0;
   color: #6b7280;
-  line-height: 1.8;
+  line-height: 1.75;
   font-size: 0.95rem;
 }
 
 .empty-post {
-  padding: 1.25rem;
+  padding: 1.2rem;
   border-radius: 20px;
-  background: #fff;
+  background: var(--card-bg);
   color: #6b7280;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
 }
 
 @media (max-width: 900px) {
   .home-hero {
     grid-template-columns: 1fr;
-    padding: 1.45rem;
-    margin-top: 0.8rem;
+    padding: 1.55rem;
   }
 
-  .hero-title {
-    font-size: 2rem;
+  .home-title {
+    font-size: 1.9rem;
   }
 
-  .topic-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .post-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 520px) {
-  .topic-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .profile-card img {
-    width: 104px;
-    height: 104px;
+  .home-profile {
+    max-width: 260px;
   }
 }
 </style>
 
-<section class="home-hero">
-  <div>
-    <span class="hero-badge">Finance × CS · Trading · Coding</span>
+<div class="home-simple">
 
-    <h1 class="hero-title">
-      你好，我是<span>空</span>
-    </h1>
+  <section class="home-hero">
+    <div>
+      <span class="home-badge">Finance × CS · Personal Blog</span>
 
-    <p class="hero-desc">
-      欢迎来到我的个人博客。这里会随机掉落我的交易复盘、金融、编程学习、
-      随笔，以及做题区时刻。
-    </p>
+      <h1 class="home-title">
+        你好，我是<span>空</span>
+      </h1>
 
-    <p class="hero-desc">
-      Always keep going , Never giving up 。
-    </p>
+      <p class="home-desc">
+        随机掉落我的交易复盘、金融学习、编程笔记、随笔，以及做题区时刻。
+        Always keep going , Never giving up .
+      </p>
 
-    <div class="hero-actions">
-      <a class="btn-main" href="{{ '/about/' | relative_url }}">关于我</a>
-      <a class="btn-sub" href="{{ '/categories/' | relative_url }}">查看分类</a>
+      <div class="home-actions">
+        <a class="btn-main" href="{{ '/about/' | relative_url }}">关于我</a>
+        <a class="btn-sub" href="{{ '/categories/' | relative_url }}">查看分类</a>
+      </div>
     </div>
-  </div>
 
-  <div class="profile-card">
-    <img src="{{ '/avatar.jpg' | relative_url }}" alt="avatar">
-    <h2>空空空158</h2>
-    <p>Sjtu acem</p>
-    <p>Finance × Computer Science</p>
-    <p>交易 / 金融 / 编程 / 随笔 / 做题区</p>
-  </div>
-</section>
-
-<section class="topic-grid">
-  <div class="topic-card">
-    <div class="icon">📈</div>
-    <h3>交易</h3>
-    <p>交易复盘、市场观察、策略体系和心态记录。</p>
-  </div>
-
-  <div class="topic-card">
-    <div class="icon">🏦</div>
-    <h3>金融</h3>
-    <p>行业研究、公司分析、金融学习和实习思考。</p>
-  </div>
-
-  <div class="topic-card">
-    <div class="icon">💻</div>
-    <h3>编程</h3>
-    <p>编程学习、课程笔记、项目开发。</p>
-  </div>
-
-  <div class="topic-card">
-    <div class="icon">🧩</div>
-    <h3>做题区</h3>
-    <p>高中/cmc/算法/课程作业的试题与总结。</p>
-  </div>
-</section>
-
-<h2 class="section-title">最新文章</h2>
-
-{% if site.posts.size > 0 %}
-  <section class="post-grid">
-    {% for post in site.posts limit: 6 %}
-      <a class="home-post-card" href="{{ post.url | relative_url }}">
-        <div class="meta">
-          {{ post.date | date: "%Y-%m-%d" }}
-          {% if post.categories and post.categories.size > 0 %}
-            · {{ post.categories | join: " / " }}
-          {% endif %}
-        </div>
-
-        <h3>{{ post.title }}</h3>
-
-        <p>
-          {{ post.description | default: post.excerpt | strip_html | truncate: 90 }}
-        </p>
-      </a>
-    {% endfor %}
+    <div class="home-profile">
+      <img src="{{ '/avatar.jpg' | relative_url }}" alt="avatar">
+      <h2>空空空158</h2>
+      <p>SJTU acem</p>
+      <p>Finance × CS</p>
+    </div>
   </section>
-{% else %}
-  <div class="empty-post">
-    你还没有发布文章。等第一篇文章发出来，这里会自动显示最新文章。
-  </div>
-{% endif %}
+
+  <div class="latest-title">最新文章</div>
+
+  {% if site.posts.size > 0 %}
+    <section class="post-list-simple">
+      {% for post in site.posts limit: 5 %}
+        <a class="home-post-card" href="{{ post.url | relative_url }}">
+          <div class="meta">
+            {{ post.date | date: "%Y-%m-%d" }}
+            {% if post.categories and post.categories.size > 0 %}
+              · {{ post.categories | join: " / " }}
+            {% endif %}
+          </div>
+
+          <h3>{{ post.title }}</h3>
+
+          <p>
+            {{ post.description | default: post.excerpt | strip_html | truncate: 90 }}
+          </p>
+        </a>
+      {% endfor %}
+    </section>
+  {% else %}
+    <div class="empty-post">
+      你还没有发布文章。等第一篇文章发出来，这里会自动显示最新文章。
+    </div>
+  {% endif %}
+
+</div>
