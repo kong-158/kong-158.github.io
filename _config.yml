@@ -14,7 +14,7 @@ timezone: Asia/Shanghai
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: "Kong-158 Notes" # the main title
+title: "Kong-158" # the main title
 
 tagline: "交易、金融、编程与思考" # it will display as the subtitle
 
