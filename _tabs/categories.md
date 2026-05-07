@@ -55,6 +55,16 @@ order: 1
   box-shadow: 0 16px 38px rgba(15, 23, 42, 0.09);
 }
 
+.category-card.disabled {
+  opacity: 0.62;
+  cursor: default;
+}
+
+.category-card.disabled:hover {
+  transform: none;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.055);
+}
+
 .category-card-top {
   display: flex;
   align-items: center;
@@ -87,6 +97,22 @@ order: 1
   line-height: 1.75;
 }
 
+.category-status {
+  display: inline-block;
+  margin-top: 0.8rem;
+  padding: 0.22rem 0.62rem;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.10);
+  color: #2563eb;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.category-status.empty {
+  background: rgba(107, 114, 128, 0.10);
+  color: #6b7280;
+}
+
 @media (max-width: 760px) {
   .category-grid {
     grid-template-columns: 1fr;
@@ -107,13 +133,14 @@ order: 1
 
   <section class="category-grid">
 
-    <a class="category-card" href="{{ '/categories/交易/' | relative_url }}">
+    <div class="category-card disabled">
       <div class="category-card-top">
         <div class="category-icon">📈</div>
         <h2>交易</h2>
       </div>
       <p>交易复盘、市场观察、操作反思和交易系统搭建。</p>
-    </a>
+      <span class="category-status empty">暂无文章</span>
+    </div>
 
     <a class="category-card" href="{{ '/categories/金融/' | relative_url }}">
       <div class="category-card-top">
@@ -121,31 +148,35 @@ order: 1
         <h2>金融</h2>
       </div>
       <p>行业研究、公司分析、实习感想和金融学习笔记。</p>
+      <span class="category-status">已有文章</span>
     </a>
 
-    <a class="category-card" href="{{ '/categories/编程/' | relative_url }}">
+    <div class="category-card disabled">
       <div class="category-card-top">
         <div class="category-icon">💻</div>
         <h2>编程</h2>
       </div>
       <p>编程学习、课程笔记和项目搭建。</p>
-    </a>
+      <span class="category-status empty">暂无文章</span>
+    </div>
 
-    <a class="category-card" href="{{ '/categories/随笔/' | relative_url }}">
+    <div class="category-card disabled">
       <div class="category-card-top">
         <div class="category-icon">📝</div>
         <h2>随笔</h2>
       </div>
-      <p>生活、成长、阶段复盘和一些当下的真实想法。</p>
-    </a>
+      <p>一些想法和阶段复盘。</p>
+      <span class="category-status empty">暂无文章</span>
+    </div>
 
-    <a class="category-card" href="{{ '/categories/做题区/' | relative_url }}">
+    <div class="category-card disabled">
       <div class="category-card-top">
         <div class="category-icon">🧩</div>
         <h2>做题区</h2>
       </div>
-      <p>随机掉落高中、算法、cmc等题目和解答。</p>
-    </a>
+      <p>随机掉落高考题、模考题、cmc、课程作业和算法题。</p>
+      <span class="category-status empty">暂无文章</span>
+    </div>
 
   </section>
 
