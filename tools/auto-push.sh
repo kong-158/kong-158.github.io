@@ -9,13 +9,17 @@ echo "Auto push started on branch: $BRANCH"
 echo "Press Ctrl+C to stop."
 
 while true; do
+  # 刷新 Git 对文件状态的判断，但不改工作区文件
+  git update-index -q --refresh
+
+  # 如果有未提交修改，才提交并推送
   if [[ -n "$(git status --porcelain)" ]]; then
     git add -A
     git commit -m "autosave: $(date '+%Y-%m-%d %H:%M:%S')" || true
-    git pull --rebase origin "$BRANCH" || true
-    git push origin "$BRANCH"
+    git push origin "$BRANCH" || true
     echo "Pushed at $(date '+%H:%M:%S')"
   fi
 
-  sleep 60
+  # 间隔改长一点，避免一直打扰 VS Code
+  sleep 180
 done
