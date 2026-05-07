@@ -108,3 +108,108 @@
     line-height: 1.65;
   }
 }
+/* ========== Econometrics Note Style ========== */
+
+.econ-note {
+  margin: 2rem 0;
+}
+
+.econ-title {
+  font-size: 1.65rem;
+  font-weight: 800;
+  margin: 1.8rem 0 1.2rem;
+  padding-left: 0.9rem;
+  border-left: 6px solid #2f6fdd;
+  color: #1f2937;
+}
+
+.econ-card {
+  margin: 1.2rem 0;
+  padding: 1.2rem 1.3rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+}
+
+.econ-card-title {
+  font-size: 1.08rem;
+  font-weight: 750;
+  color: #1e293b;
+  margin-bottom: 0.8rem;
+}
+
+.econ-card p {
+  line-height: 1.9;
+  color: #334155;
+  margin: 0.7rem 0;
+}
+
+.eq {
+  margin: 0.9rem 0;
+  padding: 0.9rem 1rem;
+  text-align: center;
+  font-family: "Times New Roman", "Cambria Math", serif;
+  font-size: 1.25rem;
+  line-height: 2;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  color: #020617;
+  overflow-x: auto;
+}
+
+.eq-chain {
+  margin: 0.9rem 0;
+  padding: 0.9rem 1rem;
+  font-family: "Times New Roman", "Cambria Math", serif;
+  font-size: 1.2rem;
+  line-height: 2.1;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  color: #020617;
+  overflow-x: auto;
+}
+
+.eq-chain div {
+  text-align: center;
+}
+
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 1.25;
+  margin: 0 0.3rem;
+}
+
+.frac .top {
+  border-bottom: 1.6px solid #020617;
+  padding: 0 0.45rem 0.25rem;
+}
+
+.frac .bottom {
+  padding: 0.25rem 0.45rem 0;
+}
+
+.bar {
+  text-decoration: overline;
+  text-decoration-thickness: 1px;
+}
+
+.econ-note-box {
+  margin-top: 0.9rem;
+  padding: 0.85rem 1rem;
+  background: #eff6ff;
+  border-left: 4px solid #2f6fdd;
+  border-radius: 10px;
+  color: #334155;
+  line-height: 1.85;
+}
+
+.econ-final {
+  background: linear-gradient(135deg, #eff6ff, #f8fafc);
+  border-color: #bfdbfe;
+}
