@@ -575,7 +575,18 @@ $$
 同时，我们给出残差$u_i$的定义：
 
 $$
-\hat{u}_i=y_i-\hat{y}_i
+\hat{u}_i=y_i-\hat{y}_i=y_i-\hat{\beta}_0-\hat{\beta}_1x_i
 $$
 
+为了保证拟合效果的优度，我们定义残差平方和为：
 
+$$
+\mathrm{SSR}
+=
+\sum_{i=1}^{n}\hat{u}_i^2
+=
+\sum_{i=1}^{n}
+(y_i-\hat{\beta}_0-\hat{\beta}_1x_i)^2
+$$
+
+事实上，OLS就是要选择直线
