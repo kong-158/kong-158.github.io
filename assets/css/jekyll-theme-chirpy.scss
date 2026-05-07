@@ -1,0 +1,110 @@
+---
+---
+
+@import 'main';
+
+/* ===== 分类详情页美化：如 /categories/金融/ ===== */
+
+#page-category {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+/* 顶部分类标题区域 */
+#page-category h1 {
+  margin-top: 1rem;
+  margin-bottom: 1.4rem;
+  padding: 1.2rem 1.3rem;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at top left, rgba(37, 99, 235, 0.16), transparent 35%),
+    linear-gradient(135deg, #f8fbff 0%, #eef4ff 100%);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+  font-size: 1.7rem;
+  font-weight: 850;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+#page-category h1::before {
+  content: "📂";
+  font-size: 1.35rem;
+}
+
+/* 分类下方文章列表 */
+#page-category ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+#page-category li {
+  list-style: none;
+  margin: 0 0 1rem 0;
+  padding: 1rem 1.1rem;
+  border-radius: 18px;
+  background: var(--card-bg);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+#page-category li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+}
+
+#page-category li::marker {
+  content: "";
+}
+
+/* 列表里的文章链接 */
+#page-category li a {
+  display: inline-block;
+  font-size: 1.06rem;
+  font-weight: 700;
+  line-height: 1.7;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+#page-category li a:hover {
+  color: #1d4ed8;
+  text-decoration: none;
+}
+
+/* 给文章前面加一个小图标 */
+#page-category li a::before {
+  content: "📝 ";
+}
+
+/* 右侧日期、虚线这些元素尽量柔和一点 */
+#page-category small,
+#page-category time,
+#page-category .text-muted {
+  color: #94a3b8 !important;
+  font-size: 0.92rem;
+}
+
+/* 如果有横向分隔点线，让它弱一点 */
+#page-category hr {
+  opacity: 0.15;
+}
+
+/* 手机端优化 */
+@media (max-width: 768px) {
+  #page-category h1 {
+    font-size: 1.45rem;
+    padding: 1rem 1.05rem;
+  }
+
+  #page-category li {
+    padding: 0.9rem 0.95rem;
+  }
+
+  #page-category li a {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+}
