@@ -143,6 +143,146 @@ const years = [...new Set(posts.map((post) => post.data.publishedAt.getFullYear(
     </section>
   )}
 
+  <style is:global>
+    @import url('https://fonts.googleapis.com/css2?family=Long+Cang&family=Ma+Shan+Zheng&family=Zhi+Mang+Xing&display=swap');
+
+    .profile-motto-script {
+      align-items: flex-start;
+      gap: 13px;
+      min-height: 248px;
+    }
+
+    .profile-motto-script .motto-column {
+      color: var(--navy-deep);
+      font-weight: 400;
+      line-height: 1.02;
+      letter-spacing: .035em;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, .28);
+      transform-origin: top center;
+    }
+
+    .profile-motto-script .motto-column:nth-child(1) {
+      transform: rotate(1.1deg) translateY(1px);
+    }
+
+    .profile-motto-script .motto-column:nth-child(2) {
+      transform: rotate(-1.25deg) translateY(12px);
+    }
+
+    .profile-motto-script .motto-column:nth-child(3) {
+      transform: rotate(.7deg) translateY(4px);
+    }
+
+    .profile-motto-script[data-length='short'] {
+      min-height: 210px;
+      gap: 17px;
+    }
+
+    .profile-motto-script[data-length='short'] .motto-column {
+      font-size: 46px;
+      letter-spacing: .07em;
+    }
+
+    .profile-motto-script[data-columns='3'] {
+      gap: 7px;
+      min-height: 238px;
+    }
+
+    .profile-motto-script[data-columns='3'] .motto-column {
+      font-size: 30px;
+    }
+
+    .profile-motto-script.motto-font-long .motto-column {
+      font-family: 'Long Cang', 'STXingkai', 'Xingkai SC', cursive;
+      font-size: 43px;
+    }
+
+    .profile-motto-script.motto-font-long[data-length='short'] .motto-column {
+      font-size: 52px;
+    }
+
+    .profile-motto-script.motto-font-long[data-columns='3'] .motto-column {
+      font-size: 35px;
+    }
+
+    .profile-motto-script.motto-font-ma .motto-column {
+      font-family: 'Ma Shan Zheng', 'STXingkai', 'Xingkai SC', cursive;
+      font-size: 37px;
+    }
+
+    .profile-motto-script.motto-font-ma[data-length='short'] .motto-column {
+      font-size: 45px;
+    }
+
+    .profile-motto-script.motto-font-ma[data-columns='3'] .motto-column {
+      font-size: 30px;
+    }
+
+    .profile-motto-script.motto-font-zhi .motto-column {
+      font-family: 'Zhi Mang Xing', 'STXingkai', 'Xingkai SC', cursive;
+      font-size: 42px;
+    }
+
+    .profile-motto-script.motto-font-zhi[data-length='short'] .motto-column {
+      font-size: 50px;
+    }
+
+    .profile-motto-script.motto-font-zhi[data-columns='3'] .motto-column {
+      font-size: 34px;
+    }
+
+    .profile-motto-script.is-randomized {
+      animation: motto-ink-in .48s cubic-bezier(.2, .72, .2, 1) both;
+    }
+
+    @keyframes motto-ink-in {
+      from { opacity: 0; transform: translateY(7px) scale(.985); filter: blur(1px); }
+      to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    }
+
+    @media (max-width: 820px) {
+      .profile-motto-script[data-length='short'] .motto-column {
+        font-size: 40px;
+      }
+
+      .profile-motto-script.motto-font-long[data-length='short'] .motto-column,
+      .profile-motto-script.motto-font-zhi[data-length='short'] .motto-column {
+        font-size: 45px;
+      }
+
+      .profile-motto-script[data-columns='3'] .motto-column {
+        font-size: 27px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .profile-motto-script,
+      .profile-motto-script[data-columns='3'],
+      .profile-motto-script[data-length='short'] {
+        min-height: 184px;
+      }
+
+      .profile-motto-script[data-length='short'] .motto-column {
+        font-size: 36px;
+      }
+
+      .profile-motto-script.motto-font-long[data-length='short'] .motto-column,
+      .profile-motto-script.motto-font-zhi[data-length='short'] .motto-column {
+        font-size: 40px;
+      }
+
+      .profile-motto-script[data-columns='3'] .motto-column {
+        font-size: 24px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .profile-motto-script.is-randomized {
+        animation: none;
+      }
+    }
+  </style>
+
   <script is:inline>
     (() => {
       const mottoPool = [
