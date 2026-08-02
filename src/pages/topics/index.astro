@@ -7,12 +7,12 @@ const posts = (await getCollection('writing', ({ data }) =>
   !data.draft && data.visibility === 'public'
 )).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 ---
-<BaseLayout title="栏目｜刘科宏" description="按主题浏览刘科宏公开发布的内容。">
+<BaseLayout title="栏目｜KONG" description="按主题浏览文章与笔记。">
   <section class="page-header">
     <div class="shell">
       <p class="report-label">SECTIONS / 内容栏目</p>
       <h1>栏目</h1>
-      <p>所有公开内容按主题归档。栏目只负责整理和查找，不代表固定的人设、重点或推荐顺序。</p>
+      <p>按主题浏览文章、笔记与其他内容。</p>
     </div>
   </section>
 
@@ -41,7 +41,7 @@ const posts = (await getCollection('writing', ({ data }) =>
                 ))}
               </div>
             ) : (
-              <p class="topic-empty">这个栏目目前还没有公开内容。</p>
+              <p class="topic-empty">暂时没有内容。</p>
             )}
           </section>
         );

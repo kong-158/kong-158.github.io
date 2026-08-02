@@ -13,13 +13,12 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 ---
-<BaseLayout title={`${post.data.title}｜刘科宏`} description={post.data.summary}>
+<BaseLayout title={`${post.data.title}｜KONG`} description={post.data.summary}>
   <article class="report-article">
     <header class="article-header shell-narrow">
       <div class="article-classification">{topicLabels[post.data.topic]} · {kindLabels[post.data.kind]}</div>
       <h1>{post.data.title}</h1>
       <div class="article-byline">
-        <span>刘科宏</span>
         <time>{formatDate(post.data.publishedAt)}</time>
         {post.data.updatedAt && <span>更新于 {formatDate(post.data.updatedAt)}</span>}
       </div>
