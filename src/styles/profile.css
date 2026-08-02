@@ -14,6 +14,8 @@
 }
 
 .profile-sidebar {
+  display: flex;
+  flex-direction: column;
   padding: 36px 34px 32px;
   color: var(--white);
   background: var(--navy-deep);
@@ -49,6 +51,31 @@
   font-size: 10px;
   font-weight: 800;
   letter-spacing: .18em;
+}
+
+.profile-motto {
+  margin: auto 0 0;
+  padding: 30px 0 4px;
+  color: var(--navy-deep);
+  border-top: 1px solid rgba(70, 111, 148, .22);
+}
+
+.profile-motto p {
+  margin: 0;
+  font-family: "Songti SC", STSong, SimSun, serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.65;
+  letter-spacing: .08em;
+}
+
+.profile-motto cite {
+  display: block;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 11px;
+  font-style: normal;
+  letter-spacing: .12em;
 }
 
 .profile-facts {
@@ -173,6 +200,10 @@
     padding: 28px 24px;
   }
 
+  .profile-motto p {
+    font-size: 21px;
+  }
+
   .profile-introduction {
     padding: 38px 32px;
   }
@@ -204,6 +235,16 @@
 
   .profile-name-block h1 {
     font-size: 28px;
+  }
+
+  .profile-motto {
+    grid-column: 1 / -1;
+    margin: 4px 0 0;
+    padding: 18px 0 0;
+  }
+
+  .profile-motto p {
+    font-size: 20px;
   }
 
   .profile-facts {
