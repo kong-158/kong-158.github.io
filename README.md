@@ -23,3 +23,5 @@ npm run build
 Copy `content-templates/article.md` into `src/content/writing/`, rename it, and complete the frontmatter.
 
 The old Jekyll/Chirpy site is preserved on `archive/legacy-site-2026-08-02`.
+
+Deployment is handled by the Astro GitHub Pages workflow on every push to `main`.
