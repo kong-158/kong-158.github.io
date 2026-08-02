@@ -38,10 +38,10 @@ const years = [...new Set(posts.map((post) => post.data.publishedAt.getFullYear(
             data-columns="2"
             data-length="standard"
             role="img"
-            aria-label="自信人生二百年，会当水击三千里。"
+            aria-label="鹰击长空鲸霸海，不试怎知龙与蚯。"
           >
-            <span class="motto-column">自信人生二百年</span>
-            <span class="motto-column">会当水击三千里</span>
+            <span class="motto-column">鹰击长空鲸霸海</span>
+            <span class="motto-column">不试怎知龙与蚯</span>
           </div>
         </div>
       </aside>
@@ -286,11 +286,13 @@ const years = [...new Set(posts.map((post) => post.data.publishedAt.getFullYear(
   <script is:inline>
     (() => {
       const mottoPool = [
+        ['鹰击长空鲸霸海', '不试怎知龙与蚯'],
         ['自信人生二百年', '会当水击三千里'],
+        ['今日长缨在手', '何时缚住苍龙'],
         ['问苍茫大地', '谁主沉浮'],
-        ['到中流击水', '浪遏飞舟'],
-        ['鹰击长空', '鱼翔浅底', '万类霜天竞自由'],
-        ['久有凌云志', '重上井冈山']
+        ['久有凌云志', '重上井冈山'],
+        ['时来天地皆助力', '运去英雄不自由'],
+        ['问苍茫大地', '谁主沉浮']
       ];
       const fontPool = ['motto-font-long', 'motto-font-ma', 'motto-font-zhi'];
       const motto = document.querySelector('[data-random-motto]');
