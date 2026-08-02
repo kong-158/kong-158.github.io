@@ -1,15 +1,119 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import ProjectCard from '@/components/ProjectCard.astro';
-import { categories, projects } from '@/data/site';
+import { getCollection } from 'astro:content';
+import { categories, topicLabels, kindLabels, formatDate } from '@/data/site';
+
+const posts = (await getCollection('writing', ({ data }) =>
+  !data.draft && data.visibility === 'public'
+)).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+
+const recommended = posts.filter((post) => post.data.recommended);
+const latest = posts.slice(0, 6);
+const categoryCounts = Object.fromEntries(
+  categories.map((category) => [
+    category.slug,
+    posts.filter((post) => post.data.topic === category.slug).length
+  ])
+);
+const years = [...new Set(posts.map((post) => post.data.publishedAt.getFullYear()))];
 ---
 <BaseLayout>
-  <section class="hero"><div class="shell hero-grid">
-    <div class="hero-copy"><div class="eyebrow">Finance × Computer Science</div><h1>把学习、研究与实践，整理成一个长期可复用的系统。</h1><p class="hero-lead">我是刘科宏，来自上海交通大学。这里记录编程与 AI、金融与数学、交易复盘、项目实践，以及真实工作中的观察。</p><div class="hero-actions"><a class="button primary" href="/projects/">查看项目</a><a class="button" href="/notes/">进入知识库</a></div></div>
-    <aside class="now-card"><div><div class="now-top"><span class="eyebrow">Now / 2026</span><span class="status-dot" aria-hidden="true"></span></div><h2>当前关注</h2><ul class="now-list"><li><strong>Personal AI Workspace</strong>SJTUClaw 与 WorkBuddy 工作流</li><li><strong>Investment Research</strong>收益归因、策略评价与风险审查</li><li><strong>Learning in Public</strong>把课程与项目沉淀成可复用知识</li></ul></div><div class="now-meta"><span>Shanghai</span><span>Open to ideas ↗</span></div></aside>
-  </div></section>
-  <div class="marquee" aria-hidden="true"><div class="marquee-track"><span>Programming</span><span>AI Systems</span><span>Finance</span><span>Mathematics</span><span>Trading Journal</span><span>Career Notes</span><span>Programming</span><span>AI Systems</span><span>Finance</span><span>Mathematics</span><span>Trading Journal</span><span>Career Notes</span></div></div>
-  <section class="section"><div class="shell"><div class="section-head"><div><p class="section-kicker">Selected Work</p><h2>正在构建的东西</h2></div><p class="section-note">项目不只是结果展示，也会保留问题、方法、迭代与失败记录。</p></div><div class="project-grid">{projects.map((project) => <ProjectCard project={project} />)}</div></div></section>
-  <section class="section" id="knowledge-map"><div class="shell"><div class="section-head"><div><p class="section-kicker">Knowledge Map</p><h2>内容地图</h2></div><p class="section-note">主题回答“写什么”，文章类型回答“怎么写”。同一个主题可以同时拥有教程、笔记、复盘和长文。</p></div><div class="category-grid">{categories.map((category) => (<a class="category-card" href={`/notes/?topic=${category.slug}`}><span class="category-index">{category.index}</span><h3>{category.title}</h3><div class="category-en">{category.en}</div><p>{category.description}</p><div class="category-examples">{category.examples.map((item) => <span>#{item}</span>)}</div></a>))}</div></div></section>
-  <section class="section"><div class="shell"><div class="empty-state"><div class="big">00</div><div><p class="section-kicker">A Clean Restart</p><h2>旧文章不迁移。这里从真正值得长期保留的第一篇开始。</h2><p>新的写作系统会区分主题、文体与成熟度：零散想法先进入草稿，完整内容再公开发布。</p><a class="button" href="/writing/">查看写作体系</a></div></div></div></section>
+  <section class="cover-section">
+    <div class="shell report-cover">
+      <div class="cover-main">
+        <p class="report-label">PERSONAL NOTES / 个人记录</p>
+        <h1>刘科宏</h1>
+        <p class="cover-identity">上海交通大学 · 金融学与计算机科学</p>
+        <p class="cover-intro">
+          这里记录我愿意公开的学习、研究、实践与思考。内容可能涉及编程、金融、数学、交易、课程、实习，以及一些不属于固定分类的文字。
+        </p>
+      </div>
+      <aside class="cover-note" aria-label="网站说明">
+        <div class="note-title">站点说明</div>
+        <p>内容按主题与形式归档。</p>
+        <p>项目、经历和推荐内容不会被自动展示。</p>
+        <p>只有经过明确发布的文字才会出现在这里。</p>
+      </aside>
+    </div>
+  </section>
+
+  {recommended.length > 0 && (
+    <section class="section section-tint">
+      <div class="shell">
+        <div class="section-heading">
+          <div><span class="section-no">01</span><h2>推荐阅读</h2></div>
+          <p>仅收录作者明确标记为推荐的内容。</p>
+        </div>
+        <div class="article-list featured-list">
+          {recommended.map((post) => (
+            <a class="article-row" href={`/writing/${post.id}/`}>
+              <time>{formatDate(post.data.publishedAt)}</time>
+              <div class="article-main">
+                <h3>{post.data.title}</h3>
+                <p>{post.data.summary}</p>
+              </div>
+              <div class="article-meta">{topicLabels[post.data.topic]} · {kindLabels[post.data.kind]}</div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-heading">
+        <div><span class="section-no">{recommended.length > 0 ? '02' : '01'}</span><h2>最新文章</h2></div>
+        <a class="text-link" href="/writing/">查看全部</a>
+      </div>
+      {latest.length > 0 ? (
+        <div class="article-list">
+          {latest.map((post) => (
+            <a class="article-row" href={`/writing/${post.id}/`}>
+              <time>{formatDate(post.data.publishedAt)}</time>
+              <div class="article-main">
+                <h3>{post.data.title}</h3>
+                <p>{post.data.summary}</p>
+              </div>
+              <div class="article-meta">{topicLabels[post.data.topic]} · {kindLabels[post.data.kind]}</div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="quiet-empty">
+          <strong>目前尚无公开文章。</strong>
+          <p>新的内容会在完成整理并明确发布后出现在这里。</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="section section-tint">
+    <div class="shell">
+      <div class="section-heading">
+        <div><span class="section-no">{recommended.length > 0 ? '03' : '02'}</span><h2>分类浏览</h2></div>
+        <p>分类只用于整理内容，不代表固定的人设或方向。</p>
+      </div>
+      <div class="category-table">
+        {categories.map((category) => (
+          <a class="category-row" href={`/notes/#${category.slug}`}>
+            <span class="category-index">{category.index}</span>
+            <div><h3>{category.title}</h3><p>{category.description}</p></div>
+            <span class="category-count">{categoryCounts[category.slug]} 篇</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {years.length > 0 && (
+    <section class="section">
+      <div class="shell archive-strip">
+        <div><span class="section-no">{recommended.length > 0 ? '04' : '03'}</span><h2>按时间归档</h2></div>
+        <div class="archive-years">
+          {years.map((year) => <a href={`/archive/#year-${year}`}>{year}</a>)}
+        </div>
+      </div>
+    </section>
+  )}
 </BaseLayout>

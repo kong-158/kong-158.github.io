@@ -1,24 +1,23 @@
 # Site Specification
 
 ## Positioning
-A personal research workspace covering finance, computer science, AI systems, mathematics, trading, projects, and career notes.
+一个由作者控制的公开写作与归档空间，不是技术作品集、GitHub 镜像或自动生成的个人品牌页面。
 
-## Information architecture
-- `/`: identity, current focus, selected projects, knowledge map
-- `/projects/`: project portfolio and ongoing work
-- `/notes/`: topic-based knowledge map
-- `/writing/`: public long-form writing and retrospectives
-- `/about/`: concise personal positioning and site purpose
+## Public pages
+- `/`: 简短介绍、推荐内容（条件显示）、最新文章、分类与时间入口
+- `/writing/`: 全部公开文章
+- `/notes/`: 按主题分类
+- `/archive/`: 按时间归档
+- `/about/`: 克制的个人介绍与公开边界
 
-## Design principles
-- Clear but not plain
-- Editorial typography over decorative illustrations
-- Warm neutral background, dark ink, lime accent, blue secondary accent
-- Responsive, accessible, no external font dependency
-- Dark mode supported
+## Design system
+- 纯白与浅蓝灰背景
+- 深蓝标题与分隔体系
+- 少量红色用于编号和重点
+- 研报式层级、表格式列表与高可读正文
+- 不使用卡片墙、跑马灯、状态标签、技能图或荧光色
 
-## Maintenance principles
-- Content and presentation remain separated
-- New public writing is Markdown-based
-- Project metadata lives in `src/data/site.ts` until a project collection is needed
-- Every change is reviewed through a pull request
+## Editorial rules
+- 推荐模块仅在存在 `recommended: true` 的公开文章时显示
+- 项目、经历、当前活动和身份标签不得自动公开
+- 分类仅用于导航，不用于定义作者重点

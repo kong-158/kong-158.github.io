@@ -1,27 +1,25 @@
-# Kong — Personal Research Workspace
+# 刘科宏｜个人记录
 
-A long-term personal website for projects, learning notes, research, trading reviews, and career field notes.
+一个以公开写作、分类与归档为核心的个人网站。
 
-## Stack
+## 设计
+- 券商研究报告式蓝白视觉
+- 中文内容优先
+- 文章、分类、归档与关于
+- 不自动展示项目、经历或当前计划
+- 推荐内容必须由作者明确指定
+
+## 技术
 - Astro 7
 - TypeScript
-- Markdown content collections
+- Markdown Content Collections
 - GitHub Pages
 
-## Local development
+## 本地运行
 ```bash
 npm install
 npm run dev
 ```
 
-## Build
-```bash
-npm run build
-```
-
-## Add an article
-Copy `content-templates/article.md` into `src/content/writing/`, rename it, and complete the frontmatter.
-
-The old Jekyll/Chirpy site is preserved on `archive/legacy-site-2026-08-02`.
-
-Deployment is handled by the Astro GitHub Pages workflow on every push to `main`.
+## 新建内容
+复制 `content-templates/article.md` 至 `src/content/writing/`，补全字段。新内容默认保持草稿、私人且不推荐。

@@ -1,5 +1,45 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { categories } from '@/data/site';
+import { getCollection } from 'astro:content';
+import { categories, kindLabels, formatDate } from '@/data/site';
+
+const posts = (await getCollection('writing', ({ data }) =>
+  !data.draft && data.visibility === 'public'
+)).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 ---
-<BaseLayout title="知识库 — Kong"><section class="page-hero shell"><div class="eyebrow">Notes</div><h1>课程、工具、研究与实践的可检索知识库。</h1><p>知识库保存偏结构化、可复用的内容；成熟观点和完整叙事则进入 Writing。</p></section><section class="section"><div class="shell category-grid">{categories.map((category) => (<article class="category-card"><span class="category-index">{category.index}</span><h3>{category.title}</h3><div class="category-en">{category.en}</div><p>{category.description}</p><div class="category-examples">{category.examples.map((item) => <span>#{item}</span>)}</div></article>))}</div></section></BaseLayout>
+<BaseLayout title="分类｜刘科宏" description="按主题浏览刘科宏公开发布的内容。">
+  <section class="page-header">
+    <div class="shell">
+      <p class="report-label">TOPICS / 内容分类</p>
+      <h1>分类</h1>
+      <p>主题只负责帮助查找内容，不用于推断作者的身份、重点或推荐偏好。</p>
+    </div>
+  </section>
+  <section class="section page-section">
+    <div class="shell topic-sections">
+      {categories.map((category) => {
+        const categoryPosts = posts.filter((post) => post.data.topic === category.slug);
+        return (
+          <section class="topic-section" id={category.slug}>
+            <div class="topic-header">
+              <span>{category.index}</span>
+              <div><h2>{category.title}</h2><p>{category.description}</p></div>
+              <strong>{categoryPosts.length} 篇</strong>
+            </div>
+            {categoryPosts.length > 0 && (
+              <div class="compact-list">
+                {categoryPosts.map((post) => (
+                  <a href={`/writing/${post.id}/`}>
+                    <time>{formatDate(post.data.publishedAt)}</time>
+                    <span>{post.data.title}</span>
+                    <small>{kindLabels[post.data.kind]}</small>
+                  </a>
+                ))}
+              </div>
+            )}
+          </section>
+        );
+      })}
+    </div>
+  </section>
+</BaseLayout>

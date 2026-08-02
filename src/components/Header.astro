@@ -1,17 +1,25 @@
+---
+const pathname = Astro.url.pathname;
+const links = [
+  { href: '/', label: '首页' },
+  { href: '/writing/', label: '文章' },
+  { href: '/notes/', label: '分类' },
+  { href: '/archive/', label: '归档' },
+  { href: '/about/', label: '关于' }
+];
+---
+<div class="top-rule"></div>
 <header class="site-header">
   <div class="shell nav">
-    <a class="brand" href="/"><span class="brand-mark">K</span><span>Kong / 刘科宏</span></a>
+    <a class="brand" href="/" aria-label="返回首页">
+      <span class="brand-cn">刘科宏</span>
+      <span class="brand-en">KONG</span>
+    </a>
     <nav class="nav-links" aria-label="主导航">
-      <a href="/projects/">项目</a><a href="/notes/">知识库</a><a href="/writing/">写作</a><a href="/about/">关于</a>
-      <button class="theme-toggle" type="button" aria-label="切换深浅色" data-theme-toggle>◐</button>
+      {links.map((link) => {
+        const active = link.href === '/' ? pathname === '/' : pathname.startsWith(link.href);
+        return <a href={link.href} class:list={{ active }}>{link.label}</a>;
+      })}
     </nav>
   </div>
 </header>
-<script>
-  const button = document.querySelector('[data-theme-toggle]');
-  button?.addEventListener('click', () => {
-    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-    document.documentElement.dataset.theme = next;
-    localStorage.setItem('theme', next);
-  });
-</script>

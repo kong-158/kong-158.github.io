@@ -1,4 +1,5 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
 const writing = defineCollection({
@@ -8,10 +9,19 @@ const writing = defineCollection({
     summary: z.string(),
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
-    topic: z.enum(['programming', 'ai-systems', 'finance', 'mathematics', 'trading', 'career']),
-    kind: z.enum(['note', 'tutorial', 'project-log', 'review', 'essay', 'field-note']),
+    topic: z.enum([
+      'programming',
+      'finance',
+      'mathematics',
+      'trading',
+      'learning',
+      'career',
+      'essay'
+    ]),
+    kind: z.enum(['note', 'tutorial', 'review', 'essay', 'report', 'field-note']),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(true),
+    visibility: z.enum(['private', 'unlisted', 'public']).default('private'),
     recommended: z.boolean().default(false)
   })
 });
