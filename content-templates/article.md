@@ -6,7 +6,7 @@ topic: programming # programming | ai-systems | finance | mathematics | trading 
 kind: note # note | tutorial | project-log | review | essay | field-note
 tags: []
 draft: true
-featured: false
+recommended: false
 ---
 
 ## 问题
