@@ -1,0 +1,6 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('writing', ({ data }) => !data.draft)).sort((a,b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+---
+<BaseLayout title="写作 — Kong"><section class="page-hero shell"><div class="eyebrow">Writing</div><h1>把真正想明白的事情，写成能够长期留下的文字。</h1><p>旧文章不迁移。这里将只发布完整文章、研究整理、项目复盘与高质量交易随笔。</p></section><section class="shell content-list">{posts.length === 0 ? (<div class="empty-state"><div class="big">00</div><div><h2>新的第一篇还没有发布。</h2><p>仓库已经准备好 Markdown 内容结构、主题分类、文体分类与草稿机制。</p></div></div>) : posts.map((post) => (<a class="content-row" href={`/writing/${post.id}/`}><small>{post.data.publishedAt.toLocaleDateString('zh-CN')}</small><div><h3>{post.data.title}</h3><small>{post.data.summary}</small></div><small>{post.data.topic} · {post.data.kind}</small></a>))}</section></BaseLayout>

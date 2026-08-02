@@ -1,0 +1,17 @@
+<header class="site-header">
+  <div class="shell nav">
+    <a class="brand" href="/"><span class="brand-mark">K</span><span>Kong / 刘科宏</span></a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="/projects/">项目</a><a href="/notes/">知识库</a><a href="/writing/">写作</a><a href="/about/">关于</a>
+      <button class="theme-toggle" type="button" aria-label="切换深浅色" data-theme-toggle>◐</button>
+    </nav>
+  </div>
+</header>
+<script>
+  const button = document.querySelector('[data-theme-toggle]');
+  button?.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('theme', next);
+  });
+</script>

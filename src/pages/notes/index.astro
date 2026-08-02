@@ -1,0 +1,5 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { categories } from '@/data/site';
+---
+<BaseLayout title="知识库 — Kong"><section class="page-hero shell"><div class="eyebrow">Notes</div><h1>课程、工具、研究与实践的可检索知识库。</h1><p>知识库保存偏结构化、可复用的内容；成熟观点和完整叙事则进入 Writing。</p></section><section class="section"><div class="shell category-grid">{categories.map((category) => (<article class="category-card"><span class="category-index">{category.index}</span><h3>{category.title}</h3><div class="category-en">{category.en}</div><p>{category.description}</p><div class="category-examples">{category.examples.map((item) => <span>#{item}</span>)}</div></article>))}</div></section></BaseLayout>

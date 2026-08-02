@@ -1,0 +1,15 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import { categories, projects } from '@/data/site';
+---
+<BaseLayout>
+  <section class="hero"><div class="shell hero-grid">
+    <div class="hero-copy"><div class="eyebrow">Finance × Computer Science</div><h1>把学习、研究与实践，整理成一个长期可复用的系统。</h1><p class="hero-lead">我是刘科宏，来自上海交通大学。这里记录编程与 AI、金融与数学、交易复盘、项目实践，以及真实工作中的观察。</p><div class="hero-actions"><a class="button primary" href="/projects/">查看项目</a><a class="button" href="/notes/">进入知识库</a></div></div>
+    <aside class="now-card"><div><div class="now-top"><span class="eyebrow">Now / 2026</span><span class="status-dot" aria-hidden="true"></span></div><h2>当前关注</h2><ul class="now-list"><li><strong>Personal AI Workspace</strong>SJTUClaw 与 WorkBuddy 工作流</li><li><strong>Investment Research</strong>收益归因、策略评价与风险审查</li><li><strong>Learning in Public</strong>把课程与项目沉淀成可复用知识</li></ul></div><div class="now-meta"><span>Shanghai</span><span>Open to ideas ↗</span></div></aside>
+  </div></section>
+  <div class="marquee" aria-hidden="true"><div class="marquee-track"><span>Programming</span><span>AI Systems</span><span>Finance</span><span>Mathematics</span><span>Trading Journal</span><span>Career Notes</span><span>Programming</span><span>AI Systems</span><span>Finance</span><span>Mathematics</span><span>Trading Journal</span><span>Career Notes</span></div></div>
+  <section class="section"><div class="shell"><div class="section-head"><div><p class="section-kicker">Selected Work</p><h2>正在构建的东西</h2></div><p class="section-note">项目不只是结果展示，也会保留问题、方法、迭代与失败记录。</p></div><div class="project-grid">{projects.map((project) => <ProjectCard project={project} />)}</div></div></section>
+  <section class="section" id="knowledge-map"><div class="shell"><div class="section-head"><div><p class="section-kicker">Knowledge Map</p><h2>内容地图</h2></div><p class="section-note">主题回答“写什么”，文章类型回答“怎么写”。同一个主题可以同时拥有教程、笔记、复盘和长文。</p></div><div class="category-grid">{categories.map((category) => (<a class="category-card" href={`/notes/?topic=${category.slug}`}><span class="category-index">{category.index}</span><h3>{category.title}</h3><div class="category-en">{category.en}</div><p>{category.description}</p><div class="category-examples">{category.examples.map((item) => <span>#{item}</span>)}</div></a>))}</div></div></section>
+  <section class="section"><div class="shell"><div class="empty-state"><div class="big">00</div><div><p class="section-kicker">A Clean Restart</p><h2>旧文章不迁移。这里从真正值得长期保留的第一篇开始。</h2><p>新的写作系统会区分主题、文体与成熟度：零散想法先进入草稿，完整内容再公开发布。</p><a class="button" href="/writing/">查看写作体系</a></div></div></div></section>
+</BaseLayout>

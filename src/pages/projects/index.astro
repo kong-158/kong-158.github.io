@@ -1,0 +1,6 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import { projects } from '@/data/site';
+---
+<BaseLayout title="项目 — Kong"><section class="page-hero shell"><div class="eyebrow">Projects</div><h1>不只展示成品，也记录问题、取舍和迭代。</h1><p>这里集中呈现 AI 工作流、金融研究、机器学习与个人工具项目。后续每个项目会拥有独立档案和持续更新日志。</p></section><section class="section"><div class="shell project-grid">{projects.map((project) => <ProjectCard project={project} />)}</div></section></BaseLayout>
