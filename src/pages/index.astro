@@ -144,7 +144,7 @@ const years = [...new Set(posts.map((post) => post.data.publishedAt.getFullYear(
   )}
 
   <style is:global>
-    @import url('https://fonts.googleapis.com/css2?family=Long+Cang&family=Ma+Shan+Zheng&family=Zhi+Mang+Xing&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Liu+Jian+Mao+Cao&family=Long+Cang&display=swap');
 
     .profile-motto-script {
       align-items: flex-start;
@@ -156,7 +156,7 @@ const years = [...new Set(posts.map((post) => post.data.publishedAt.getFullYear(
       color: var(--navy-deep);
       font-weight: 400;
       line-height: 1.02;
-      letter-spacing: .035em;
+      letter-spacing: .025em;
       text-shadow: 0 1px 0 rgba(255, 255, 255, .28);
       transform-origin: top center;
     }
@@ -174,13 +174,8 @@ const years = [...new Set(posts.map((post) => post.data.publishedAt.getFullYear(
     }
 
     .profile-motto-script[data-length='short'] {
-      min-height: 210px;
-      gap: 17px;
-    }
-
-    .profile-motto-script[data-length='short'] .motto-column {
-      font-size: 46px;
-      letter-spacing: .07em;
+      min-height: 218px;
+      gap: 20px;
     }
 
     .profile-motto-script[data-columns='3'] {
@@ -188,47 +183,38 @@ const years = [...new Set(posts.map((post) => post.data.publishedAt.getFullYear(
       min-height: 238px;
     }
 
-    .profile-motto-script[data-columns='3'] .motto-column {
-      font-size: 30px;
-    }
-
     .profile-motto-script.motto-font-long .motto-column {
       font-family: 'Long Cang', 'STXingkai', 'Xingkai SC', cursive;
-      font-size: 43px;
-    }
-
-    .profile-motto-script.motto-font-long[data-length='short'] .motto-column {
-      font-size: 52px;
+      font-size: 44px;
+      line-height: 1.01;
+      letter-spacing: .018em;
     }
 
     .profile-motto-script.motto-font-long[data-columns='3'] .motto-column {
       font-size: 35px;
     }
 
-    .profile-motto-script.motto-font-ma .motto-column {
-      font-family: 'Ma Shan Zheng', 'STXingkai', 'Xingkai SC', cursive;
-      font-size: 37px;
+    .profile-motto-script.motto-font-sweep .motto-column {
+      font-family: 'Liu Jian Mao Cao', 'Long Cang', 'STXingkai', 'Xingkai SC', cursive;
+      font-size: 53px;
+      line-height: .96;
+      letter-spacing: .01em;
     }
 
-    .profile-motto-script.motto-font-ma[data-length='short'] .motto-column {
-      font-size: 45px;
+    .profile-motto-script.motto-font-sweep .motto-column:nth-child(1) {
+      transform: rotate(2.35deg) translateY(-3px) scale(1.035);
     }
 
-    .profile-motto-script.motto-font-ma[data-columns='3'] .motto-column {
-      font-size: 30px;
+    .profile-motto-script.motto-font-sweep .motto-column:nth-child(2) {
+      transform: rotate(-2.1deg) translateY(16px) scale(1.02);
     }
 
-    .profile-motto-script.motto-font-zhi .motto-column {
-      font-family: 'Zhi Mang Xing', 'STXingkai', 'Xingkai SC', cursive;
-      font-size: 42px;
+    .profile-motto-script.motto-font-sweep .motto-column:nth-child(3) {
+      transform: rotate(1.45deg) translateY(2px) scale(1.025);
     }
 
-    .profile-motto-script.motto-font-zhi[data-length='short'] .motto-column {
-      font-size: 50px;
-    }
-
-    .profile-motto-script.motto-font-zhi[data-columns='3'] .motto-column {
-      font-size: 34px;
+    .profile-motto-script.motto-font-sweep[data-columns='3'] .motto-column {
+      font-size: 39px;
     }
 
     .profile-motto-script.is-randomized {
@@ -241,17 +227,16 @@ const years = [...new Set(posts.map((post) => post.data.publishedAt.getFullYear(
     }
 
     @media (max-width: 820px) {
-      .profile-motto-script[data-length='short'] .motto-column {
+      .profile-motto-script.motto-font-long .motto-column {
         font-size: 40px;
       }
 
-      .profile-motto-script.motto-font-long[data-length='short'] .motto-column,
-      .profile-motto-script.motto-font-zhi[data-length='short'] .motto-column {
-        font-size: 45px;
+      .profile-motto-script.motto-font-sweep .motto-column {
+        font-size: 47px;
       }
 
       .profile-motto-script[data-columns='3'] .motto-column {
-        font-size: 27px;
+        font-size: 29px;
       }
     }
 
@@ -262,17 +247,16 @@ const years = [...new Set(posts.map((post) => post.data.publishedAt.getFullYear(
         min-height: 184px;
       }
 
-      .profile-motto-script[data-length='short'] .motto-column {
+      .profile-motto-script.motto-font-long .motto-column {
         font-size: 36px;
       }
 
-      .profile-motto-script.motto-font-long[data-length='short'] .motto-column,
-      .profile-motto-script.motto-font-zhi[data-length='short'] .motto-column {
-        font-size: 40px;
+      .profile-motto-script.motto-font-sweep .motto-column {
+        font-size: 42px;
       }
 
       .profile-motto-script[data-columns='3'] .motto-column {
-        font-size: 24px;
+        font-size: 25px;
       }
     }
 
@@ -294,14 +278,15 @@ const years = [...new Set(posts.map((post) => post.data.publishedAt.getFullYear(
         ['时来天地皆助力', '运去英雄不自由'],
         ['春来我不先开口', '哪个虫儿敢作声']
       ];
-      const fontPool = ['motto-font-long', 'motto-font-ma', 'motto-font-zhi'];
+      const fontClasses = ['motto-font-long', 'motto-font-sweep'];
       const motto = document.querySelector('[data-random-motto]');
 
       if (!(motto instanceof HTMLElement)) return;
 
       const selected = mottoPool[Math.floor(Math.random() * mottoPool.length)];
-      const selectedFont = fontPool[Math.floor(Math.random() * fontPool.length)];
       const maxLength = Math.max(...selected.map((line) => Array.from(line).length));
+      const isShort = maxLength <= 6;
+      const selectedFont = isShort ? 'motto-font-sweep' : 'motto-font-long';
       const fragment = document.createDocumentFragment();
 
       selected.forEach((line) => {
@@ -312,10 +297,10 @@ const years = [...new Set(posts.map((post) => post.data.publishedAt.getFullYear(
       });
 
       motto.replaceChildren(fragment);
-      motto.classList.remove(...fontPool);
+      motto.classList.remove(...fontClasses);
       motto.classList.add(selectedFont, 'is-randomized');
       motto.dataset.columns = String(selected.length);
-      motto.dataset.length = maxLength <= 5 ? 'short' : 'standard';
+      motto.dataset.length = isShort ? 'short' : 'standard';
 
       const label = selected.join('，');
       motto.setAttribute('aria-label', /[。！？]$/.test(label) ? label : `${label}。`);
