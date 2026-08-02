@@ -58,17 +58,23 @@ jobs:
     needs: deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Verify live homepage
+      - name: Verify live pages
         run: |
           for attempt in {1..18}; do
-            html="$(curl -fsSL --max-time 20 https://kong-158.github.io/ || true)"
-            if printf '%s' "$html" | grep -q 'PERSONAL NOTES / 个人记录'; then
-              echo 'Live homepage contains the new research-report site marker.'
+            home="$(curl -fsSL --max-time 20 https://kong-158.github.io/ || true)"
+            topics="$(curl -fsSL --max-time 20 https://kong-158.github.io/topics/ || true)"
+            legacy="$(curl -fsSL --max-time 20 https://kong-158.github.io/notes/ || true)"
+
+            if printf '%s' "$home" | grep -q 'PERSONAL PROFILE / 个人简介' \
+              && printf '%s' "$home" | grep -q 'profile-avatar' \
+              && printf '%s' "$topics" | grep -q 'SECTIONS / 内容栏目' \
+              && printf '%s' "$legacy" | grep -q "location.replace('/topics/'"; then
+              echo 'Homepage profile, topics page, and legacy notes redirect are live.'
               exit 0
             fi
             sleep 10
           done
-          echo 'The new homepage marker was not found on the live site.' >&2
+          echo 'Live-site verification failed for homepage, topics, or legacy redirect.' >&2
           exit 1
 
   report:
