@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap');
+
 .profile-hero {
   padding: 52px 0 40px;
   background: linear-gradient(180deg, #eef5fa 0%, #f7fafc 100%);
@@ -54,19 +56,58 @@
 }
 
 .profile-motto {
+  position: relative;
   margin: auto 0 0;
-  padding: 30px 0 4px;
+  padding: 28px 0 4px;
   color: var(--navy-deep);
   border-top: 1px solid rgba(70, 111, 148, .22);
 }
 
-.profile-motto p {
-  margin: 0;
+.profile-motto-script {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  gap: 12px;
+  min-height: 250px;
+}
+
+.motto-column {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  color: var(--navy-deep);
+  font-family: "STXingkai", "Xingkai SC", "Ma Shan Zheng", "KaiTi", cursive;
+  font-size: 36px;
+  line-height: 1.05;
+  letter-spacing: .04em;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .35);
+}
+
+.motto-column-right {
+  transform: rotate(1.1deg) translateY(2px);
+}
+
+.motto-column-left {
+  transform: rotate(-1.4deg) translateY(13px);
+}
+
+.profile-motto-seal {
+  position: absolute;
+  right: 14px;
+  bottom: 28px;
+  display: grid;
+  place-items: center;
+  width: 31px;
+  height: 31px;
+  color: var(--red);
+  border: 2px solid currentColor;
   font-family: "Songti SC", STSong, SimSun, serif;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.65;
-  letter-spacing: .08em;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: .06em;
+  writing-mode: vertical-rl;
+  transform: rotate(-3deg);
+  opacity: .88;
 }
 
 .profile-motto cite {
@@ -76,6 +117,7 @@
   font-size: 11px;
   font-style: normal;
   letter-spacing: .12em;
+  text-align: center;
 }
 
 .profile-facts {
@@ -200,8 +242,12 @@
     padding: 28px 24px;
   }
 
-  .profile-motto p {
-    font-size: 21px;
+  .profile-motto-script {
+    min-height: 220px;
+  }
+
+  .motto-column {
+    font-size: 31px;
   }
 
   .profile-introduction {
@@ -243,8 +289,17 @@
     padding: 18px 0 0;
   }
 
-  .profile-motto p {
-    font-size: 20px;
+  .profile-motto-script {
+    min-height: 190px;
+  }
+
+  .motto-column {
+    font-size: 28px;
+  }
+
+  .profile-motto-seal {
+    right: calc(50% - 92px);
+    bottom: 26px;
   }
 
   .profile-facts {
@@ -274,6 +329,21 @@
   .profile-sidebar {
     grid-template-columns: 86px minmax(0, 1fr);
     gap: 16px;
+  }
+
+  .profile-motto-script {
+    min-height: 174px;
+  }
+
+  .motto-column {
+    font-size: 25px;
+  }
+
+  .profile-motto-seal {
+    right: calc(50% - 82px);
+    width: 27px;
+    height: 27px;
+    font-size: 9px;
   }
 
   .profile-facts div {
