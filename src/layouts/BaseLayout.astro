@@ -1,6 +1,7 @@
 ---
 import '@/styles/global.css';
 import '@/styles/profile.css';
+import '@/styles/theme-v2.css';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 
@@ -10,8 +11,8 @@ interface Props {
 }
 
 const {
-  title = '刘科宏｜个人记录',
-  description = '刘科宏的个人网站，记录学习、研究、实践与思考。'
+  title = 'KONG｜个人记录',
+  description = '一个记录学习、研究、实践与随笔的个人网站。'
 } = Astro.props;
 ---
 <!doctype html>
@@ -20,7 +21,7 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0b3b6e" />
+    <meta name="theme-color" content="#dcecf8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
   </head>
