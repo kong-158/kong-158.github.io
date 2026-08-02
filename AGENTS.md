@@ -1,18 +1,22 @@
 # AGENTS.md
 
 ## Goal
-Maintain this repository as Kong's long-term personal research workspace.
+Maintain Kong's personal website as a long-term writing and archive system.
 
-## Non-negotiable rules
-- Never push directly to `main`; create a branch and pull request.
-- Do not publish private employer information, account credentials, personal identifiers, or unreleased work.
-- Do not invent project results, dates, employers, metrics, or experiences.
-- Keep the visual system restrained: one primary accent, strong typography, minimal animation.
-- Run `npm run build` before opening a pull request.
+## Privacy and publishing rules
+- Never assume a project, experience, employer, research result, or personal activity should be public.
+- Do not create homepage sections for projects unless explicitly requested.
+- Do not promote content because it appears technically impressive or useful for recruiting.
+- Do not invent current focus, achievements, metrics, or recommendations.
+
+## Recommendation rules
+- Recommendation is an explicit editorial decision by the author.
+- Only content with `recommended: true` may appear in recommendation sections.
+- If no content is recommended, hide the entire recommendation module.
+- Never infer recommendation status from views, dates, categories, or AI judgment.
 
 ## Content workflow
-1. Classify by one `topic` and one `kind`.
-2. Create the Markdown file under `src/content/writing/`.
-3. Start with `draft: true` unless publication is explicit.
-4. Preserve the author's original reasoning and avoid generic AI phrasing.
-5. Include sources when external facts or data are used.
+1. Classify articles by topic and kind.
+2. New content starts as `draft: true`.
+3. Publishing requires explicit approval.
+4. Preserve the author's original reasoning and writing style.
