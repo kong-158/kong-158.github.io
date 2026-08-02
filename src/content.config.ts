@@ -11,8 +11,8 @@ const writing = defineCollection({
     topic: z.enum(['programming', 'ai-systems', 'finance', 'mathematics', 'trading', 'career']),
     kind: z.enum(['note', 'tutorial', 'project-log', 'review', 'essay', 'field-note']),
     tags: z.array(z.string()).default([]),
-    draft: z.boolean().default(false),
-    featured: z.boolean().default(false)
+    draft: z.boolean().default(true),
+    recommended: z.boolean().default(false)
   })
 });
 
