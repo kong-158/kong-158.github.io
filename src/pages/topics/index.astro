@@ -7,14 +7,15 @@ const posts = (await getCollection('writing', ({ data }) =>
   !data.draft && data.visibility === 'public'
 )).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 ---
-<BaseLayout title="分类｜刘科宏" description="按主题浏览刘科宏公开发布的内容。">
+<BaseLayout title="栏目｜刘科宏" description="按主题浏览刘科宏公开发布的内容。">
   <section class="page-header">
     <div class="shell">
-      <p class="report-label">TOPICS / 内容分类</p>
-      <h1>分类</h1>
-      <p>主题只负责帮助查找内容，不用于推断作者的身份、重点或推荐偏好。</p>
+      <p class="report-label">SECTIONS / 内容栏目</p>
+      <h1>栏目</h1>
+      <p>所有公开内容按主题归档。栏目只负责整理和查找，不代表固定的人设、重点或推荐顺序。</p>
     </div>
   </section>
+
   <section class="section page-section">
     <div class="shell topic-sections">
       {categories.map((category) => {
@@ -23,10 +24,13 @@ const posts = (await getCollection('writing', ({ data }) =>
           <section class="topic-section" id={category.slug}>
             <div class="topic-header">
               <span>{category.index}</span>
-              <div><h2>{category.title}</h2><p>{category.description}</p></div>
+              <div>
+                <h2>{category.title}</h2>
+                <p>{category.description}</p>
+              </div>
               <strong>{categoryPosts.length} 篇</strong>
             </div>
-            {categoryPosts.length > 0 && (
+            {categoryPosts.length > 0 ? (
               <div class="compact-list">
                 {categoryPosts.map((post) => (
                   <a href={`/writing/${post.id}/`}>
@@ -36,6 +40,8 @@ const posts = (await getCollection('writing', ({ data }) =>
                   </a>
                 ))}
               </div>
+            ) : (
+              <p class="topic-empty">这个栏目目前还没有公开内容。</p>
             )}
           </section>
         );

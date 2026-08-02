@@ -18,22 +18,46 @@ const categoryCounts = Object.fromEntries(
 const years = [...new Set(posts.map((post) => post.data.publishedAt.getFullYear()))];
 ---
 <BaseLayout>
-  <section class="cover-section">
-    <div class="shell report-cover">
-      <div class="cover-main">
-        <p class="report-label">PERSONAL NOTES / 个人记录</p>
-        <h1>刘科宏</h1>
-        <p class="cover-identity">上海交通大学 · 金融学与计算机科学</p>
-        <p class="cover-intro">
-          这里记录我愿意公开的学习、研究、实践与思考。内容可能涉及编程、金融、数学、交易、课程、实习，以及一些不属于固定分类的文字。
-        </p>
-      </div>
-      <aside class="cover-note" aria-label="网站说明">
-        <div class="note-title">站点说明</div>
-        <p>内容按主题与形式归档。</p>
-        <p>项目、经历和推荐内容不会被自动展示。</p>
-        <p>只有经过明确发布的文字才会出现在这里。</p>
+  <section class="profile-hero">
+    <div class="shell profile-panel">
+      <aside class="profile-sidebar">
+        <img
+          class="profile-avatar"
+          src="https://avatars.githubusercontent.com/u/265462232?v=4"
+          alt="刘科宏的头像"
+          width="220"
+          height="220"
+        />
+        <div class="profile-name-block">
+          <h1>刘科宏</h1>
+          <p>KONG · LIU KEHONG</p>
+        </div>
+        <dl class="profile-facts">
+          <div><dt>学校</dt><dd>上海交通大学</dd></div>
+          <div><dt>学习方向</dt><dd>金融学与计算机科学</dd></div>
+          <div><dt>网站用途</dt><dd>个人写作与长期归档</dd></div>
+        </dl>
       </aside>
+
+      <div class="profile-introduction">
+        <p class="report-label">PERSONAL PROFILE / 个人简介</p>
+        <h2>你好，我是刘科宏。</h2>
+        <p class="profile-lead">
+          我目前在上海交通大学学习金融学与计算机科学。这个网站用来保存我愿意公开的学习记录、研究思考、实践复盘和一些随笔。
+        </p>
+        <p>
+          我写的内容不会被限制在某一个固定方向：它可能是一篇课程笔记、一段技术理解、一份金融研究整理，也可能是交易、实习、求职或生活中的阶段性记录。所有内容按栏目和时间归档，但不会被自动包装成项目或代表作。
+        </p>
+        <div class="profile-links">
+          <a href="/writing/">阅读文章</a>
+          <a href="/topics/">浏览栏目</a>
+          <a href="/about/">更多介绍</a>
+        </div>
+        <div class="profile-boundary">
+          <strong>公开说明</strong>
+          <span>只有经过明确发布的内容才会出现在本站；推荐内容也必须由我主动指定。</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -91,12 +115,12 @@ const years = [...new Set(posts.map((post) => post.data.publishedAt.getFullYear(
   <section class="section section-tint">
     <div class="shell">
       <div class="section-heading">
-        <div><span class="section-no">{recommended.length > 0 ? '03' : '02'}</span><h2>分类浏览</h2></div>
-        <p>分类只用于整理内容，不代表固定的人设或方向。</p>
+        <div><span class="section-no">{recommended.length > 0 ? '03' : '02'}</span><h2>栏目浏览</h2></div>
+        <p>栏目只用于整理与查找，不代表固定的人设或推荐顺序。</p>
       </div>
       <div class="category-table">
         {categories.map((category) => (
-          <a class="category-row" href={`/notes/#${category.slug}`}>
+          <a class="category-row" href={`/topics/#${category.slug}`}>
             <span class="category-index">{category.index}</span>
             <div><h3>{category.title}</h3><p>{category.description}</p></div>
             <span class="category-count">{categoryCounts[category.slug]} 篇</span>
