@@ -33,7 +33,7 @@ const years = [...new Set(posts.map((post) => post.data.publishedAt.getFullYear(
         </div>
         <div class="profile-motto profile-motto-brush">
           <div
-            class="profile-motto-script motto-font-long"
+            class="profile-motto-script motto-font-sweep"
             data-random-motto
             data-columns="2"
             data-length="standard"
@@ -155,22 +155,10 @@ const years = [...new Set(posts.map((post) => post.data.publishedAt.getFullYear(
     .profile-motto-script .motto-column {
       color: var(--navy-deep);
       font-weight: 400;
-      line-height: 1.02;
-      letter-spacing: .025em;
+      line-height: .96;
+      letter-spacing: .01em;
       text-shadow: 0 1px 0 rgba(255, 255, 255, .28);
       transform-origin: top center;
-    }
-
-    .profile-motto-script .motto-column:nth-child(1) {
-      transform: rotate(1.1deg) translateY(1px);
-    }
-
-    .profile-motto-script .motto-column:nth-child(2) {
-      transform: rotate(-1.25deg) translateY(12px);
-    }
-
-    .profile-motto-script .motto-column:nth-child(3) {
-      transform: rotate(.7deg) translateY(4px);
     }
 
     .profile-motto-script[data-length='short'] {
@@ -183,34 +171,36 @@ const years = [...new Set(posts.map((post) => post.data.publishedAt.getFullYear(
       min-height: 238px;
     }
 
-    .profile-motto-script.motto-font-long .motto-column {
-      font-family: 'Long Cang', 'STXingkai', 'Xingkai SC', cursive;
-      font-size: 44px;
-      line-height: 1.01;
-      letter-spacing: .018em;
+    .profile-motto-script.motto-font-long .motto-column,
+    .profile-motto-script.motto-font-sweep .motto-column {
+      font-family: 'Liu Jian Mao Cao', 'Long Cang', 'STXingkai', 'Xingkai SC', cursive;
     }
 
-    .profile-motto-script.motto-font-long[data-columns='3'] .motto-column {
-      font-size: 35px;
+    .profile-motto-script.motto-font-long .motto-column {
+      font-size: 45px;
     }
 
     .profile-motto-script.motto-font-sweep .motto-column {
-      font-family: 'Liu Jian Mao Cao', 'Long Cang', 'STXingkai', 'Xingkai SC', cursive;
       font-size: 53px;
-      line-height: .96;
-      letter-spacing: .01em;
     }
 
+    .profile-motto-script.motto-font-long .motto-column:nth-child(1),
     .profile-motto-script.motto-font-sweep .motto-column:nth-child(1) {
       transform: rotate(2.35deg) translateY(-3px) scale(1.035);
     }
 
+    .profile-motto-script.motto-font-long .motto-column:nth-child(2),
     .profile-motto-script.motto-font-sweep .motto-column:nth-child(2) {
       transform: rotate(-2.1deg) translateY(16px) scale(1.02);
     }
 
+    .profile-motto-script.motto-font-long .motto-column:nth-child(3),
     .profile-motto-script.motto-font-sweep .motto-column:nth-child(3) {
       transform: rotate(1.45deg) translateY(2px) scale(1.025);
+    }
+
+    .profile-motto-script.motto-font-long[data-columns='3'] .motto-column {
+      font-size: 34px;
     }
 
     .profile-motto-script.motto-font-sweep[data-columns='3'] .motto-column {
