@@ -11,6 +11,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  issues: write
 
 concurrency:
   group: pages-${{ github.ref }}
@@ -51,3 +52,37 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+
+  verify:
+    if: github.event_name == 'push'
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify live homepage
+        run: |
+          for attempt in {1..18}; do
+            html="$(curl -fsSL --max-time 20 https://kong-158.github.io/ || true)"
+            if printf '%s' "$html" | grep -q 'PERSONAL NOTES / 个人记录'; then
+              echo 'Live homepage contains the new research-report site marker.'
+              exit 0
+            fi
+            sleep 10
+          done
+          echo 'The new homepage marker was not found on the live site.' >&2
+          exit 1
+
+  report:
+    if: always() && github.event_name == 'push'
+    needs: [build, deploy, verify]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report deployment result
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BUILD_RESULT: ${{ needs.build.result }}
+          DEPLOY_RESULT: ${{ needs.deploy.result }}
+          VERIFY_RESULT: ${{ needs.verify.result }}
+          RUN_ID: ${{ github.run_id }}
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          gh issue comment 4 --repo "${{ github.repository }}" --body "Deployment run ${RUN_ID}: build=${BUILD_RESULT}, deploy=${DEPLOY_RESULT}, live-site=${VERIFY_RESULT}, commit=${COMMIT_SHA}"
