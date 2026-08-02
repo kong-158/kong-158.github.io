@@ -7,12 +7,12 @@ const posts = (await getCollection('writing', ({ data }) =>
   !data.draft && data.visibility === 'public'
 )).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 ---
-<BaseLayout title="文章｜刘科宏" description="刘科宏公开发布的文章、笔记、复盘与研究整理。">
+<BaseLayout title="文章｜刘科宏" description="刘科宏的文章、笔记、复盘与研究整理。">
   <section class="page-header">
     <div class="shell">
-      <p class="report-label">PUBLIC WRITING / 公开文章</p>
+      <p class="report-label">WRITING / 文章</p>
       <h1>文章</h1>
-      <p>按发布时间排列。推荐与否不会影响普通文章的正常展示。</p>
+      <p>按发布时间排列。</p>
     </div>
   </section>
   <section class="section page-section">
@@ -32,8 +32,8 @@ const posts = (await getCollection('writing', ({ data }) =>
         </div>
       ) : (
         <div class="quiet-empty">
-          <strong>目前尚无公开文章。</strong>
-          <p>草稿、私人内容和未明确发布的记录不会出现在这里。</p>
+          <strong>这里暂时还没有文章。</strong>
+          <p>新的内容会陆续更新。</p>
         </div>
       )}
     </div>
