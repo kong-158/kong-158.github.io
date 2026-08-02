@@ -14,12 +14,12 @@ const grouped = posts.reduce<Record<number, typeof posts>>((acc, post) => {
 }, {});
 const years = Object.keys(grouped).map(Number).sort((a, b) => b - a);
 ---
-<BaseLayout title="归档｜刘科宏" description="按时间查看刘科宏公开发布的内容。">
+<BaseLayout title="归档｜刘科宏" description="按时间查看刘科宏的文章与记录。">
   <section class="page-header">
     <div class="shell">
       <p class="report-label">ARCHIVE / 时间归档</p>
       <h1>归档</h1>
-      <p>按公开发布时间整理，不包含草稿、私人内容与未列出内容。</p>
+      <p>按时间整理文章与记录。</p>
     </div>
   </section>
   <section class="section page-section">
@@ -38,7 +38,7 @@ const years = Object.keys(grouped).map(Number).sort((a, b) => b - a);
           </div>
         </section>
       )) : (
-        <div class="quiet-empty"><strong>目前尚无公开归档。</strong></div>
+        <div class="quiet-empty"><strong>这里暂时还没有归档。</strong></div>
       )}
     </div>
   </section>
