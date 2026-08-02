@@ -1,11 +1,33 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
+import { topicLabels, kindLabels, formatDate } from '@/data/site';
+
 export async function getStaticPaths() {
-  const posts = await getCollection('writing', ({ data }) => !data.draft);
+  const posts = await getCollection('writing', ({ data }) =>
+    !data.draft && data.visibility !== 'private'
+  );
   return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
 }
+
 const { post } = Astro.props;
 const { Content } = await render(post);
 ---
-<BaseLayout title={`${post.data.title} — Kong`} description={post.data.summary}><article class="shell prose"><div class="eyebrow">{post.data.topic} · {post.data.kind}</div><h1>{post.data.title}</h1><p>{post.data.summary}</p><Content /></article></BaseLayout>
+<BaseLayout title={`${post.data.title}｜刘科宏`} description={post.data.summary}>
+  <article class="report-article">
+    <header class="article-header shell-narrow">
+      <div class="article-classification">{topicLabels[post.data.topic]} · {kindLabels[post.data.kind]}</div>
+      <h1>{post.data.title}</h1>
+      <div class="article-byline">
+        <span>刘科宏</span>
+        <time>{formatDate(post.data.publishedAt)}</time>
+        {post.data.updatedAt && <span>更新于 {formatDate(post.data.updatedAt)}</span>}
+      </div>
+      <div class="abstract-box">
+        <strong>摘要</strong>
+        <p>{post.data.summary}</p>
+      </div>
+    </header>
+    <div class="shell-narrow prose"><Content /></div>
+  </article>
+</BaseLayout>

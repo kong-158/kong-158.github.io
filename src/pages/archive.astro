@@ -1,0 +1,45 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { topicLabels, formatDate } from '@/data/site';
+
+const posts = (await getCollection('writing', ({ data }) =>
+  !data.draft && data.visibility === 'public'
+)).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+
+const grouped = posts.reduce<Record<number, typeof posts>>((acc, post) => {
+  const year = post.data.publishedAt.getFullYear();
+  (acc[year] ||= []).push(post);
+  return acc;
+}, {});
+const years = Object.keys(grouped).map(Number).sort((a, b) => b - a);
+---
+<BaseLayout title="归档｜刘科宏" description="按时间查看刘科宏公开发布的内容。">
+  <section class="page-header">
+    <div class="shell">
+      <p class="report-label">ARCHIVE / 时间归档</p>
+      <h1>归档</h1>
+      <p>按公开发布时间整理，不包含草稿、私人内容与未列出内容。</p>
+    </div>
+  </section>
+  <section class="section page-section">
+    <div class="shell year-groups">
+      {years.length > 0 ? years.map((year) => (
+        <section class="year-group" id={`year-${year}`}>
+          <h2>{year}</h2>
+          <div class="compact-list">
+            {grouped[year].map((post) => (
+              <a href={`/writing/${post.id}/`}>
+                <time>{formatDate(post.data.publishedAt)}</time>
+                <span>{post.data.title}</span>
+                <small>{topicLabels[post.data.topic]}</small>
+              </a>
+            ))}
+          </div>
+        </section>
+      )) : (
+        <div class="quiet-empty"><strong>目前尚无公开归档。</strong></div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

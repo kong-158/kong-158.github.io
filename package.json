@@ -1,17 +1,17 @@
 {
-  "name": "kong-personal-workspace",
+  "name": "kong-personal-notes",
   "private": true,
   "type": "module",
   "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
-    "check": "astro check"
+    "preview": "astro preview"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "astro": "^7.1.4",
+    "astro": "^7.1.4"
+  },
+  "devDependencies": {
     "typescript": "^5.9.2"
   }
 }

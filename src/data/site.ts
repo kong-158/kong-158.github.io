@@ -1,55 +1,65 @@
 export const categories = [
   {
-    slug: 'programming', index: '01', title: '编程与计算机', en: 'Programming',
-    description: '课程笔记、教程实践、代码理解与工程基础。',
-    examples: ['CS 课程', 'C++ / Python', '系统与工具']
+    slug: 'programming',
+    index: '01',
+    title: '编程与技术',
+    description: '课程笔记、代码理解、工具使用与技术实践。'
   },
   {
-    slug: 'ai-systems', index: '02', title: 'AI 与系统', en: 'AI & Systems',
-    description: 'Agent、工作流、上下文管理与个人 AI Workspace。',
-    examples: ['LLM / Agent', 'SJTUClaw', 'WorkBuddy']
+    slug: 'finance',
+    index: '02',
+    title: '金融与投资',
+    description: '金融课程、研究方法、市场理解与投资思考。'
   },
   {
-    slug: 'finance', index: '03', title: '金融与投资', en: 'Finance',
-    description: '金融课程、资产定价、金融工程与投资方法。',
-    examples: ['公司金融', '资产定价', '策略评价']
+    slug: 'mathematics',
+    index: '03',
+    title: '数学与统计',
+    description: '数学基础、概率统计、计量方法与模型推导。'
   },
   {
-    slug: 'mathematics', index: '04', title: '数学与统计', en: 'Mathematics',
-    description: '数学基础、概率统计、计量与模型推导。',
-    examples: ['概率统计', '计量经济学', '优化']
+    slug: 'trading',
+    index: '04',
+    title: '交易与复盘',
+    description: '市场判断、决策过程、错误来源与事后复盘。'
   },
   {
-    slug: 'trading', index: '05', title: '交易复盘', en: 'Trading Journal',
-    description: '记录决策、市场判断、错误来源与可复用规则。',
-    examples: ['周度复盘', '交易随笔', '风险检查']
+    slug: 'learning',
+    index: '05',
+    title: '学习与记录',
+    description: '课程整理、阅读记录、方法总结与阶段性笔记。'
   },
   {
-    slug: 'career', index: '06', title: '实习与成长', en: 'Career & Field Notes',
-    description: '实习整理、求职准备、阶段总结与真实工作观察。',
-    examples: ['实习复盘', '面试准备', '工作方法']
+    slug: 'career',
+    index: '06',
+    title: '实习与成长',
+    description: '实习、求职、工作方法与个人阶段总结。'
+  },
+  {
+    slug: 'essay',
+    index: '07',
+    title: '随笔与其他',
+    description: '不适合归入固定学科，但值得公开保留的文字。'
   }
 ] as const;
 
-export const projects = [
-  {
-    title: 'SJTUClaw', eyebrow: 'PERSONAL AI WORKSPACE', status: 'BUILDING',
-    description: '把学习、研究、文件、任务与多种 AI 工具组织进同一个长期工作空间。',
-    tags: ['Agent', 'Workflow', 'Memory'], href: 'https://github.com/kong-158'
-  },
-  {
-    title: '策略评价与风险审查', eyebrow: 'FINANCE × RESEARCH', status: 'RESEARCH',
-    description: '面向主观多头与量化策略，拆解收益来源、风险暴露、技能与运气。',
-    tags: ['Attribution', 'Risk', 'FOF'], href: '/projects/'
-  },
-  {
-    title: 'NBA Playoff Prediction', eyebrow: 'MACHINE LEARNING', status: 'COMPLETED',
-    description: '从球员贡献预测到球队结构特征，构建季后赛表现预测与解释框架。',
-    tags: ['Python', 'ML', 'Feature Engineering'], href: '/projects/'
-  },
-  {
-    title: 'WorkBuddy × Codex Bridge', eyebrow: 'AGENT INFRASTRUCTURE', status: 'BUILDING',
-    description: '探索任务路由、会话连续性、结果缓存与安全执行边界。',
-    tags: ['Harness', 'Bridge', 'Automation'], href: '/projects/'
-  }
-] as const;
+export const topicLabels: Record<string, string> = Object.fromEntries(
+  categories.map((category) => [category.slug, category.title])
+);
+
+export const kindLabels: Record<string, string> = {
+  note: '笔记',
+  tutorial: '教程',
+  review: '复盘',
+  essay: '随笔',
+  report: '研究整理',
+  'field-note': '实践记录'
+};
+
+export function formatDate(date: Date) {
+  return new Intl.DateTimeFormat('zh-CN', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).format(date);
+}

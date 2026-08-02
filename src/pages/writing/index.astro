@@ -1,6 +1,41 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-const posts = (await getCollection('writing', ({ data }) => !data.draft)).sort((a,b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+import { topicLabels, kindLabels, formatDate } from '@/data/site';
+
+const posts = (await getCollection('writing', ({ data }) =>
+  !data.draft && data.visibility === 'public'
+)).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 ---
-<BaseLayout title="写作 — Kong"><section class="page-hero shell"><div class="eyebrow">Writing</div><h1>把真正想明白的事情，写成能够长期留下的文字。</h1><p>旧文章不迁移。这里将只发布完整文章、研究整理、项目复盘与高质量交易随笔。</p></section><section class="shell content-list">{posts.length === 0 ? (<div class="empty-state"><div class="big">00</div><div><h2>新的第一篇还没有发布。</h2><p>仓库已经准备好 Markdown 内容结构、主题分类、文体分类与草稿机制。</p></div></div>) : posts.map((post) => (<a class="content-row" href={`/writing/${post.id}/`}><small>{post.data.publishedAt.toLocaleDateString('zh-CN')}</small><div><h3>{post.data.title}</h3><small>{post.data.summary}</small></div><small>{post.data.topic} · {post.data.kind}</small></a>))}</section></BaseLayout>
+<BaseLayout title="文章｜刘科宏" description="刘科宏公开发布的文章、笔记、复盘与研究整理。">
+  <section class="page-header">
+    <div class="shell">
+      <p class="report-label">PUBLIC WRITING / 公开文章</p>
+      <h1>文章</h1>
+      <p>按发布时间排列。推荐与否不会影响普通文章的正常展示。</p>
+    </div>
+  </section>
+  <section class="section page-section">
+    <div class="shell">
+      {posts.length > 0 ? (
+        <div class="article-list">
+          {posts.map((post) => (
+            <a class="article-row" href={`/writing/${post.id}/`}>
+              <time>{formatDate(post.data.publishedAt)}</time>
+              <div class="article-main">
+                <h2>{post.data.title}</h2>
+                <p>{post.data.summary}</p>
+              </div>
+              <div class="article-meta">{topicLabels[post.data.topic]} · {kindLabels[post.data.kind]}</div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="quiet-empty">
+          <strong>目前尚无公开文章。</strong>
+          <p>草稿、私人内容和未明确发布的记录不会出现在这里。</p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
