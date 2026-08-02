@@ -289,10 +289,10 @@ const years = [...new Set(posts.map((post) => post.data.publishedAt.getFullYear(
         ['鹰击长空鲸霸海', '不试怎知龙与蚯'],
         ['自信人生二百年', '会当水击三千里'],
         ['今日长缨在手', '何时缚住苍龙'],
-        ['问苍茫大地', '谁主沉浮'],
+        ['问苍茫大地', '谁主沉浮？'],
         ['久有凌云志', '重上井冈山'],
         ['时来天地皆助力', '运去英雄不自由'],
-        ['问苍茫大地', '谁主沉浮']
+        ['春来我不先开口', '哪个虫儿敢作声']
       ];
       const fontPool = ['motto-font-long', 'motto-font-ma', 'motto-font-zhi'];
       const motto = document.querySelector('[data-random-motto]');
@@ -316,7 +316,9 @@ const years = [...new Set(posts.map((post) => post.data.publishedAt.getFullYear(
       motto.classList.add(selectedFont, 'is-randomized');
       motto.dataset.columns = String(selected.length);
       motto.dataset.length = maxLength <= 5 ? 'short' : 'standard';
-      motto.setAttribute('aria-label', `${selected.join('，')}。`);
+
+      const label = selected.join('，');
+      motto.setAttribute('aria-label', /[。！？]$/.test(label) ? label : `${label}。`);
     })();
   </script>
 </BaseLayout>
