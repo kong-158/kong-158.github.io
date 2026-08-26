@@ -1,0 +1,36 @@
+.kt-easter-egg {
+  position: absolute;
+  right: 26px;
+  bottom: 72px;
+  z-index: 3;
+  display: block;
+  width: 48px;
+  height: 48px;
+  padding: 3px;
+  background: rgba(255, 255, 255, .88);
+  border: 1px solid rgba(73, 111, 143, .22);
+  box-shadow: 0 8px 18px rgba(28, 62, 91, .12);
+  transform: rotate(2deg);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.kt-easter-egg:hover {
+  transform: rotate(0deg) translateY(-2px);
+  box-shadow: 0 11px 24px rgba(28, 62, 91, .16);
+}
+
+.kt-easter-egg img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 680px) {
+  .kt-easter-egg {
+    right: 22px;
+    bottom: 68px;
+    width: 42px;
+    height: 42px;
+  }
+}
