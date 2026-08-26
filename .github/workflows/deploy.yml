@@ -62,16 +62,15 @@ jobs:
         run: |
           for attempt in {1..18}; do
             home="$(curl -fsSL --max-time 20 https://kong-158.github.io/ || true)"
-            projects="$(curl -fsSL --max-time 20 https://kong-158.github.io/projects/ || true)"
             topics="$(curl -fsSL --max-time 20 https://kong-158.github.io/topics/ || true)"
             legacy="$(curl -fsSL --max-time 20 https://kong-158.github.io/notes/ || true)"
 
             if printf '%s' "$home" | grep -q 'SJTU · FINANCE × COMPUTER SCIENCE' \
               && printf '%s' "$home" | grep -q 'data-random-motto' \
-              && printf '%s' "$projects" | grep -q 'PROJECTS / 项目' \
+              && printf '%s' "$home" | grep -q 'ink-seal">空' \
               && printf '%s' "$topics" | grep -q 'SECTIONS / 内容栏目' \
               && printf '%s' "$legacy" | grep -q "location.replace('/topics/'"; then
-              echo 'Homepage, projects, topics, and legacy notes redirect are live.'
+              echo 'Homepage, topics, and legacy notes redirect are live.'
               exit 0
             fi
             sleep 10
