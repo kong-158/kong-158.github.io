@@ -9,15 +9,7 @@ const writing = defineCollection({
     summary: z.string(),
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
-    topic: z.enum([
-      'programming',
-      'finance',
-      'mathematics',
-      'trading',
-      'learning',
-      'career',
-      'essay'
-    ]),
+    topic: z.enum(['research', 'cs-ai', 'finance', 'notes', 'life']),
     kind: z.enum(['note', 'tutorial', 'review', 'essay', 'report', 'field-note']),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(true),
