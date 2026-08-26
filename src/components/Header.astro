@@ -3,15 +3,15 @@ const pathname = Astro.url.pathname;
 const links = [
   { href: '/', label: '首页' },
   { href: '/writing/', label: '文章' },
-  { href: '/topics/', label: '栏目' },
+  { href: '/projects/', label: '项目' },
   { href: '/archive/', label: '归档' },
   { href: '/about/', label: '关于' }
 ];
 ---
-<div class="top-rule"></div>
 <header class="site-header">
   <div class="shell nav">
     <a class="brand" href="/" aria-label="返回首页">
+      <span class="brand-mark">K</span>
       <span class="brand-en">KONG</span>
     </a>
     <nav class="nav-links" aria-label="主导航">
