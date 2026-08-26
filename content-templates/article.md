@@ -1,8 +1,8 @@
 ---
 title: "文章标题"
 summary: "用一到两句话说明这篇内容讨论什么。"
-publishedAt: 2026-08-02
-topic: learning # programming | finance | mathematics | trading | learning | career | essay
+publishedAt: 2026-08-26
+topic: notes # research | cs-ai | finance | notes | life
 kind: note # note | tutorial | review | essay | report | field-note
 tags: []
 draft: true
