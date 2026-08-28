@@ -243,3 +243,36 @@ class Solution:
 如果继续压空间，其实 `right` 数组也没有必要完整保存。可以先把前缀乘积直接写进答案数组，再从右向左只维护一个不断累乘的后缀变量，这样就能把额外空间压到 `O(1)`（不计算返回数组）。
 
 这题比较值得记的是：**当某个位置的答案可以自然拆成“左边的贡献 × 右边的贡献”时，前缀 / 后缀往往就是最直接的处理方式。**
+
+---
+
+### 56. 合并区间
+
+这题思路比较直接。先按照每个区间的 `start` 从小到大排序，这样后面的区间只需要和当前已经合并好的最后一个区间进行比较。
+
+判断逻辑就是看当前区间的 `start` 是否小于等于上一个区间的 `end`：
+
+- 如果 `interval[0] <= merged[-1][1]`，说明两个区间有重叠，直接合并，并把右端点更新为两者的最大值；
+- 否则说明已经完全分开，直接 `append` 当前区间即可。
+
+代码：
+
+```python
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort(key=lambda x: x[0])
+        merged = []
+        merged.append(intervals[0])
+
+        for interval in intervals:
+            if merged[-1][1] >= interval[0]:
+                merged[-1][1] = max(merged[-1][1], interval[1])
+            else:
+                merged.append(interval)
+
+        return merged
+```
+
+排序需要 `O(n log n)`，排序之后的扫描是 `O(n)`。
+
+这题主要就是：**先排序把区间的相对关系固定下来，再逐个判断当前区间能不能并入上一个区间。**
