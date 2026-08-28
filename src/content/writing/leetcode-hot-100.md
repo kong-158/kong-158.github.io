@@ -276,3 +276,38 @@ class Solution:
 排序需要 `O(n log n)`，排序之后的扫描是 `O(n)`。
 
 这题主要就是：**先排序把区间的相对关系固定下来，再逐个判断当前区间能不能并入上一个区间。**
+
+## 滑动窗口
+
+### 3. 无重复字符的最长子串
+
+这题就是比较标准的滑动窗口。用一个集合 `char_set` 保存当前窗口里已经出现的字符，然后从左到右不断把新字符加入窗口。
+
+如果当前字符 `s[i]` 已经在集合里，说明窗口里出现了重复字符，这时就需要不断从左边删除字符，直到 `s[i]` 不再重复，然后再把它加入窗口。
+
+这里边界处理要特别注意：**必须用 `while`，不能只写一个 `if`。** 因为当前字符可能和窗口中比较靠右的位置重复，只删掉最左边一个字符以后，重复字符仍然可能还在窗口里，需要继续缩小窗口。
+
+代码：
+
+```python
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        char_set = set()
+        ans = 0
+        length = 0
+
+        for i in range(len(s)):
+            while s[i] in char_set:
+                char_set.remove(s[i - length])
+                length -= 1
+
+            char_set.add(s[i])
+            length = len(char_set)
+            ans = max(ans, length)
+
+        return ans
+```
+
+时间复杂度是 `O(n)`：虽然里面有一个 `while`，但每个字符最多被加入集合一次、移出集合一次。
+
+这题主要就是：**右边界负责扩张窗口，一旦出现重复，就持续移动左边界，直到窗口重新满足“无重复字符”的条件。**
