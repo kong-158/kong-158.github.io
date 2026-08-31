@@ -442,3 +442,52 @@ class Solution:
 真正需要注意的只有后面两个判断。当矩阵不断缩小以后，剩余部分可能只有一行或者一列，如果不检查 `top <= bottom` 和 `left <= right`，就会把同一行或同一列重复加入答案。
 
 所以这题对我来说基本没有什么额外的算法营养，主要就是练一下四个边界的维护，以及在矩阵退化成单行 / 单列时别重复处理。
+
+---
+
+### 48. 旋转图像
+
+这题的构造比较有意思。顺时针旋转 90° 不需要真的去逐个计算每个元素最后应该搬到哪里，可以拆成两个很简单的原地操作：**先转置，再把每一行反转。**
+
+例如：
+
+```text
+1 2 3        1 4 7        7 4 1
+4 5 6   ->   2 5 8   ->   8 5 2
+7 8 9        3 6 9        9 6 3
+             转置          每行反转
+```
+
+转置时，只需要交换主对角线两侧的元素：
+
+```python
+for i in range(n):
+    for j in range(i + 1, n):
+        matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+```
+
+然后把每一行原地反转：
+
+```python
+for row in matrix:
+    row.reverse()
+```
+
+完整代码：
+
+```python
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        n = len(matrix)
+
+        for i in range(n):
+            for j in range(i + 1, n):
+                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+
+        for row in matrix:
+            row.reverse()
+```
+
+这样时间复杂度是 `O(n^2)`，额外空间是 `O(1)`。
+
+这题比较值得记的是，这类矩阵旋转可以拆成**转置 + 反转**这样的基本变换，而不用一个元素一个元素地追踪位置。顺时针 90° 是“转置 + 每行反转”；同理，**逆时针 90° 可以写成“转置 + 每列反转”**。
