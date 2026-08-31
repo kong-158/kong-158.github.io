@@ -2,7 +2,7 @@
 title: "LeetCode 刷题笔记"
 summary: "持续记录 LeetCode Hot 100 和其他算法题里值得记下来的思路、踩坑和优化。"
 publishedAt: 2026-08-28
-updatedAt: 2026-08-28
+updatedAt: 2026-08-31
 topic: cs-ai
 kind: note
 tags: ["LeetCode", "Hot 100", "算法", "Python"]
@@ -311,3 +311,134 @@ class Solution:
 时间复杂度是 `O(n)`：虽然里面有一个 `while`，但每个字符最多被加入集合一次、移出集合一次。
 
 这题主要就是：**右边界负责扩张窗口，一旦出现重复，就持续移动左边界，直到窗口重新满足“无重复字符”的条件。**
+
+## 矩阵
+
+### 73. 矩阵置零
+
+这题最开始的思路比较自然：分别开两个数组，记录哪些行和哪些列出现过 `0`。
+
+例如用：
+
+```text
+row_zero[i] = 第 i 行是否出现 0
+col_zero[j] = 第 j 列是否出现 0
+```
+
+先完整扫描一次矩阵，把需要置零的行和列记录下来，再扫描一次，把对应位置改成 `0`。时间复杂度是 `O(mn)`，但是需要额外的 `O(m+n)` 空间。
+
+题目进一步提示可以做到常数级额外空间以后，关键就是：**其实没有必要另外开两个数组，矩阵自己的第一行和第一列就可以拿来当标记数组。**
+
+如果 `matrix[i][j] == 0`，就把：
+
+```python
+matrix[i][0] = 0
+matrix[0][j] = 0
+```
+
+这样第一列记录“这一行之后要不要全部置零”，第一行记录“这一列之后要不要全部置零”。等标记全部做完，再根据第一行和第一列去处理内部的元素。
+
+但这里会多出一个比较关键的边界问题：**`matrix[0][0]` 同时属于第一行和第一列，它不可能同时保存“第一行原本有没有 0”和“第一列原本有没有 0”这两个独立的信息。**
+
+所以在拿第一行、第一列当标记之前，需要先额外用两个变量保存：
+
+```text
+first_row_zero = 第一行原本是否存在 0
+first_col_zero = 第一列原本是否存在 0
+```
+
+之后的处理顺序也比较重要：先记住第一行、第一列原本是否含 `0`；再遍历矩阵，用第一行和第一列做标记；然后根据这些标记只处理内部区域；最后再根据两个变量单独处理第一行和第一列。
+
+代码：
+
+```python
+class Solution:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        m = len(matrix)
+        n = len(matrix[0])
+
+        first_row_zero = False
+        first_col_zero = False
+
+        for j in range(n):
+            if matrix[0][j] == 0:
+                first_row_zero = True
+                break
+
+        for i in range(m):
+            if matrix[i][0] == 0:
+                first_col_zero = True
+                break
+
+        for i in range(m):
+            for j in range(n):
+                if matrix[i][j] == 0:
+                    matrix[i][0] = 0
+                    matrix[0][j] = 0
+
+        for i in range(1, m):
+            for j in range(1, n):
+                if matrix[i][0] == 0 or matrix[0][j] == 0:
+                    matrix[i][j] = 0
+
+        if first_col_zero:
+            for i in range(m):
+                matrix[i][0] = 0
+
+        if first_row_zero:
+            for j in range(n):
+                matrix[0][j] = 0
+```
+
+时间复杂度仍然是 `O(mn)`，但额外空间从最开始的 `O(m+n)` 压到了 `O(1)`。
+
+这题比较值得记的是：**为了把额外标记数组压掉，可以直接借用输入矩阵本身存标记；真正麻烦的地方是第一行和第一列共用 `matrix[0][0]`，所以原始状态必须单独保存。**
+
+---
+
+### 54. 螺旋矩阵
+
+这题基本没什么特别的算法思路，主要就是一个比较麻烦的边界条件题。
+
+维护四个边界：
+
+```text
+top, bottom, left, right
+```
+
+每一圈按照“上 → 右 → 下 → 左”的顺序遍历，走完一条边以后就把对应边界向里面缩一格。
+
+```python
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        top = 0
+        bottom = len(matrix) - 1
+        left = 0
+        right = len(matrix[0]) - 1
+        ans = []
+
+        while top <= bottom and left <= right:
+            for j in range(left, right + 1):
+                ans.append(matrix[top][j])
+            top += 1
+
+            for i in range(top, bottom + 1):
+                ans.append(matrix[i][right])
+            right -= 1
+
+            if top <= bottom:
+                for j in range(right, left - 1, -1):
+                    ans.append(matrix[bottom][j])
+                bottom -= 1
+
+            if left <= right:
+                for i in range(bottom, top - 1, -1):
+                    ans.append(matrix[i][left])
+                left += 1
+
+        return ans
+```
+
+真正需要注意的只有后面两个判断。当矩阵不断缩小以后，剩余部分可能只有一行或者一列，如果不检查 `top <= bottom` 和 `left <= right`，就会把同一行或同一列重复加入答案。
+
+所以这题对我来说基本没有什么额外的算法营养，主要就是练一下四个边界的维护，以及在矩阵退化成单行 / 单列时别重复处理。
