@@ -10,19 +10,44 @@
   --line: #dde5eb;
   --line-strong: #c3d1dc;
   --page: #fbfcfd;
+  --surface: #ffffff;
+  --surface-soft: #f7fafc;
+  --header-bg: rgba(251, 252, 253, .92);
+  --code-bg: #142f49;
   --max: 1120px;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --navy: #8fb8da;
+  --navy-deep: #d7e7f4;
+  --blue: #8db5d6;
+  --blue-soft: #183149;
+  --blue-pale: #162532;
+  --red: #d78181;
+  --ink: #d7e1e9;
+  --muted: #91a2b1;
+  --line: #2d3d4b;
+  --line-strong: #425464;
+  --page: #0f171e;
+  --surface: #131d25;
+  --surface-soft: #17232d;
+  --header-bg: rgba(15, 23, 30, .92);
+  --code-bg: #0b141b;
+  --white: #131d25;
 }
 
 body {
   background: var(--page);
+  transition: background .2s ease, color .2s ease;
 }
 
 .site-header {
   position: sticky;
   top: 0;
   z-index: 30;
-  background: rgba(251, 252, 253, .92);
-  border-bottom: 1px solid rgba(195, 209, 220, .82);
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--line-strong);
   backdrop-filter: blur(16px);
 }
 
@@ -42,11 +67,15 @@ body {
   place-items: center;
   width: 26px;
   height: 26px;
-  color: var(--white);
+  color: #fff;
   background: var(--navy-deep);
   border-radius: 2px;
   font-family: Georgia, serif;
   font-size: 14px;
+}
+
+html[data-theme="dark"] .brand-mark {
+  color: #0f171e;
 }
 
 .brand-en {
@@ -54,6 +83,12 @@ body {
   font-size: 11px;
   font-weight: 850;
   letter-spacing: .22em;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .nav-links {
@@ -64,7 +99,7 @@ body {
   align-self: center;
   height: 34px;
   padding: 0 12px;
-  color: #667786;
+  color: var(--muted);
   border-radius: 4px;
   font-size: 12px;
   font-weight: 650;
@@ -73,24 +108,56 @@ body {
 
 .nav-links a:hover {
   color: var(--navy-deep);
-  background: #f0f4f7;
+  background: var(--surface-soft);
 }
 
 .nav-links a.active {
   color: var(--navy-deep);
-  background: #edf3f7;
+  background: var(--blue-pale);
 }
 
 .nav-links a.active::after {
   display: none;
 }
 
+.theme-toggle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  color: var(--navy-deep);
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  cursor: pointer;
+  font: inherit;
+  transition: background .18s ease, border-color .18s ease, transform .18s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--surface-soft);
+  border-color: var(--blue);
+  transform: translateY(-1px);
+}
+
+.theme-icon {
+  position: absolute;
+  font-size: 17px;
+  line-height: 1;
+}
+
+.theme-icon-dark { display: none; }
+html[data-theme="dark"] .theme-icon-light { display: none; }
+html[data-theme="dark"] .theme-icon-dark { display: inline; }
+
 .page-header {
   padding: 78px 0 66px;
   color: var(--ink);
   background:
-    linear-gradient(90deg, rgba(24, 61, 96, .03) 1px, transparent 1px),
-    #f8fafb;
+    linear-gradient(90deg, color-mix(in srgb, var(--navy-deep) 5%, transparent) 1px, transparent 1px),
+    var(--surface-soft);
   background-size: 48px 48px;
   border-bottom: 1px solid var(--line);
 }
@@ -124,11 +191,11 @@ body {
 .section,
 .page-section,
 .report-article {
-  background: var(--white);
+  background: var(--surface);
 }
 
 .section-tint {
-  background: #f7fafc;
+  background: var(--surface-soft);
 }
 
 .section-heading {
@@ -156,7 +223,7 @@ body {
 .article-row:hover,
 .category-row:hover,
 .compact-list a:hover {
-  background: #f7fafc;
+  background: var(--surface-soft);
 }
 
 .article-main h2,
@@ -177,7 +244,7 @@ body {
 .quiet-empty,
 .abstract-box,
 .prose blockquote {
-  background: #f5f8fa;
+  background: var(--blue-pale);
 }
 
 .topic-header,
@@ -195,17 +262,33 @@ body {
 }
 
 .prose pre {
-  background: #142f49;
+  background: var(--code-bg);
 }
 
 .prose th {
   background: var(--navy-deep);
 }
 
+html[data-theme="dark"] .prose th {
+  color: #0f171e;
+}
+
+html[data-theme="dark"] .about-copy p,
+html[data-theme="dark"] .cover-intro,
+html[data-theme="dark"] .abstract-box p,
+html[data-theme="dark"] .prose p,
+html[data-theme="dark"] .prose li {
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .prose code {
+  background: #1b2b37;
+}
+
 .site-footer {
   padding: 34px 0;
-  color: #82909d;
-  background: #f7f9fa;
+  color: var(--muted);
+  background: var(--surface-soft);
   border-top: 1px solid var(--line);
 }
 
@@ -259,12 +342,22 @@ body {
     gap: 12px;
   }
 
+  .nav-actions {
+    min-width: 0;
+  }
+
   .nav-links {
     overflow-x: auto;
   }
 
   .nav-links a:first-child {
     padding-left: 8px;
+  }
+
+  .theme-toggle {
+    flex: 0 0 auto;
+    width: 32px;
+    height: 32px;
   }
 }
 
