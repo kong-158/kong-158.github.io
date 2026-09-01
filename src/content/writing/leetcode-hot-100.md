@@ -325,6 +325,91 @@ class Solution:
 
 这题最值得记的就是：**宽度随着双指针收缩必然越来越小，因此下一步想产生更优解，只能去替换当前限制面积的较短板。** 这也是为什么每次移动较矮的一边，而不是随便移动一边。
 
+---
+
+### 15. 三数之和
+
+这题第一步还是先排序。排序以后，`left` 和 `right` 才能根据三数之和的大小有方向地移动，而不是对所有组合做暴力枚举。
+
+因为是“三数之和”，除了 `left` 和 `right` 之外还需要固定第三个位置。直观上第三个指针可以放在双指针左边、双指针中间或者双指针右边；左边和右边本质上是对称的。实际写的时候把 `i` 固定在 `left` 左边最自然：固定 `nums[i]` 以后，剩下待搜索的部分正好是一个连续区间 `[i+1, n-1]`，可以直接让 `left` 和 `right` 从两端向中间移动。如果把固定点放在中间，左右两个搜索区间被拆开，移动逻辑会麻烦很多。
+
+因此整体结构就是：随着 `i` 从左到右遍历，每次令：
+
+```text
+left = i + 1
+right = n - 1
+```
+
+然后不断计算：
+
+```text
+total = nums[i] + nums[left] + nums[right]
+```
+
+- `total < 0`，说明和太小，需要让它变大，所以 `left += 1`；
+- `total > 0`，说明和太大，需要让它变小，所以 `right -= 1`；
+- `total == 0`，找到一组三元组，加入答案。
+
+这题真正容易漏的是**去重和找到答案以后继续移动指针**。
+
+首先，代码里始终有 `i < left < right`，因此三个下标天然是两两不同的；真正需要额外处理的是题目要求**不能返回重复的三元组**。对于固定指针 `i`，如果当前 `nums[i]` 和上一个一样，那么这一轮能找到的组合和上一轮是重复的，所以直接跳过：
+
+```python
+if i > 0 and nums[i] == nums[i - 1]:
+    continue
+```
+
+其次，当 `total == 0` 时不能只 `append` 就停在那里。我第一遍这里甚至忘了移动 `left` 和 `right`，这样下一轮还是同一组三个位置。正确做法是先让两边都向内移动，再继续跳过和刚才相同的值，避免同一个三元组被加入多次：
+
+```python
+left += 1
+right -= 1
+
+while left < right and nums[left] == nums[left - 1]:
+    left += 1
+while left < right and nums[right] == nums[right + 1]:
+    right -= 1
+```
+
+代码：
+
+```python
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        res = []
+        n = len(nums)
+
+        for i in range(n):
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+
+            left, right = i + 1, n - 1
+
+            while left < right:
+                total = nums[i] + nums[left] + nums[right]
+
+                if total < 0:
+                    left += 1
+                elif total > 0:
+                    right -= 1
+                else:
+                    res.append([nums[i], nums[left], nums[right]])
+                    left += 1
+                    right -= 1
+
+                    while left < right and nums[left] == nums[left - 1]:
+                        left += 1
+                    while left < right and nums[right] == nums[right + 1]:
+                        right -= 1
+
+        return res
+```
+
+排序需要 `O(n log n)`，之后固定一次 `i` 再做一次双指针，总时间复杂度是 `O(n^2)`；除返回结果外额外空间可以看作 `O(1)`。
+
+这题比较值得记的是：**排序以后，可以把三数问题降成“固定一个数 + 剩下两个数用双指针”。真正容易出错的地方不是主体搜索，而是去重：`i` 要跳过重复值，找到一组答案后 `left/right` 也必须先移动，再跳过重复值。**
+
 ## 滑动窗口
 
 ### 3. 无重复字符的最长子串
