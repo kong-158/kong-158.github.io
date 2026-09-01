@@ -34,9 +34,14 @@ const links = [
     if (!button) return;
 
     const root = document.documentElement;
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+
     const updateState = () => {
       const isDark = root.dataset.theme === 'dark';
       button.setAttribute('aria-pressed', String(isDark));
+      button.setAttribute('title', isDark ? '切换到浅色模式' : '切换到深色模式');
+      root.style.colorScheme = isDark ? 'dark' : 'light';
+      themeMeta?.setAttribute('content', isDark ? '#0f171e' : '#fbfcfd');
     };
 
     updateState();
