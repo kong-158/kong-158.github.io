@@ -277,6 +277,164 @@ class Solution:
 
 这题主要就是：**先排序把区间的相对关系固定下来，再逐个判断当前区间能不能并入上一个区间。**
 
+## 哈希
+
+这三个题本身没有太多复杂的算法构造，对我来说更像是在熟悉 Python 里 `dict / set` 这一套语法。这里不分别写完整题解，直接把对应的语法和用法记下来。
+
+### 1. 两数之和：`dict + enumerate`
+
+最核心的是用字典保存：
+
+```text
+数字 -> 它出现的下标
+```
+
+```python
+seen = {}
+
+for i, num in enumerate(nums):
+    need = target - num
+
+    if need in seen:
+        return [seen[need], i]
+
+    seen[num] = i
+```
+
+这里需要记的语法：
+
+```python
+d = {}                  # 创建字典
+d[key] = value          # 存 key -> value
+key in d                # 判断 key 是否存在
+d[key]                  # 取出对应 value
+
+a, x = 0, nums[0]
+for i, x in enumerate(nums):
+    ...                  # 同时拿到下标 i 和元素 x
+```
+
+`enumerate(nums)` 可以直接理解成把原来的：
+
+```text
+10, 20, 30
+```
+
+变成：
+
+```text
+(0, 10), (1, 20), (2, 30)
+```
+
+---
+
+### 49. 字母异位词分组：`defaultdict + sorted + join`
+
+这题需要把“排序后相同”的字符串放到同一组里。比较方便的写法是：
+
+```python
+from collections import defaultdict
+
+groups = defaultdict(list)
+
+for s in strs:
+    key = ''.join(sorted(s))
+    groups[key].append(s)
+
+return list(groups.values())
+```
+
+这里主要是几套语法：
+
+```python
+from collections import defaultdict
+
+d = defaultdict(list)
+```
+
+和普通 `dict` 不同，`defaultdict(list)` 在第一次访问一个不存在的 `key` 时，会自动给它创建一个空列表，所以可以直接：
+
+```python
+d[key].append(x)
+```
+
+不需要提前写：
+
+```python
+if key not in d:
+    d[key] = []
+```
+
+另外：
+
+```python
+sorted("eat")
+# ['a', 'e', 't']
+```
+
+`sorted()` 返回的是列表，因此要重新拼成字符串：
+
+```python
+''.join(['a', 'e', 't'])
+# 'aet'
+```
+
+最后：
+
+```python
+d.values()              # 取出字典中的所有 value
+list(d.values())        # 转成列表
+```
+
+---
+
+### 128. 最长连续序列：`set + in / not in`
+
+这题主要就是集合的使用：
+
+```python
+nums_set = set(nums)
+```
+
+`set` 会自动去重，而且：
+
+```python
+x in nums_set
+x not in nums_set
+```
+
+平均都可以做到 `O(1)` 查询。
+
+代码里比较关键的一句是：
+
+```python
+if num - 1 not in nums_set:
+```
+
+它是在判断 `num` 是不是一段连续序列的起点。只有没有前驱的数才开始向后找：
+
+```python
+for num in nums_set:
+    if num - 1 not in nums_set:
+        current = num
+
+        while current + 1 in nums_set:
+            current += 1
+```
+
+所以这三个题我主要记下面这些就够了：
+
+```text
+dict：       d[key] = value / key in d / d[key]
+enumerate：  同时拿下标和元素
+defaultdict：给不存在的 key 自动创建默认 value
+sorted：     排序后返回 list
+''.join：    把字符列表重新拼成字符串
+d.values()： 取所有 value
+set：        去重 + O(1) 平均查询
+in / not in：判断元素是否存在
+```
+
 ## 双指针
 
 ### 11. 盛最多水的容器
