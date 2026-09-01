@@ -13,11 +13,39 @@ const links = [
       <span class="brand-mark">K</span>
       <span class="brand-en">KONG</span>
     </a>
-    <nav class="nav-links" aria-label="主导航">
-      {links.map((link) => {
-        const active = link.href === '/' ? pathname === '/' : pathname.startsWith(link.href);
-        return <a href={link.href} class:list={{ active }}>{link.label}</a>;
-      })}
-    </nav>
+    <div class="nav-actions">
+      <nav class="nav-links" aria-label="主导航">
+        {links.map((link) => {
+          const active = link.href === '/' ? pathname === '/' : pathname.startsWith(link.href);
+          return <a href={link.href} class:list={{ active }}>{link.label}</a>;
+        })}
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="切换深色/浅色模式" title="切换深色/浅色模式">
+        <span class="theme-icon theme-icon-light" aria-hidden="true">☼</span>
+        <span class="theme-icon theme-icon-dark" aria-hidden="true">☾</span>
+      </button>
+    </div>
   </div>
 </header>
+
+<script is:inline>
+  (() => {
+    const button = document.querySelector('.theme-toggle');
+    if (!button) return;
+
+    const root = document.documentElement;
+    const updateState = () => {
+      const isDark = root.dataset.theme === 'dark';
+      button.setAttribute('aria-pressed', String(isDark));
+    };
+
+    updateState();
+
+    button.addEventListener('click', () => {
+      const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      localStorage.setItem('theme', next);
+      updateState();
+    });
+  })();
+</script>
