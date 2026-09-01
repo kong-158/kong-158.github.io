@@ -26,10 +26,17 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <script is:inline>
       (() => {
+        const root = document.documentElement;
         const saved = localStorage.getItem('theme');
         const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         const theme = saved === 'dark' || saved === 'light' ? saved : (systemDark ? 'dark' : 'light');
-        document.documentElement.dataset.theme = theme;
+
+        root.dataset.theme = theme;
+        root.style.colorScheme = theme;
+        document.querySelector('meta[name="theme-color"]')?.setAttribute(
+          'content',
+          theme === 'dark' ? '#0f171e' : '#fbfcfd'
+        );
       })();
     </script>
     <title>{title}</title>
