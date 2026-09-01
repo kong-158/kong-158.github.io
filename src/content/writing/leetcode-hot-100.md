@@ -2,7 +2,7 @@
 title: "LeetCode 刷题笔记"
 summary: "持续记录 LeetCode Hot 100 和其他算法题里值得记下来的思路、踩坑和优化。"
 publishedAt: 2026-08-28
-updatedAt: 2026-08-31
+updatedAt: 2026-09-01
 topic: cs-ai
 kind: note
 tags: ["LeetCode", "Hot 100", "算法", "Python"]
@@ -276,6 +276,54 @@ class Solution:
 排序需要 `O(n log n)`，排序之后的扫描是 `O(n)`。
 
 这题主要就是：**先排序把区间的相对关系固定下来，再逐个判断当前区间能不能并入上一个区间。**
+
+## 双指针
+
+### 11. 盛最多水的容器
+
+这题是一个很经典的**双指针 + 贪心**。
+
+容器的面积是：
+
+```text
+area = min(height[left], height[right]) * (right - left)
+```
+
+这里有一个很直接的“木桶效应”：无论较高的板有多高，真正决定水位的永远是两边里面较矮的那一块。
+
+因此可以从数组两端开始放两个指针。随着指针不断向中间移动，宽度 `right - left` 一定会变小。既然宽度一定在损失，那么想让后面的面积还有可能变大，就必须尝试让限制水位的那块较矮木板变高。
+
+所以每一步只移动较矮的一边：
+
+- `height[left] < height[right]`，移动 `left`；
+- 否则移动 `right`。
+
+这个贪心为什么是安全的也比较直观。假设当前左边更矮，如果不动左边而只把右边往里移，那么宽度变小，同时新的高度上限仍然不会超过当前的 `height[left]`，面积不可能比当前这一对更大。因此当前较矮的左板已经可以直接排除；只有把它换掉，才有可能找到更高的短板来弥补宽度的下降。
+
+代码：
+
+```python
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        n = len(height)
+        left, right = 0, n - 1
+        max_area = 0
+
+        while left < right:
+            area = min(height[left], height[right]) * (right - left)
+            max_area = max(max_area, area)
+
+            if height[left] < height[right]:
+                left += 1
+            else:
+                right -= 1
+
+        return max_area
+```
+
+时间复杂度是 `O(n)`，额外空间是 `O(1)`。
+
+这题最值得记的就是：**宽度随着双指针收缩必然越来越小，因此下一步想产生更优解，只能去替换当前限制面积的较短板。** 这也是为什么每次移动较矮的一边，而不是随便移动一边。
 
 ## 滑动窗口
 
