@@ -306,6 +306,86 @@ html[data-theme="dark"] .prose code {
   color: var(--navy-deep);
 }
 
+html[data-theme="dark"] .home-hero {
+  background:
+    linear-gradient(90deg, rgba(143, 184, 218, .05) 1px, transparent 1px),
+    linear-gradient(rgba(143, 184, 218, .05) 1px, transparent 1px),
+    var(--page);
+}
+
+html[data-theme="dark"] .home-hero::after {
+  background: linear-gradient(90deg, rgba(15, 23, 30, .18), rgba(15, 23, 30, .68) 54%, rgba(15, 23, 30, .12));
+}
+
+html[data-theme="dark"] .home-section,
+html[data-theme="dark"] .work-card,
+html[data-theme="dark"] .topic-pills a {
+  background: var(--surface);
+}
+
+html[data-theme="dark"] .home-section.section-soft,
+html[data-theme="dark"] .topic-pills a:hover {
+  background: var(--surface-soft);
+}
+
+html[data-theme="dark"] .hero-actions a,
+html[data-theme="dark"] .elsewhere-links a {
+  background: rgba(19, 29, 37, .78);
+}
+
+html[data-theme="dark"] .hero-actions .primary-link {
+  color: #0f171e;
+  background: var(--navy-deep);
+}
+
+html[data-theme="dark"] .ink-card {
+  background: #172631;
+  border-color: var(--line-strong);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, .18);
+}
+
+html[data-theme="dark"] .ink-card::before {
+  border-color: rgba(143, 184, 218, .13);
+}
+
+html[data-theme="dark"] .ink-card-top,
+html[data-theme="dark"] .ink-card-bottom,
+html[data-theme="dark"] .section-kicker p,
+html[data-theme="dark"] .home-post-list time {
+  color: var(--muted);
+}
+
+html[data-theme="dark"] .profile-motto-script .motto-column {
+  color: #b8d2e7;
+}
+
+html[data-theme="dark"] .section-kicker span,
+html[data-theme="dark"] .topic-pills span,
+html[data-theme="dark"] .about-index span,
+html[data-theme="dark"] .project-no {
+  color: var(--red);
+}
+
+html[data-theme="dark"] .quiet-link {
+  border-bottom-color: var(--line-strong);
+}
+
+html[data-theme="dark"] .now-item p,
+html[data-theme="dark"] .project-summary {
+  color: var(--muted);
+}
+
+html[data-theme="dark"] .tag-row span {
+  color: var(--muted);
+  background: var(--blue-pale);
+  border-color: var(--line);
+}
+
+html[data-theme="dark"] .work-card:hover {
+  border-color: var(--blue);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .18);
+}
+
 @media (max-width: 680px) {
   .nav {
     min-height: 58px;
