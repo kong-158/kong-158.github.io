@@ -663,3 +663,84 @@ class Solution:
 时间复杂度是 `O(m+n)`，额外空间是 `O(1)`。
 
 这题我觉得比较有意思的地方是：**同样是利用单调性，如果从普通位置出发，大于或小于 `target` 时往往仍然存在多个可能方向；但选到右上角 / 左下角这种特殊起点以后，每次比较都只剩一个合理方向。** 关键不是搜索本身，而是先找到一个能让决策变成唯一的起点。
+
+---
+
+### 42. 接雨水
+
+我最开始的想法是先找到一个全局最高峰，把整个问题拆成最高峰左边和右边两部分。
+
+因为最高峰本身一定足够高，所以在最高峰左侧，从左往右扫描时，每个位置能接多少水只取决于左侧目前见过的最高柱子；同理，在最高峰右侧，从右往左扫描时，每个位置只取决于右侧目前见过的最高柱子。
+
+也就是：
+
+```text
+最高峰左侧：water[i] = left_max - height[i]
+最高峰右侧：water[i] = right_max - height[i]
+```
+
+如果当前柱子刷新了这一侧的最高值，就更新 `left_max / right_max`；否则就把高度差加入答案。
+
+这其实已经是 `O(n)` 时间、`O(1)` 额外空间，从复杂度上并不差。只是标准的双指针写法可以把“先找最高峰，再左右各扫一次”进一步合并成一次从两端向中间的扫描。
+
+双指针的核心和前面的「盛最多水的容器」非常像：**还是优先处理低的那一边。** 但这里更准确地说，比较的不是当前 `height[left]` 和 `height[right]`，而是两边到目前为止见过的最高墙：
+
+```text
+left_max
+right_max
+```
+
+对于任意一个位置，真正决定水位的是：
+
+```text
+water[i] = min(左侧最高, 右侧最高) - height[i]
+```
+
+假设现在：
+
+```text
+left_max <= right_max
+```
+
+那么左边这个位置已经可以直接结算。因为右侧已经确定存在一堵高度至少为 `right_max` 的墙，而它又不低于 `left_max`，所以无论中间以后还会出现什么，左边这个位置的水位都只会由 `left_max` 决定：
+
+```text
+min(left_max, 至少 right_max) = left_max
+```
+
+因此可以直接：
+
+```python
+ans += left_max - height[left]
+left += 1
+```
+
+反过来，如果 `right_max < left_max`，就先结算右边并移动 `right`。
+
+代码：
+
+```python
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        left, right = 0, len(height) - 1
+        left_max = 0
+        right_max = 0
+        ans = 0
+
+        while left <= right:
+            left_max = max(left_max, height[left])
+            right_max = max(right_max, height[right])
+
+            if left_max <= right_max:
+                ans += left_max - height[left]
+                left += 1
+            else:
+                ans += right_max - height[right]
+                right -= 1
+
+        return ans
+```
+
+时间复杂度是 `O(n)`，额外空间是 `O(1)`。
+
+这题和「盛最多水的容器」可以放在一起记：**都是从两边往中间走，并优先处理受限制更严重的低侧。** 盛最多水比较的是当前两根柱子的高度；接雨水更准确地比较的是 `left_max` 和 `right_max`。我的“先找最高峰”其实也是同一个逻辑，只是先人为找出一堵肯定足够高的墙；双指针则是在扫描过程中动态判断哪一边已经可以放心结算。
