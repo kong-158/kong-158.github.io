@@ -6,7 +6,6 @@
 ## Public pages
 - `/`: 个人身份、随机毛笔题词、最新写作与主题入口
 - `/writing/`: 全部公开文章
-- `/series/`: 长期系列文章入口
 - `/topics/`: 按主题浏览 Research / CS & AI / Finance / Notes / Life
 - `/archive/`: 按时间归档
 - `/about/`: 简洁个人介绍与网站定位
