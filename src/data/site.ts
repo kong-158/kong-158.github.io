@@ -31,22 +31,11 @@ export const categories = [
   }
 ] as const;
 
-export const series = {
-  'cmc-calculus': {
-    index: '01',
-    title: 'CMC备考｜高数重点及错题整理',
-    shortTitle: 'CMC × 高数',
-    description: '长期更新的 CMC 高数备考页。当前只整理《张宇考研数学题源探析经典1000题》中的高等数学部分。'
-  }
-} as const;
 
 export const topicLabels: Record<string, string> = Object.fromEntries(
   categories.map((category) => [category.slug, category.title])
 );
 
-export const seriesLabels: Record<string, string> = Object.fromEntries(
-  Object.entries(series).map(([slug, item]) => [slug, item.shortTitle])
-);
 
 export const kindLabels: Record<string, string> = {
   note: '笔记',
