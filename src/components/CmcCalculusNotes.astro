@@ -37,6 +37,9 @@ const chapters = [
     <a href="#chapter-2">第二章 数列极限</a>
     <a href="#sequence-convergence">收敛证明</a>
     <a href="#contraction">压缩映射</a>
+    <a href="#chapter-3">第三章 一元函数微分学的概念</a>
+    <a href="#c1-relations">连续 / 可导 / 导数连续</a>
+    <a href="#c1-proof-order">一点性质证明顺序</a>
   </nav>
 
   <h2 id="toc">张宇1000题目录</h2>
@@ -51,7 +54,9 @@ const chapters = [
                 ? <a href="#chapter-1">{i + 1}. {title}</a>
                 : i === 1
                   ? <a href="#chapter-2">{i + 1}. {title}</a>
-                  : `${i + 1}. ${title}`}
+                  : i === 2
+                    ? <a href="#chapter-3">{i + 1}. {title}</a>
+                    : `${i + 1}. ${title}`}
             </td>
             <td>P.{basic}</td>
             <td>P.{advanced}</td>
@@ -221,6 +226,72 @@ const chapters = [
   <p>所以该数列是 Cauchy 数列，从而收敛。</p>
 
   <p class="note"><strong>关键：</strong>不能只验证某一点有 \(|f'(x)|&lt;1\)。严格使用压缩映射时，要在一个不变区间 \(I\) 上统一满足 \(|f'(x)|\le q&lt;1\)。</p>
+
+  <h2 id="chapter-3">第三章 一元函数微分学的概念</h2>
+  <p>本章无错题。核心是连续、可导、导数连续三个层次，以及一点处的证明顺序。</p>
+
+  <h3 id="c1-relations">连续、可导、导数连续</h3>
+  <div class="math">\[
+  \boxed&#123;\text&#123;导数连续&#125;\Longrightarrow\text&#123;可导&#125;\Longrightarrow\text&#123;连续&#125;&#125;
+  \]</div>
+  <p>条件强度从“连续”到“可导”再到“导数连续”依次增强；反向一般不成立。</p>
+
+  <h3 id="c1-proof-order">一点性质：按定义逐层处理</h3>
+
+  <p><strong>1. 证明 \(f\) 在 \(x=a\) 连续：</strong></p>
+  <div class="math">\[
+  \lim_&#123;x\to a^-&#125;f(x)
+  =
+  \lim_&#123;x\to a^+&#125;f(x)
+  =
+  f(a).
+  \]</div>
+
+  <p><strong>2. 证明 \(f\) 在 \(x=a\) 可导：</strong></p>
+  <p>先有连续性，再用导数定义检查左右差商：</p>
+  <div class="math">\[
+  f'_-(a)
+  =
+  \lim_&#123;x\to a^-&#125;
+  \frac&#123;f(x)-f(a)&#125;&#123;x-a&#125;,
+  \qquad
+  f'_+(a)
+  =
+  \lim_&#123;x\to a^+&#125;
+  \frac&#123;f(x)-f(a)&#125;&#123;x-a&#125;.
+  \]</div>
+  <div class="math">\[
+  f'_-(a)=f'_+(a)
+  \quad\Longrightarrow\quad
+  f'(a)\text&#123; 存在&#125;.
+  \]</div>
+
+  <p><strong>3. 证明 \(f'\) 在 \(x=a\) 连续：</strong></p>
+  <p>先由导数定义求出 \(f'(a)\)，再在 \(x\ne a\) 时用求导公式得到 \(f'(x)\)，最后看</p>
+  <div class="math">\[
+  \lim_&#123;x\to a^-&#125;f'(x)
+  =
+  \lim_&#123;x\to a^+&#125;f'(x)
+  =
+  f'(a).
+  \]</div>
+
+  <h3>为什么“可导必连续”</h3>
+  <div class="math">\[
+  f(x)-f(a)
+  =
+  \frac&#123;f(x)-f(a)&#125;&#123;x-a&#125;(x-a).
+  \]</div>
+  <p>若 \(f'(a)\) 存在，则令 \(x\to a\)：</p>
+  <div class="math">\[
+  \lim_&#123;x\to a&#125;[f(x)-f(a)]
+  =
+  f'(a)\cdot0
+  =0,
+  \]</div>
+  <p>所以 \(\lim_&#123;x\to a&#125;f(x)=f(a)\)，即 \(f\) 在 \(a\) 连续。</p>
+
+  <p class="note"><strong>做题顺序：</strong>连续看函数极限；可导看差商极限；导数连续先求 \(f'(a)\)，再看 \(f'(x)\) 的极限。后两步本质上最终仍然都是极限问题。</p>
 </section>
 
 <script is:inline>
