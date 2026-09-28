@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import CmcCalculusNotes from '@/components/CmcCalculusNotes.astro';
 import { getCollection, render } from 'astro:content';
-import { topicLabels, kindLabels, formatDate, series } from '@/data/site';
+import { topicLabels, kindLabels, formatDate } from '@/data/site';
 
 export async function getStaticPaths() {
   const posts = await getCollection('writing', ({ data }) =>
@@ -12,18 +13,13 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const seriesMeta = post.data.series
-  ? series[post.data.series as keyof typeof series]
-  : undefined;
+const isCmcCalculus = post.id === 'cmc-calculus';
 ---
 <BaseLayout title={`${post.data.title}｜KONG`} description={post.data.summary}>
   <article class="report-article">
     <header class="article-header shell-narrow">
       <div class="article-classification">
         {topicLabels[post.data.topic]} · {kindLabels[post.data.kind]}
-        {seriesMeta && (
-          <> · <a href={`/series/${post.data.series}/`}>{seriesMeta.shortTitle}</a></>
-        )}
       </div>
       <h1>{post.data.title}</h1>
       <div class="article-byline">
@@ -35,6 +31,8 @@ const seriesMeta = post.data.series
         <p>{post.data.summary}</p>
       </div>
     </header>
-    <div class="shell-narrow prose"><Content /></div>
+    <div class="shell-narrow prose">
+      {isCmcCalculus ? <CmcCalculusNotes /> : <Content />}
+    </div>
   </article>
 </BaseLayout>
