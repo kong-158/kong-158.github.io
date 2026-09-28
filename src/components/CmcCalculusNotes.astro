@@ -24,7 +24,19 @@ const chapters = [
 <section class="cmc-notes">
   <p><strong>当前资料：</strong>张宇1000题 · 高等数学。</p>
 
-  <h2 id="toc">目录</h2>
+  <nav class="article-toc" aria-label="本文目录">
+    <strong>本文目录</strong>
+    <a href="#toc">张宇1000题目录</a>
+    <a href="#chapter-1">第一章 函数极限与连续</a>
+    <a href="#maclaurin">麦克劳林展开</a>
+    <a href="#error-1">错题1 · 无穷方向</a>
+    <a href="#error-2">错题2 · 17题泰勒</a>
+    <a href="#discontinuity">间断点速记</a>
+    <a href="#error-3">错题3 · 21题</a>
+    <a href="#error-4">错题4 · 22题</a>
+  </nav>
+
+  <h2 id="toc">张宇1000题目录</h2>
   <div class="toc-wrap">
     <table>
       <thead><tr><th>章节</th><th>基础篇</th><th>强化篇</th></tr></thead>
@@ -42,7 +54,7 @@ const chapters = [
 
   <h2 id="chapter-1">第一章 函数极限与连续</h2>
 
-  <h3>常见麦克劳林展开</h3>
+  <h3 id="maclaurin">常见麦克劳林展开</h3>
   <div class="formula-list">
     <div class="math">\[e^x=1+x+\frac&#123;x^2&#125;&#123;2!&#125;+\frac&#123;x^3&#125;&#123;3!&#125;+\cdots\]</div>
     <div class="math">\[\sin x=x-\frac&#123;x^3&#125;&#123;3!&#125;+\frac&#123;x^5&#125;&#123;5!&#125;-\cdots\]</div>
@@ -55,7 +67,7 @@ const chapters = [
     <div class="math">\[\arctan x=x-\frac&#123;x^3&#125;&#123;3&#125;+\frac&#123;x^5&#125;&#123;5&#125;-\cdots\]</div>
   </div>
 
-  <h3>错题 1：无穷方向</h3>
+  <h3 id="error-1">错题 1：无穷方向</h3>
   <div class="math">\[
   f(x)=\frac&#123;e^x-x\arctan x&#125;&#123;e^x+x&#125;.
   \]</div>
@@ -71,7 +83,7 @@ const chapters = [
   \]</div>
   <p class="note">若原题只写 \(x\to+\infty\)，答案就是 \(1\)。</p>
 
-  <h3>错题 2：17题 · 三阶泰勒多项式</h3>
+  <h3 id="error-2">错题 2：17题 · 三阶泰勒多项式</h3>
   <div class="math">\[
   f(x)=\frac&#123;\tan x&#125;&#123;1+x^2&#125;.
   \]</div>
@@ -86,7 +98,7 @@ const chapters = [
   \]</div>
   <div class="math">\[\boxed&#123;P_3(x)=x-\frac23x^3&#125;\]</div>
 
-  <h3>间断点速记</h3>
+  <h3 id="discontinuity">间断点速记</h3>
   <table class="small-table">
     <tbody>
       <tr><td>可去</td><td>左右极限有限且相等，但函数未定义或函数值不等于极限</td></tr>
@@ -96,7 +108,7 @@ const chapters = [
     </tbody>
   </table>
 
-  <h3>错题 3：21题 · 可去间断点</h3>
+  <h3 id="error-3">错题 3：21题 · 可去间断点</h3>
   <div class="math">\[
   f(x)=\frac&#123;|x|^x-1&#125;&#123;x(x+1)\ln|x|&#125;.
   \]</div>
@@ -113,7 +125,7 @@ const chapters = [
   \]</div>
   <div class="math">\[\boxed&#123;\text&#123;可去间断点为 &#125;0,1\text&#123;，共 2 个&#125;&#125;\]</div>
 
-  <h3>错题 4：22题 · 第二类间断点</h3>
+  <h3 id="error-4">错题 4：22题 · 第二类间断点</h3>
   <div class="math">\[
   f(x)=\frac&#123;\ln|1-x|&#125;&#123;(e^x-1)(x+2)&#125;.
   \]</div>
@@ -143,8 +155,19 @@ const chapters = [
 <script is:inline async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
 <style>
-  .cmc-notes h2 { margin-top: 2.2rem; }
-  .cmc-notes h3 { margin-top: 1.9rem; }
+  .cmc-notes h2 { margin-top: 2.2rem; scroll-margin-top: 88px; }
+  .cmc-notes h3 { margin-top: 1.9rem; scroll-margin-top: 88px; }
+  .article-toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .45rem .9rem;
+    margin: 1.2rem 0 1.8rem;
+    padding: .8rem 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .article-toc strong { width: 100%; }
+  .article-toc a { font-size: .95rem; }
   .cmc-notes p { line-height: 1.8; }
   .toc-wrap { overflow-x: auto; }
   .cmc-notes table {
