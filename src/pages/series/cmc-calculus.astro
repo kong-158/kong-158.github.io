@@ -1,0 +1,478 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const chapters = [
+  '函数极限与连续',
+  '数列极限',
+  '一元函数微分学的概念',
+  '一元函数微分学的计算',
+  '一元函数微分学的应用（一）——几何应用',
+  '一元函数微分学的应用（二）——中值定理、微分等式与微分不等式',
+  '一元函数微分学的应用（三）——物理应用',
+  '一元函数积分学的概念与性质',
+  '一元函数积分学的计算',
+  '一元函数积分学的应用（一）——几何应用',
+  '一元函数积分学的应用（二）——积分等式与积分不等式',
+  '一元函数积分学的应用（三）——物理应用',
+  '多元函数微分学',
+  '二重积分',
+  '微分方程',
+  '无穷级数',
+  '多元函数积分学的预备知识',
+  '多元函数积分学'
+];
+
+const basicPages = [7, 12, 15, 20, 24, 30, 36, 37, 46, 62, 68, 73, 76, 84, 92, 98, 104, 107];
+const advancedPages = [189, 201, 207, 214, 219, 232, 240, 241, 248, 256, 265, 268, 270, 288, 304, 320, 335, 341];
+
+const basic = chapters.map((title, i) => ({ no: i + 1, title, page: basicPages[i] }));
+const advanced = chapters.map((title, i) => ({ no: i + 1, title, page: advancedPages[i] }));
+
+const formulaRows = [
+  ['eˣ', '1 + x + x²/2! + x³/3! + x⁴/4! + …'],
+  ['sin x', 'x − x³/3! + x⁵/5! − x⁷/7! + …'],
+  ['cos x', '1 − x²/2! + x⁴/4! − x⁶/6! + …'],
+  ['ln(1+x)', 'x − x²/2 + x³/3 − x⁴/4 + …'],
+  ['ln(1−x)', '−x − x²/2 − x³/3 − x⁴/4 − …'],
+  ['1/(1−x)', '1 + x + x² + x³ + …'],
+  ['1/(1+x)', '1 − x + x² − x³ + x⁴ − …'],
+  ['(1+x)^α', '1 + αx + α(α−1)x²/2! + α(α−1)(α−2)x³/3! + …'],
+  ['arctan x', 'x − x³/3 + x⁵/5 − x⁷/7 + …'],
+  ['arcsin x', 'x + x³/6 + 3x⁵/40 + 5x⁷/112 + …']
+];
+---
+<BaseLayout
+  title="CMC备考｜高数重点及错题整理｜KONG"
+  description="长期更新的 CMC 高数备考页，当前按张宇1000题高等数学部分整理重点、公式与错题。"
+>
+  <section class="page-header cmc-hero">
+    <div class="shell page-hero-copy">
+      <p class="report-label">CMC / CALCULUS / LIVING NOTES</p>
+      <h1>CMC备考｜高数重点及错题整理</h1>
+      <p>持续更新页。当前资料只使用《张宇考研数学题源探析经典1000题》，范围只到高等数学，不纳入线性代数与概率论。</p>
+      <div class="series-meta" aria-label="当前整理范围">
+        <span>当前资料：张宇1000题</span>
+        <span>范围：高等数学</span>
+        <span>结构：基础篇 + 强化篇</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cmc-section" id="toc">
+    <div class="shell">
+      <div class="cmc-heading">
+        <div>
+          <p class="report-label">INDEX / 目录</p>
+          <h2>张宇1000题 · 高数目录</h2>
+        </div>
+        <p>页码按你手头这本书的目录记录。已有整理的章节会出现可点击入口。</p>
+      </div>
+
+      <div class="book-index-grid">
+        <section class="book-index">
+          <div class="book-index-title">
+            <span>01</span>
+            <div>
+              <h3>基础篇</h3>
+              <p>高等数学 · P.3 起</p>
+            </div>
+          </div>
+          <ol>
+            {basic.map((item) => (
+              <li class:list={{ 'has-note': item.no === 1 }}>
+                {item.no === 1 ? (
+                  <a href="#chapter-1">
+                    <span class="chapter-no">{String(item.no).padStart(2, '0')}</span>
+                    <span class="chapter-title">{item.title}</span>
+                    <span class="chapter-page">P.{item.page}</span>
+                  </a>
+                ) : (
+                  <div>
+                    <span class="chapter-no">{String(item.no).padStart(2, '0')}</span>
+                    <span class="chapter-title">{item.title}</span>
+                    <span class="chapter-page">P.{item.page}</span>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section class="book-index">
+          <div class="book-index-title">
+            <span>02</span>
+            <div>
+              <h3>强化篇</h3>
+              <p>高等数学 · P.189 起</p>
+            </div>
+          </div>
+          <ol>
+            {advanced.map((item) => (
+              <li class:list={{ 'has-note': item.no === 1 }}>
+                {item.no === 1 ? (
+                  <a href="#chapter-1">
+                    <span class="chapter-no">{String(item.no).padStart(2, '0')}</span>
+                    <span class="chapter-title">{item.title}</span>
+                    <span class="chapter-page">P.{item.page}</span>
+                  </a>
+                ) : (
+                  <div>
+                    <span class="chapter-no">{String(item.no).padStart(2, '0')}</span>
+                    <span class="chapter-title">{item.title}</span>
+                    <span class="chapter-page">P.{item.page}</span>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ol>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tint cmc-section" id="chapter-1">
+    <div class="shell-narrow">
+      <div class="chapter-kicker">
+        <span>CHAPTER 01</span>
+        <a href="#toc">返回目录 ↑</a>
+      </div>
+      <h2 class="chapter-main-title">函数极限与连续</h2>
+      <p class="chapter-intro">当前先把做题时需要反复调用的展开式整理在这里。后续本章遇到的典型题、易错点和技巧继续追加到本章下面。</p>
+
+      <article class="living-note">
+        <div class="note-label">重点 01</div>
+        <h3>常见麦克劳林展开总结</h3>
+
+        <h4>核心公式</h4>
+        <div class="formula-block">f(x) = f(0) + f′(0)x + f″(0)x²/2! + … + f⁽ⁿ⁾(0)xⁿ/n! + o(xⁿ)</div>
+        <p>做题时真正重要的是：记住高频展开，并且能快速换元；极限题只展开到第一项不被消掉的位置。</p>
+
+        <h4>最常用的一组</h4>
+        <div class="formula-table-wrap">
+          <table class="formula-table">
+            <thead>
+              <tr><th>函数</th><th>Maclaurin 展开</th></tr>
+            </thead>
+            <tbody>
+              {formulaRows.map(([fn, expansion]) => (
+                <tr><td><code>{fn}</code></td><td><code>{expansion}</code></td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <h4>广义二项式</h4>
+        <div class="formula-block">(1+x)^α = 1 + αx + α(α−1)x²/2 + α(α−1)(α−2)x³/6 + O(x⁴)</div>
+        <ul>
+          <li><code>√(1+x) = 1 + x/2 − x²/8 + x³/16 + O(x⁴)</code></li>
+          <li><code>1/√(1+x) = 1 − x/2 + 3x²/8 − 5x³/16 + O(x⁴)</code></li>
+          <li><code>√(1−x) = 1 − x/2 − x²/8 − x³/16 + O(x⁴)</code></li>
+        </ul>
+
+        <h4>考试最常用的低阶形式</h4>
+        <div class="compact-formulas">
+          <code>eˣ = 1 + x + x²/2 + x³/6 + o(x³)</code>
+          <code>sin x = x − x³/6 + o(x³)</code>
+          <code>cos x = 1 − x²/2 + x⁴/24 + o(x⁴)</code>
+          <code>ln(1+x) = x − x²/2 + x³/3 + o(x³)</code>
+          <code>1/(1+x) = 1 − x + x² − x³ + o(x³)</code>
+          <code>(1+x)^α = 1 + αx + α(α−1)x²/2 + o(x²)</code>
+          <code>arctan x = x − x³/3 + o(x³)</code>
+        </div>
+
+        <h4>换元</h4>
+        <div class="compact-formulas">
+          <code>e^(2x) = 1 + 2x + 2x² + 4x³/3 + …</code>
+          <code>ln(1+x²) = x² − x⁴/2 + x⁶/3 + …</code>
+          <code>cos(2x) = 1 − 2x² + 2x⁴/3 + …</code>
+        </div>
+
+        <h4>常用等价无穷小</h4>
+        <div class="equiv-grid">
+          <div>
+            <strong>一级等价</strong>
+            <code>sin x ~ x</code>
+            <code>tan x ~ x</code>
+            <code>arcsin x ~ x</code>
+            <code>arctan x ~ x</code>
+            <code>eˣ − 1 ~ x</code>
+            <code>ln(1+x) ~ x</code>
+            <code>1 − cos x ~ x²/2</code>
+            <code>(1+x)^α − 1 ~ αx</code>
+          </div>
+          <div>
+            <strong>高阶消去后</strong>
+            <code>sin x − x ~ −x³/6</code>
+            <code>tan x − x ~ x³/3</code>
+            <code>eˣ − 1 − x ~ x²/2</code>
+            <code>ln(1+x) − x ~ −x²/2</code>
+            <code>cos x − 1 + x²/2 ~ x⁴/24</code>
+          </div>
+        </div>
+
+        <div class="memory-box">
+          <strong>优先背这 7 个：</strong>
+          <span>eˣ、sin x、cos x、ln(1+x)、1/(1−x)、(1+x)^α、arctan x。</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <style>
+    .cmc-hero { padding-bottom: 54px; }
+    .series-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+    }
+    .series-meta span {
+      padding: 6px 10px;
+      color: var(--navy-deep);
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 650;
+    }
+    .cmc-section { scroll-margin-top: 82px; }
+    .cmc-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 24px;
+    }
+    .cmc-heading .report-label { margin-bottom: 8px; }
+    .cmc-heading h2 {
+      margin: 0;
+      color: var(--navy-deep);
+      font-family: 'Songti SC', STSong, SimSun, serif;
+      font-size: 30px;
+    }
+    .cmc-heading > p {
+      max-width: 460px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: right;
+    }
+    .book-index-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+    .book-index {
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+    }
+    .book-index-title {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 14px;
+      padding: 20px 20px 16px;
+      border-bottom: 2px solid var(--navy-deep);
+    }
+    .book-index-title > span {
+      color: var(--red);
+      font-family: Georgia, serif;
+      font-weight: 700;
+    }
+    .book-index-title h3 {
+      margin: 0;
+      color: var(--navy-deep);
+      font-size: 20px;
+    }
+    .book-index-title p {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .book-index ol {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .book-index li + li { border-top: 1px solid var(--line); }
+    .book-index li > a,
+    .book-index li > div {
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr) 52px;
+      gap: 10px;
+      align-items: start;
+      padding: 11px 14px;
+    }
+    .book-index li > a {
+      background: var(--blue-pale);
+      transition: background .18s ease;
+    }
+    .book-index li > a:hover { background: var(--blue-soft); }
+    .chapter-no {
+      color: var(--red);
+      font-family: Georgia, serif;
+      font-size: 12px;
+    }
+    .chapter-title {
+      color: var(--ink);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .has-note .chapter-title {
+      color: var(--navy-deep);
+      font-weight: 750;
+    }
+    .chapter-page {
+      color: var(--muted);
+      font-family: Georgia, serif;
+      font-size: 11px;
+      text-align: right;
+    }
+    .chapter-kicker {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+    .chapter-kicker a { letter-spacing: 0; }
+    .chapter-main-title {
+      margin: 12px 0 10px;
+      color: var(--navy-deep);
+      font-family: 'Songti SC', STSong, SimSun, serif;
+      font-size: 38px;
+    }
+    .chapter-intro {
+      margin: 0 0 34px;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+    .living-note {
+      padding: 30px 0 0;
+      border-top: 2px solid var(--navy-deep);
+    }
+    .note-label {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: var(--red);
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: .12em;
+    }
+    .living-note h3 {
+      margin: 0 0 28px;
+      color: var(--navy-deep);
+      font-size: 28px;
+    }
+    .living-note h4 {
+      margin: 34px 0 12px;
+      color: var(--navy);
+      font-size: 18px;
+    }
+    .living-note p,
+    .living-note li {
+      color: var(--ink);
+    }
+    .formula-block {
+      overflow-x: auto;
+      padding: 15px 18px;
+      color: var(--ink);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--navy);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    .formula-table-wrap { overflow-x: auto; }
+    .formula-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+    }
+    .formula-table th,
+    .formula-table td {
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    .formula-table th {
+      color: var(--navy-deep);
+      background: var(--blue-pale);
+      font-size: 13px;
+    }
+    .formula-table code,
+    .compact-formulas code,
+    .equiv-grid code,
+    .living-note li code {
+      color: var(--ink);
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+    }
+    .formula-table code {
+      padding: 0;
+      background: transparent;
+      border: 0;
+    }
+    .compact-formulas {
+      display: grid;
+      gap: 8px;
+    }
+    .compact-formulas code,
+    .equiv-grid code {
+      display: block;
+      padding: 8px 10px;
+    }
+    .equiv-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .equiv-grid > div {
+      padding: 14px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+    .equiv-grid strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--navy-deep);
+    }
+    .equiv-grid code + code { margin-top: 7px; }
+    .memory-box {
+      display: grid;
+      gap: 6px;
+      margin-top: 34px;
+      padding: 18px 20px;
+      background: var(--blue-pale);
+      border-left: 4px solid var(--red);
+    }
+    .memory-box strong { color: var(--navy-deep); }
+    .memory-box span { color: var(--ink); }
+
+    @media (max-width: 860px) {
+      .book-index-grid { grid-template-columns: 1fr; }
+      .cmc-heading {
+        align-items: start;
+        flex-direction: column;
+      }
+      .cmc-heading > p { text-align: left; }
+    }
+    @media (max-width: 620px) {
+      .book-index li > a,
+      .book-index li > div {
+        grid-template-columns: 30px minmax(0, 1fr) 42px;
+        gap: 7px;
+        padding: 10px;
+      }
+      .chapter-title { font-size: 12px; }
+      .equiv-grid { grid-template-columns: 1fr; }
+      .chapter-main-title { font-size: 31px; }
+    }
+  </style>
+</BaseLayout>
