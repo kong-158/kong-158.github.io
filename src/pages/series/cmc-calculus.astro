@@ -236,19 +236,19 @@ const formulaRows = [
 
         <h4>题目提取</h4>
         <div class="math-display">\[
-          \lim_{x\to+\infty}
-          \frac{e^x-x\arctan x}{e^x+x}.
+          \lim_&#123;x\to+\infty&#125;
+          \frac&#123;e^x-x\arctan x&#125;&#123;e^x+x&#125;.
         \]</div>
 
         <h4>本题：\(x\to+\infty\)</h4>
         <div class="math-display">\[
-        \begin{aligned}
-        \frac{e^x-x\arctan x}{e^x+x}
-        &=\frac{1-xe^{-x}\arctan x}{1+xe^{-x}}\\
+        \begin&#123;aligned&#125;
+        \frac&#123;e^x-x\arctan x&#125;&#123;e^x+x&#125;
+        &=\frac&#123;1-xe^&#123;-x&#125;\arctan x&#125;&#123;1+xe^&#123;-x&#125;&#125;\\
         &\longrightarrow 1,
-        \end{aligned}
+        \end&#123;aligned&#125;
         \qquad
-        xe^{-x}\to0.
+        xe^&#123;-x&#125;\to0.
         \]</div>
         <div class="memory-box">
           <strong>本题答案：</strong>
@@ -258,19 +258,19 @@ const formulaRows = [
         <h4>易错提醒：若题目要求“两端无穷”</h4>
         <p>这时再补算负无穷方向：</p>
         <div class="math-display">\[
-        \begin{aligned}
-        \lim_{x\to-\infty}
-        \frac{e^x-x\arctan x}{e^x+x}
+        \begin&#123;aligned&#125;
+        \lim_&#123;x\to-\infty&#125;
+        \frac&#123;e^x-x\arctan x&#125;&#123;e^x+x&#125;
         &=
-        \lim_{x\to-\infty}
-        \frac{\frac{e^x}{x}-\arctan x}
-             {\frac{e^x}{x}+1}\\
-        &=\frac{\pi}{2}.
-        \end{aligned}
+        \lim_&#123;x\to-\infty&#125;
+        \frac&#123;\frac&#123;e^x&#125;&#123;x&#125;-\arctan x&#125;
+             &#123;\frac&#123;e^x&#125;&#123;x&#125;+1&#125;\\
+        &=\frac&#123;\pi&#125;&#123;2&#125;.
+        \end&#123;aligned&#125;
         \]</div>
         <p>因此若考察的是 \(|x|\to\infty\)，则两端分别为</p>
         <div class="math-display">\[
-        1\neq \frac{\pi}{2},
+        1\neq \frac&#123;\pi&#125;&#123;2&#125;,
         \]</div>
         <p>所以共同的“两端无穷极限”不存在。</p>
 
@@ -286,35 +286,35 @@ const formulaRows = [
 
         <div class="mistake-summary">
           <strong>错误点</strong>
-          <p>只想到了 \(\tan x\) 的 Maclaurin 展开，却忘了 \(\frac{1}{1+x^2}\) 也必须处理。乘积、商或复合结构中，最好先把所有非多项式部分统一写成</p>
+          <p>只想到了 \(\tan x\) 的 Maclaurin 展开，却忘了 \(\frac&#123;1&#125;&#123;1+x^2&#125;\) 也必须处理。乘积、商或复合结构中，最好先把所有非多项式部分统一写成</p>
           <div class="math-display compact">\[
-            \sum_{t=0}^{n} a_t x^t+o(x^n),
+            \sum_&#123;t=0&#125;^&#123;n&#125; a_t x^t+o(x^n),
           \]</div>
           <p>再进行乘法、合并同次幂与截断。</p>
         </div>
 
         <h4>题目提取</h4>
         <div class="math-display">\[
-          f(x)=\frac{\tan x}{1+x^2},
+          f(x)=\frac&#123;\tan x&#125;&#123;1+x^2&#125;,
           \qquad
-          \text{求 }x=0\text{ 处的三次泰勒多项式。}
+          \text&#123;求 &#125;x=0\text&#123; 处的三次泰勒多项式。&#125;
         \]</div>
 
         <h4>解法</h4>
         <div class="math-display">\[
-        \tan x=x+\frac{x^3}{3}+o(x^3),
+        \tan x=x+\frac&#123;x^3&#125;&#123;3&#125;+o(x^3),
         \qquad
-        \frac1{1+x^2}=1-x^2+o(x^2).
+        \frac1&#123;1+x^2&#125;=1-x^2+o(x^2).
         \]</div>
         <div class="math-display">\[
-        \begin{aligned}
+        \begin&#123;aligned&#125;
         f(x)
         &=
-        \left(x+\frac{x^3}{3}+o(x^3)\right)
+        \left(x+\frac&#123;x^3&#125;&#123;3&#125;+o(x^3)\right)
         \left(1-x^2+o(x^2)\right)\\
-        &=x-x^3+\frac{x^3}{3}+o(x^3)\\
+        &=x-x^3+\frac&#123;x^3&#125;&#123;3&#125;+o(x^3)\\
         &=x-\frac23x^3+o(x^3).
-        \end{aligned}
+        \end&#123;aligned&#125;
         \]</div>
         <div class="memory-box">
           <strong>答案：</strong>
@@ -324,7 +324,7 @@ const formulaRows = [
         <h4>泰勒乘法的固定流程</h4>
         <ol class="rule-list">
           <li>先确定目标阶数 \(n\)。三阶就只关心 \(x^0,x^1,x^2,x^3\)。</li>
-          <li>把所有非多项式因子统一展开成 \(\sum_{t=0}^n a_tx^t+o(x^n)\) 的形式。</li>
+          <li>把所有非多项式因子统一展开成 \(\sum_&#123;t=0&#125;^n a_tx^t+o(x^n)\) 的形式。</li>
           <li>相乘或相除后按“总次数”筛项，次数 \(>n\) 的项直接丢弃。</li>
           <li>最后合并同次幂，得到 Taylor 多项式；不要在展开前凭感觉删项。</li>
         </ol>
@@ -332,11 +332,11 @@ const formulaRows = [
         <h4>本题直接调用的 Maclaurin 公式</h4>
         <div class="math-display">\[
         \tan x
-        =x+\frac{x^3}{3}+\frac{2x^5}{15}
-        +\frac{17x^7}{315}+\cdots,
+        =x+\frac&#123;x^3&#125;&#123;3&#125;+\frac&#123;2x^5&#125;&#123;15&#125;
+        +\frac&#123;17x^7&#125;&#123;315&#125;+\cdots,
         \]</div>
         <div class="math-display">\[
-        \frac1{1+x^2}
+        \frac1&#123;1+x^2&#125;
         =1-x^2+x^4-x^6+\cdots.
         \]</div>
         <p>这些公式已经并入本章前面的“常见麦克劳林展开”速查区。</p>
@@ -373,26 +373,26 @@ const formulaRows = [
         <h4>题目提取</h4>
         <div class="math-display">\[
           f(x)=
-          \frac{|x|^x-1}
-               {x(x+1)\ln|x|},
+          \frac&#123;|x|^x-1&#125;
+               &#123;x(x+1)\ln|x|&#125;,
           \qquad
-          \text{求可去间断点的个数。}
+          \text&#123;求可去间断点的个数。&#125;
         \]</div>
 
         <h4>Step 1：先提取全部候选点</h4>
         <p>从定义域和分母同时检查：</p>
         <div class="math-display">\[
-        \begin{cases}
-        x\neq0, & |x|^x=e^{x\ln|x|}\text{ 要求 }\ln|x|\text{ 有定义},\\
+        \begin&#123;cases&#125;
+        x\neq0, & |x|^x=e^&#123;x\ln|x|&#125;\text&#123; 要求 &#125;\ln|x|\text&#123; 有定义&#125;,\\
         x\neq-1, & x+1\neq0,\\
         \ln|x|\neq0
         \iff |x|\neq1
         \iff x\neq\pm1.
-        \end{cases}
+        \end&#123;cases&#125;
         \]</div>
         <p>因此所有候选间断点一次性列为</p>
         <div class="math-display">\[
-          \boxed{\mathcal C=\{-1,\,0,\,1\}}.
+          \boxed&#123;\mathcal C=\&#123;-1,\,0,\,1\&#125;&#125;.
         \]</div>
 
         <h4>Step 2：逐点判断</h4>
@@ -402,13 +402,13 @@ const formulaRows = [
             <div class="math-display compact">\[
               x\ln|x|\to0,
               \qquad
-              |x|^x-1=e^{x\ln|x|}-1\sim x\ln|x|.
+              |x|^x-1=e^&#123;x\ln|x|&#125;-1\sim x\ln|x|.
             \]</div>
             <div class="math-display compact">\[
               f(x)\sim
-              \frac{x\ln|x|}
-                   {x(x+1)\ln|x|}
-              =\frac1{x+1}\to1.
+              \frac&#123;x\ln|x|&#125;
+                   &#123;x(x+1)\ln|x|&#125;
+              =\frac1&#123;x+1&#125;\to1.
             \]</div>
             <p>极限存在且有限，而原函数在 \(x=0\) 处无定义，所以 \(x=0\) 是可去间断点。</p>
           </div>
@@ -416,12 +416,12 @@ const formulaRows = [
           <div>
             <strong>② \(x\to1\)</strong>
             <div class="math-display compact">\[
-              |x|^x-1=x^x-1=e^{x\ln x}-1\sim x\ln x.
+              |x|^x-1=x^x-1=e^&#123;x\ln x&#125;-1\sim x\ln x.
             \]</div>
             <div class="math-display compact">\[
               f(x)\sim
-              \frac{x\ln x}{x(x+1)\ln x}
-              =\frac1{x+1}\to\frac12.
+              \frac&#123;x\ln x&#125;&#123;x(x+1)\ln x&#125;
+              =\frac1&#123;x+1&#125;\to\frac12.
             \]</div>
             <p>因此 \(x=1\) 也是可去间断点。</p>
           </div>
@@ -436,7 +436,7 @@ const formulaRows = [
             \]</div>
             <div class="math-display compact">\[
             |x|^x-1
-            =e^{x\ln|x|}-1
+            =e^&#123;x\ln|x|&#125;-1
             \sim h,
             \]</div>
             <div class="math-display compact">\[
@@ -452,7 +452,7 @@ const formulaRows = [
 
         <div class="memory-box">
           <strong>结论：</strong>
-          <span>可去间断点为 \(x=0,1\)，共 \(\boxed{2}\) 个，选 C。</span>
+          <span>可去间断点为 \(x=0,1\)，共 \(\boxed&#123;2&#125;\) 个，选 C。</span>
         </div>
       </article>
 
@@ -463,27 +463,27 @@ const formulaRows = [
         <h4>题目提取</h4>
         <div class="math-display">\[
           f(x)=
-          \frac{\ln|1-x|}
-               {(e^x-1)(x+2)},
+          \frac&#123;\ln|1-x|&#125;
+               &#123;(e^x-1)(x+2)&#125;,
           \qquad
-          \text{求第二类间断点的个数。}
+          \text&#123;求第二类间断点的个数。&#125;
         \]</div>
 
         <h4>Step 1：先提取全部候选点</h4>
         <p>分别检查对数和分母：</p>
         <div class="math-display">\[
-        \begin{aligned}
+        \begin&#123;aligned&#125;
         \ln|1-x|&:\quad |1-x|>0
         \iff x\neq1,\\
         e^x-1&=0
         \iff x=0,\\
         x+2&=0
         \iff x=-2.
-        \end{aligned}
+        \end&#123;aligned&#125;
         \]</div>
         <p>所以候选集合为</p>
         <div class="math-display">\[
-          \boxed{\mathcal C=\{-2,\,0,\,1\}}.
+          \boxed&#123;\mathcal C=\&#123;-2,\,0,\,1\&#125;&#125;.
         \]</div>
 
         <h4>Step 2：逐点判断</h4>
@@ -497,7 +497,7 @@ const formulaRows = [
             \]</div>
             <div class="math-display compact">\[
               f(x)\sim
-              \frac{-x}{x\cdot2}
+              \frac&#123;-x&#125;&#123;x\cdot2&#125;
               \to-\frac12.
             \]</div>
             <p>极限有限，因此 \(x=0\) 是可去间断点，属于第一类，不计入本题答案。</p>
@@ -508,12 +508,12 @@ const formulaRows = [
             <div class="math-display compact">\[
               \ln|1-x|\to\ln3\neq0,
               \qquad
-              e^x-1\to e^{-2}-1\neq0.
+              e^x-1\to e^&#123;-2&#125;-1\neq0.
             \]</div>
             <p>只有 \(x+2\to0\)，所以本质上是 \(C/(x+2)\) 型：</p>
             <div class="math-display compact">\[
               f(x)\sim
-              \frac{\ln3}{(e^{-2}-1)(x+2)}.
+              \frac&#123;\ln3&#125;&#123;(e^&#123;-2&#125;-1)(x+2)&#125;.
             \]</div>
             <p>两个单侧极限分别为异号无穷，因此 \(x=-2\) 是无穷间断点，属于第二类。</p>
           </div>
@@ -534,7 +534,7 @@ const formulaRows = [
 
         <div class="memory-box">
           <strong>结论：</strong>
-          <span>第二类间断点为 \(x=-2,1\)，共 \(\boxed{2}\) 个，选 C。</span>
+          <span>第二类间断点为 \(x=-2,1\)，共 \(\boxed&#123;2&#125;\) 个，选 C。</span>
         </div>
       </article>
     </div>
