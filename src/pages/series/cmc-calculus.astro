@@ -32,6 +32,7 @@ const formulaRows = [
   ['eˣ', '1 + x + x²/2! + x³/3! + x⁴/4! + …'],
   ['sin x', 'x − x³/3! + x⁵/5! − x⁷/7! + …'],
   ['cos x', '1 − x²/2! + x⁴/4! − x⁶/6! + …'],
+  ['tan x', 'x + x³/3 + 2x⁵/15 + 17x⁷/315 + …'],
   ['ln(1+x)', 'x − x²/2 + x³/3 − x⁴/4 + …'],
   ['ln(1−x)', '−x − x²/2 − x³/3 − x⁴/4 − …'],
   ['1/(1−x)', '1 + x + x² + x³ + …'],
@@ -137,9 +138,17 @@ const formulaRows = [
         <a href="#toc">返回目录 ↑</a>
       </div>
       <h2 class="chapter-main-title">函数极限与连续</h2>
-      <p class="chapter-intro">当前先把做题时需要反复调用的展开式整理在这里。后续本章遇到的典型题、易错点和技巧继续追加到本章下面。</p>
+      <p class="chapter-intro">本章按“重点速查 + 错题复盘”持续更新。当前整理张宇1000题中函数极限与连续部分，重点记录真正导致失分的判断细节与可复用方法。</p>
 
-      <article class="living-note">
+      <nav class="chapter-local-index" aria-label="第一章页内目录">
+        <a href="#ch1-key-01"><span>重点 01</span>常见麦克劳林展开</a>
+        <a href="#ch1-error-01"><span>错题 01</span>±∞ 两端极限</a>
+        <a href="#ch1-error-02"><span>错题 02</span>17题 · 三阶泰勒多项式</a>
+        <a href="#ch1-error-03"><span>错题 03</span>21题 · 可去间断点</a>
+        <a href="#ch1-error-04"><span>错题 04</span>22题 · 第二类间断点</a>
+      </nav>
+
+      <article class="living-note" id="ch1-key-01">
         <div class="note-label">重点 01</div>
         <h3>常见麦克劳林展开总结</h3>
 
@@ -213,6 +222,164 @@ const formulaRows = [
         <div class="memory-box">
           <strong>优先背这 7 个：</strong>
           <span>eˣ、sin x、cos x、ln(1+x)、1/(1−x)、(1+x)^α、arctan x。</span>
+        </div>
+      </article>
+
+      <article class="living-note mistake-note" id="ch1-error-01">
+        <div class="note-label">错题 01 · 极限</div>
+        <h3>无穷远处：必须区分 +∞ 与 −∞</h3>
+        <div class="mistake-summary">
+          <strong>错误点</strong>
+          <p>把“无穷远处”当成一个方向处理，忘记在题目要求考察两端无穷（即 |x|→∞）时，必须分别计算 x→+∞ 与 x→−∞。只有两端极限相同，整体极限才存在。</p>
+        </div>
+
+        <h4>题目</h4>
+        <div class="formula-block">f(x) = (eˣ − x·arctan x) / (eˣ + x)</div>
+
+        <h4>正确处理</h4>
+        <div class="solution-steps">
+          <div>
+            <strong>① x → +∞</strong>
+            <code>(eˣ − x·arctan x)/(eˣ + x) = [1 − x·e^(−x)·arctan x]/[1 + x·e^(−x)] → 1</code>
+            <p>因为 x·e^(−x) → 0。</p>
+          </div>
+          <div>
+            <strong>② x → −∞</strong>
+            <code>(eˣ − x·arctan x)/(eˣ + x) = [eˣ/x − arctan x]/[eˣ/x + 1] → π/2</code>
+            <p>因为 eˣ/x → 0，且 arctan x → −π/2。</p>
+          </div>
+        </div>
+
+        <div class="memory-box">
+          <strong>结论：</strong>
+          <span>两端分别得到 1 与 π/2，不相等。因此若题目考察的是 |x|→∞ 的两端极限，则极限不存在。</span>
+        </div>
+      </article>
+
+      <article class="living-note mistake-note" id="ch1-error-02">
+        <div class="note-label">错题 02 · 张宇1000题 17题</div>
+        <h3>三阶泰勒多项式：先把所有因子都化成 x 的幂</h3>
+        <div class="mistake-summary">
+          <strong>错误点</strong>
+          <p>记得 tan x 的展开，却没有把分母 1/(1+x²) 同样展开，导致不能正确做乘法截断。遇到乘、除、复合结构时，应先把所有非多项式因子统一化成 Σaₜxᵗ 的形式，再按目标阶数保留。</p>
+        </div>
+
+        <h4>题目</h4>
+        <div class="formula-block">f(x) = tan x / (1+x²)，求 x=0 处的 3 次泰勒多项式。</div>
+
+        <h4>解法</h4>
+        <div class="compact-formulas">
+          <code>tan x = x + x³/3 + o(x³)</code>
+          <code>1/(1+x²) = 1 − x² + o(x²)</code>
+          <code>f(x) = (x + x³/3)(1 − x²) + o(x³)</code>
+          <code>= x + x³/3 − x³ + o(x³)</code>
+          <code>= x − 2x³/3 + o(x³)</code>
+        </div>
+        <div class="memory-box">
+          <strong>答案：</strong>
+          <span>P₃(x) = x − 2x³/3。</span>
+        </div>
+
+        <h4>泰勒乘法的固定流程</h4>
+        <ol class="rule-list">
+          <li>先看题目要求到几阶，例如“三阶”意味着最终只保留 x⁰、x¹、x²、x³。</li>
+          <li>把每个非多项式因子都展开成 x 的幂级数。</li>
+          <li>相乘后把总次数大于目标阶数的项全部丢掉。</li>
+          <li>最后再合并同次幂系数，不要在展开前凭感觉约掉高阶项。</li>
+        </ol>
+
+        <h4>本题额外要记</h4>
+        <div class="compact-formulas">
+          <code>tan x = x + x³/3 + 2x⁵/15 + …</code>
+          <code>1/(1+x²) = 1 − x² + x⁴ − x⁶ + …</code>
+        </div>
+        <p>上面的“常见麦克劳林展开”表已经补入 tan x；做类似题时优先从那张表调用。</p>
+      </article>
+
+      <article class="living-note mistake-note" id="ch1-error-03">
+        <div class="note-label">错题 03 · 张宇1000题 21题</div>
+        <h3>可去间断点：先找候选点，再逐点算极限</h3>
+
+        <div class="knowledge-card">
+          <strong>间断点分类速查</strong>
+          <div class="discontinuity-grid">
+            <div><b>可去间断点</b><span>左右极限都存在、有限且相等，但函数未定义或函数值不等于该极限。</span></div>
+            <div><b>跳跃间断点</b><span>左右极限都存在且有限，但不相等。</span></div>
+            <div><b>无穷间断点</b><span>至少一个单侧极限为 ±∞。</span></div>
+            <div><b>振荡间断点</b><span>至少一个单侧极限因振荡而不存在。</span></div>
+          </div>
+          <p>前两类属于第一类间断点；无穷、振荡等属于第二类间断点。看到“0/0”只能说明需要继续算极限，不能直接判断为可去。</p>
+        </div>
+
+        <h4>题目</h4>
+        <div class="formula-block">f(x) = (|x|ˣ − 1) / [x(x+1)ln|x|]，求可去间断点的个数。</div>
+
+        <h4>第一步：找所有候选间断点</h4>
+        <p>由分母与对数定义域得到候选点 x = −1、0、1。分别判断。</p>
+
+        <div class="solution-steps">
+          <div>
+            <strong>① x → 0</strong>
+            <code>|x|ˣ − 1 = e^(x ln|x|) − 1 ~ x ln|x|</code>
+            <code>f(x) ~ [x ln|x|]/[x(x+1)ln|x|] = 1/(x+1) → 1</code>
+            <p>极限有限，x=0 处原式无定义，因此 x=0 是可去间断点。</p>
+          </div>
+          <div>
+            <strong>② x → 1</strong>
+            <code>|x|ˣ − 1 = e^(x ln x) − 1 ~ x ln x</code>
+            <code>f(x) ~ [x ln x]/[x(x+1)ln x] = 1/(x+1) → 1/2</code>
+            <p>极限有限，x=1 是可去间断点。</p>
+          </div>
+          <div>
+            <strong>③ x → −1</strong>
+            <p>令 x = −1+h，则 |x| = 1−h。</p>
+            <code>x ln|x| = (−1+h)ln(1−h) ~ h</code>
+            <code>|x|ˣ − 1 ~ h</code>
+            <code>x(x+1)ln|x| ~ (−1)·h·(−h) = h²</code>
+            <code>f(x) ~ 1/h</code>
+            <p>左右分别趋于 ±∞，所以 x=−1 为第二类间断点，不可去。</p>
+          </div>
+        </div>
+
+        <div class="memory-box">
+          <strong>答案：</strong>
+          <span>可去间断点为 x=0、x=1，共 2 个，选 C。</span>
+        </div>
+      </article>
+
+      <article class="living-note mistake-note" id="ch1-error-04">
+        <div class="note-label">错题 04 · 张宇1000题 22题</div>
+        <h3>第二类间断点：定义域异常点全部列出，一个都别漏</h3>
+
+        <h4>题目</h4>
+        <div class="formula-block">f(x) = ln|1−x| / [(eˣ−1)(x+2)]，求第二类间断点的个数。</div>
+
+        <h4>第一步：找候选点</h4>
+        <p>分母给出 x=0、x=−2；对数 ln|1−x| 在 x=1 无定义。因此必须检查 −2、0、1 三个点。</p>
+
+        <div class="solution-steps">
+          <div>
+            <strong>① x → 0</strong>
+            <code>ln|1−x| = ln(1−x) ~ −x，eˣ−1 ~ x</code>
+            <code>f(x) ~ (−x)/(2x) → −1/2</code>
+            <p>极限有限，因此 x=0 是可去间断点，不属于第二类。</p>
+          </div>
+          <div>
+            <strong>② x → −2</strong>
+            <code>ln|1−x| → ln3，eˣ−1 → e^(−2)−1 ≠ 0</code>
+            <p>只剩下因子 x+2 → 0，所以函数按 1/(x+2) 型发散；左右单侧极限为异号无穷。x=−2 是无穷间断点，属于第二类。</p>
+          </div>
+          <div>
+            <strong>③ x → 1</strong>
+            <code>ln|1−x| → −∞</code>
+            <code>(eˣ−1)(x+2) → 3(e−1) &gt; 0</code>
+            <p>因此 f(x) → −∞。x=1 是无穷间断点，属于第二类。</p>
+          </div>
+        </div>
+
+        <div class="memory-box">
+          <strong>答案：</strong>
+          <span>第二类间断点为 x=−2、x=1，共 2 个，选 C。</span>
         </div>
       </article>
     </div>
@@ -454,6 +621,94 @@ const formulaRows = [
     }
     .memory-box strong { color: var(--navy-deep); }
     .memory-box span { color: var(--ink); }
+    .chapter-local-index {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin: 0 0 34px;
+    }
+    .chapter-local-index a {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      padding: 10px 12px;
+      color: var(--ink);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      font-size: 13px;
+    }
+    .chapter-local-index a:first-child { grid-column: 1 / -1; }
+    .chapter-local-index span {
+      flex: 0 0 auto;
+      color: var(--red);
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .mistake-note {
+      margin-top: 46px;
+      scroll-margin-top: 94px;
+    }
+    .mistake-summary,
+    .knowledge-card {
+      margin: 16px 0 26px;
+      padding: 16px 18px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--red);
+    }
+    .mistake-summary strong,
+    .knowledge-card > strong {
+      color: var(--navy-deep);
+    }
+    .mistake-summary p,
+    .knowledge-card p {
+      margin: 6px 0 0;
+    }
+    .solution-steps {
+      display: grid;
+      gap: 12px;
+    }
+    .solution-steps > div {
+      padding: 15px 16px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+    .solution-steps strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--navy-deep);
+    }
+    .solution-steps code {
+      display: block;
+      overflow-x: auto;
+      margin: 6px 0;
+      padding: 8px 10px;
+      color: var(--ink);
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .solution-steps p { margin: 8px 0 0; }
+    .rule-list { padding-left: 22px; }
+    .rule-list li + li { margin-top: 7px; }
+    .discontinuity-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .discontinuity-grid > div {
+      display: grid;
+      gap: 4px;
+      padding: 10px 12px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+    }
+    .discontinuity-grid b { color: var(--navy); }
+    .discontinuity-grid span { color: var(--ink); font-size: 13px; }
 
     @media (max-width: 860px) {
       .book-index-grid { grid-template-columns: 1fr; }
@@ -471,7 +726,10 @@ const formulaRows = [
         padding: 10px;
       }
       .chapter-title { font-size: 12px; }
-      .equiv-grid { grid-template-columns: 1fr; }
+      .equiv-grid,
+      .discontinuity-grid,
+      .chapter-local-index { grid-template-columns: 1fr; }
+      .chapter-local-index a:first-child { grid-column: auto; }
       .chapter-main-title { font-size: 31px; }
     }
   </style>
