@@ -4,10 +4,12 @@ import { getCollection } from 'astro:content';
 import { series, topicLabels, kindLabels, formatDate } from '@/data/site';
 
 export function getStaticPaths() {
-  return Object.entries(series).map(([slug, item]) => ({
-    params: { slug },
-    props: { slug, item }
-  }));
+  return Object.entries(series)
+    .filter(([slug]) => slug !== 'cmc-calculus')
+    .map(([slug, item]) => ({
+      params: { slug },
+      props: { slug, item }
+    }));
 }
 
 const { slug, item } = Astro.props;
@@ -42,7 +44,7 @@ const posts = (await getCollection('writing', ({ data }) =>
       ) : (
         <div class="quiet-empty">
           <strong>这个系列已经建好。</strong>
-          <p>第一批笔记正在整理，公开后会按时间出现在这里。</p>
+          <p>内容会持续补充。</p>
         </div>
       )}
     </div>
