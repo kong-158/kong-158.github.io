@@ -36,7 +36,7 @@ export const series = {
     index: '01',
     title: 'CMC备考｜高数重点及错题整理',
     shortTitle: 'CMC × 高数',
-    description: '围绕 CMC 备考，持续整理高等数学中的重点结论、常见展开、典型题与错题复盘。'
+    description: '长期更新的 CMC 高数备考页。当前只整理《张宇考研数学题源探析经典1000题》中的高等数学部分。'
   }
 } as const;
 
