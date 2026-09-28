@@ -11,7 +11,6 @@ const writing = defineCollection({
     updatedAt: z.coerce.date().optional(),
     topic: z.enum(['research', 'cs-ai', 'finance', 'notes', 'life']),
     kind: z.enum(['note', 'tutorial', 'review', 'essay', 'report', 'field-note']),
-    series: z.string().optional(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(true),
     visibility: z.enum(['private', 'unlisted', 'public']).default('private'),
