@@ -72,7 +72,8 @@ jobs:
               && printf '%s' "$topics" | grep -q 'SECTIONS / 内容栏目' \
               && printf '%s' "$legacy" | grep -q "location.replace('/topics/'" \
               && printf '%s' "$cmc" | grep -q 'CMC备考｜高数重点及错题整理' \
-              && printf '%s' "$cmc" | grep -q '张宇1000题'; then
+              && printf '%s' "$cmc" | grep -q '张宇1000题' \
+              && printf '%s' "$cmc" | grep -q '第二章 数列极限'; then
               echo 'Homepage, topics, CMC writing note, and legacy redirect are live.'
               exit 0
             fi
