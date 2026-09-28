@@ -17,6 +17,12 @@
 - `report`: 研究整理
 - `field-note`: 实践记录
 
+## Series
+`series` 是可选字段，用来把同一长期专题下的多篇文章串在一起。系列元数据统一登记在 `src/data/site.ts`。
+
+当前系列：
+- `cmc-calculus`: CMC备考｜高数重点及错题整理
+
 ## Visibility
 - `private`: 不构建、不公开
 - `unlisted`: 可通过直接链接访问，但不进入列表、分类与归档
