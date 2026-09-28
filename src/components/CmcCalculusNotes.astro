@@ -1,0 +1,174 @@
+---
+const chapters = [
+  ['函数极限与连续', 7, 189],
+  ['数列极限', 12, 201],
+  ['一元函数微分学的概念', 15, 207],
+  ['一元函数微分学的计算', 20, 214],
+  ['一元函数微分学的应用（一）——几何应用', 24, 219],
+  ['一元函数微分学的应用（二）——中值定理、微分等式与微分不等式', 30, 232],
+  ['一元函数微分学的应用（三）——物理应用', 36, 240],
+  ['一元函数积分学的概念与性质', 37, 241],
+  ['一元函数积分学的计算', 46, 248],
+  ['一元函数积分学的应用（一）——几何应用', 62, 256],
+  ['一元函数积分学的应用（二）——积分等式与积分不等式', 68, 265],
+  ['一元函数积分学的应用（三）——物理应用', 73, 268],
+  ['多元函数微分学', 76, 270],
+  ['二重积分', 84, 288],
+  ['微分方程', 92, 304],
+  ['无穷级数', 98, 320],
+  ['多元函数积分学的预备知识', 104, 335],
+  ['多元函数积分学', 107, 341]
+];
+---
+
+<section class="cmc-notes">
+  <p><strong>当前资料：</strong>张宇1000题 · 高等数学。</p>
+
+  <h2 id="toc">目录</h2>
+  <div class="toc-wrap">
+    <table>
+      <thead><tr><th>章节</th><th>基础篇</th><th>强化篇</th></tr></thead>
+      <tbody>
+        {chapters.map(([title, basic, advanced], i) => (
+          <tr>
+            <td>{i === 0 ? <a href="#chapter-1">{i + 1}. {title}</a> : `${i + 1}. ${title}`}</td>
+            <td>P.{basic}</td>
+            <td>P.{advanced}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="chapter-1">第一章 函数极限与连续</h2>
+
+  <h3>常见麦克劳林展开</h3>
+  <div class="formula-list">
+    <div class="math">\[e^x=1+x+\frac&#123;x^2&#125;&#123;2!&#125;+\frac&#123;x^3&#125;&#123;3!&#125;+\cdots\]</div>
+    <div class="math">\[\sin x=x-\frac&#123;x^3&#125;&#123;3!&#125;+\frac&#123;x^5&#125;&#123;5!&#125;-\cdots\]</div>
+    <div class="math">\[\cos x=1-\frac&#123;x^2&#125;&#123;2!&#125;+\frac&#123;x^4&#125;&#123;4!&#125;-\cdots\]</div>
+    <div class="math">\[\tan x=x+\frac&#123;x^3&#125;&#123;3&#125;+\frac&#123;2x^5&#125;&#123;15&#125;+\cdots\]</div>
+    <div class="math">\[\ln(1+x)=x-\frac&#123;x^2&#125;&#123;2&#125;+\frac&#123;x^3&#125;&#123;3&#125;-\cdots\]</div>
+    <div class="math">\[\frac1&#123;1-x&#125;=1+x+x^2+x^3+\cdots\]</div>
+    <div class="math">\[\frac1&#123;1+x&#125;=1-x+x^2-x^3+\cdots\]</div>
+    <div class="math">\[(1+x)^\alpha=1+\alpha x+\frac&#123;\alpha(\alpha-1)&#125;&#123;2&#125;x^2+\frac&#123;\alpha(\alpha-1)(\alpha-2)&#125;&#123;6&#125;x^3+\cdots\]</div>
+    <div class="math">\[\arctan x=x-\frac&#123;x^3&#125;&#123;3&#125;+\frac&#123;x^5&#125;&#123;5&#125;-\cdots\]</div>
+  </div>
+
+  <h3>错题 1：无穷方向</h3>
+  <div class="math">\[
+  f(x)=\frac&#123;e^x-x\arctan x&#125;&#123;e^x+x&#125;.
+  \]</div>
+  <p><strong>错因：</strong>涉及 \(x\to\pm\infty\) 时忘记分两个方向。</p>
+  <div class="math">\[
+  \lim_&#123;x\to+\infty&#125;f(x)=1,\qquad
+  \lim_&#123;x\to-\infty&#125;f(x)=\frac&#123;\pi&#125;&#123;2&#125;.
+  \]</div>
+  <div class="math">\[
+  1\neq\frac&#123;\pi&#125;&#123;2&#125;
+  \Longrightarrow
+  \lim_&#123;|x|\to\infty&#125;f(x)\text&#123; 不存在&#125;.
+  \]</div>
+  <p class="note">若原题只写 \(x\to+\infty\)，答案就是 \(1\)。</p>
+
+  <h3>错题 2：17题 · 三阶泰勒多项式</h3>
+  <div class="math">\[
+  f(x)=\frac&#123;\tan x&#125;&#123;1+x^2&#125;.
+  \]</div>
+  <p><strong>错因：</strong>所有非多项式部分先写成 \(\sum_&#123;t=0&#125;^n a_tx^t\) 的形式，再统一乘开、截断。</p>
+  <div class="math">\[
+  \tan x=x+\frac&#123;x^3&#125;&#123;3&#125;+o(x^3),\qquad
+  \frac1&#123;1+x^2&#125;=1-x^2+o(x^2).
+  \]</div>
+  <div class="math">\[
+  f(x)=\left(x+\frac&#123;x^3&#125;&#123;3&#125;\right)(1-x^2)+o(x^3)
+  =x-\frac23x^3+o(x^3).
+  \]</div>
+  <div class="math">\[\boxed&#123;P_3(x)=x-\frac23x^3&#125;\]</div>
+
+  <h3>间断点速记</h3>
+  <table class="small-table">
+    <tbody>
+      <tr><td>可去</td><td>左右极限有限且相等，但函数未定义或函数值不等于极限</td></tr>
+      <tr><td>跳跃</td><td>左右极限都有限，但不相等</td></tr>
+      <tr><td>无穷</td><td>至少一个单侧极限为 \(\pm\infty\)</td></tr>
+      <tr><td>振荡</td><td>至少一个单侧极限因振荡不存在</td></tr>
+    </tbody>
+  </table>
+
+  <h3>错题 3：21题 · 可去间断点</h3>
+  <div class="math">\[
+  f(x)=\frac&#123;|x|^x-1&#125;&#123;x(x+1)\ln|x|&#125;.
+  \]</div>
+  <p><strong>候选点：</strong>先检查分母和对数定义域，得到 \(\mathcal C=\&#123;-1,0,1\&#125;\)。</p>
+  <div class="math">\[
+  \begin&#123;aligned&#125;
+  x\to0:&\quad |x|^x-1=e^&#123;x\ln|x|&#125;-1\sim x\ln|x|,
+  &&f(x)\to1;\\
+  x\to1:&\quad |x|^x-1\sim x\ln x,
+  &&f(x)\to\frac12;\\
+  x\to-1:&\quad x=-1+h,\ f(x)\sim\frac1h,
+  &&|f(x)|\to\infty.
+  \end&#123;aligned&#125;
+  \]</div>
+  <div class="math">\[\boxed&#123;\text&#123;可去间断点为 &#125;0,1\text&#123;，共 2 个&#125;&#125;\]</div>
+
+  <h3>错题 4：22题 · 第二类间断点</h3>
+  <div class="math">\[
+  f(x)=\frac&#123;\ln|1-x|&#125;&#123;(e^x-1)(x+2)&#125;.
+  \]</div>
+  <p><strong>候选点：</strong>分母给出 \(0,-2\)，对数定义域再给出 \(1\)，所以 \(\mathcal C=\&#123;-2,0,1\&#125;\)。</p>
+  <div class="math">\[
+  \begin&#123;aligned&#125;
+  x\to0:&\quad \ln(1-x)\sim-x,\ e^x-1\sim x,
+  &&f(x)\to-\frac12;\\
+  x\to-2:&\quad f(x)\sim
+  \frac&#123;\ln3&#125;&#123;(e^&#123;-2&#125;-1)(x+2)&#125;,
+  &&|f(x)|\to\infty;\\
+  x\to1:&\quad \ln|1-x|\to-\infty,
+  &&f(x)\to-\infty.
+  \end&#123;aligned&#125;
+  \]</div>
+  <div class="math">\[\boxed&#123;\text&#123;第二类间断点为 &#125;-2,1\text&#123;，共 2 个&#125;&#125;\]</div>
+</section>
+
+<script is:inline>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']],
+      displayMath: [['\\[', '\\]']]
+    }
+  };
+</script>
+<script is:inline async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+<style>
+  .cmc-notes h2 { margin-top: 2.2rem; }
+  .cmc-notes h3 { margin-top: 1.9rem; }
+  .cmc-notes p { line-height: 1.8; }
+  .toc-wrap { overflow-x: auto; }
+  .cmc-notes table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+  }
+  .cmc-notes th,
+  .cmc-notes td {
+    padding: .55rem .7rem;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+  }
+  .formula-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 2rem;
+  }
+  .math { overflow-x: auto; margin: .4rem 0; }
+  .math mjx-container[display="true"] { margin: .55em 0 !important; text-align: left !important; }
+  .note { color: var(--muted); }
+  .small-table td:first-child { width: 5rem; font-weight: 700; }
+  @media (max-width: 720px) {
+    .formula-list { grid-template-columns: 1fr; }
+  }
+</style>
