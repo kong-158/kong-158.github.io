@@ -167,7 +167,7 @@ const chapters = [
   <div class="math">\[
   x_&#123;n+1&#125;=f(x_n),
   \]</div>
-  <p>可以先画 (y=f(x)) 与 (y=x) 的<strong>蛛网图</strong>探路，再决定证明方式。蛛网图只负责判断趋势，不代替证明。</p>
+  <p>可以先画 \(y=f(x)\) 与 \(y=x\) 的<strong>蛛网图</strong>探路，再决定证明方式。蛛网图只负责判断趋势，不代替证明。</p>
 
   <table class="small-table">
     <tbody>
@@ -180,26 +180,26 @@ const chapters = [
   <div class="math">\[
   x_&#123;n+1&#125;\ge x_n,\qquad x_n\le M
   \quad\Longrightarrow\quad
-  &#123;x_n&#125;\text&#123{ 收敛&#125;}.
+  \text&#123;数列收敛&#125;.
   \]</div>
-  <p>先证明收敛，再设极限为 (L)。若 (f) 连续，则由递推式得到</p>
+  <p>先证明收敛，再设极限为 \(L\)。若 \(f\) 连续，则由递推式得到</p>
   <div class="math">\[
   L=f(L),
   \]</div>
   <p>再解不动点方程求极限。</p>
 
   <h3 id="contraction">压缩映射</h3>
-  <p>设存在区间 (I)，满足</p>
+  <p>设存在区间 \(I\)，满足</p>
   <div class="math">\[
   f(I)\subset I,
   \qquad
   |f'(x)|\le q&lt;1\quad (x\in I).
   \]</div>
-  <p>若 (x_0\in I)，则递推</p>
+  <p>若 \(x_0\in I\)，则递推</p>
   <div class="math">\[
   x_&#123;n+1&#125;=f(x_n)
   \]</div>
-  <p>收敛到 (I) 内唯一的不动点 (L)，即</p>
+  <p>收敛到 \(I\) 内唯一的不动点 \(L\)，即</p>
   <div class="math">\[
   L=f(L).
   \]</div>
@@ -211,16 +211,16 @@ const chapters = [
   \le \cdots
   \le q^n|x_1-x_0|.
   \]</div>
-  <p>于是 (m&gt;n) 时，</p>
+  <p>于是 \(m&gt;n\) 时，</p>
   <div class="math">\[
   |x_m-x_n|
   \le
   \frac&#123;q^n&#125;&#123;1-q&#125;|x_1-x_0|
-  \to0,
+  \to0.
   \]</div>
-  <p>所以 ({x_n}) 是 Cauchy 数列，从而收敛。</p>
+  <p>所以该数列是 Cauchy 数列，从而收敛。</p>
 
-  <p class="note"><strong>关键：</strong>不能只看某一点有 (|f'|&lt;1)。严格使用压缩映射时，要在一个不变区间 (I) 上统一满足 (|f'(x)|\le q&lt;1)。</p>
+  <p class="note"><strong>关键：</strong>不能只验证某一点有 \(|f'(x)|&lt;1\)。严格使用压缩映射时，要在一个不变区间 \(I\) 上统一满足 \(|f'(x)|\le q&lt;1\)。</p>
 </section>
 
 <script is:inline>
