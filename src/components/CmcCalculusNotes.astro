@@ -34,6 +34,9 @@ const chapters = [
     <a href="#discontinuity">间断点速记</a>
     <a href="#error-3">错题3 · 21题</a>
     <a href="#error-4">错题4 · 22题</a>
+    <a href="#chapter-2">第二章 数列极限</a>
+    <a href="#sequence-convergence">收敛证明</a>
+    <a href="#contraction">压缩映射</a>
   </nav>
 
   <h2 id="toc">张宇1000题目录</h2>
@@ -43,7 +46,13 @@ const chapters = [
       <tbody>
         {chapters.map(([title, basic, advanced], i) => (
           <tr>
-            <td>{i === 0 ? <a href="#chapter-1">{i + 1}. {title}</a> : `${i + 1}. ${title}`}</td>
+            <td>
+              {i === 0
+                ? <a href="#chapter-1">{i + 1}. {title}</a>
+                : i === 1
+                  ? <a href="#chapter-2">{i + 1}. {title}</a>
+                  : `${i + 1}. ${title}`}
+            </td>
             <td>P.{basic}</td>
             <td>P.{advanced}</td>
           </tr>
@@ -142,6 +151,76 @@ const chapters = [
   \end&#123;aligned&#125;
   \]</div>
   <div class="math">\[\boxed&#123;\text&#123;第二类间断点为 &#125;-2,1\text&#123;，共 2 个&#125;&#125;\]</div>
+
+  <h2 id="chapter-2">第二章 数列极限</h2>
+  <p>本章无错题。核心是：<strong>怎么证明一个数列收敛。</strong></p>
+
+  <h3 id="sequence-convergence">收敛证明</h3>
+  <p>常用方法：</p>
+  <ul>
+    <li><strong>单调有界：</strong>单调递增 + 有上界，或单调递减 + 有下界。</li>
+    <li><strong>夹逼：</strong>找到同极限的上下界。</li>
+    <li><strong>Cauchy：</strong>证明任意充分大的两项彼此足够接近。</li>
+  </ul>
+
+  <p>对递推数列</p>
+  <div class="math">\[
+  x_&#123;n+1&#125;=f(x_n),
+  \]</div>
+  <p>可以先画 (y=f(x)) 与 (y=x) 的<strong>蛛网图</strong>探路，再决定证明方式。蛛网图只负责判断趋势，不代替证明。</p>
+
+  <table class="small-table">
+    <tbody>
+      <tr><td>逐步靠近</td><td>优先尝试单调有界</td></tr>
+      <tr><td>两侧来回靠近</td><td>优先尝试压缩映射</td></tr>
+    </tbody>
+  </table>
+
+  <h3>单调有界</h3>
+  <div class="math">\[
+  x_&#123;n+1&#125;\ge x_n,\qquad x_n\le M
+  \quad\Longrightarrow\quad
+  &#123;x_n&#125;\text&#123{ 收敛&#125;}.
+  \]</div>
+  <p>先证明收敛，再设极限为 (L)。若 (f) 连续，则由递推式得到</p>
+  <div class="math">\[
+  L=f(L),
+  \]</div>
+  <p>再解不动点方程求极限。</p>
+
+  <h3 id="contraction">压缩映射</h3>
+  <p>设存在区间 (I)，满足</p>
+  <div class="math">\[
+  f(I)\subset I,
+  \qquad
+  |f'(x)|\le q&lt;1\quad (x\in I).
+  \]</div>
+  <p>若 (x_0\in I)，则递推</p>
+  <div class="math">\[
+  x_&#123;n+1&#125;=f(x_n)
+  \]</div>
+  <p>收敛到 (I) 内唯一的不动点 (L)，即</p>
+  <div class="math">\[
+  L=f(L).
+  \]</div>
+
+  <p><strong>证明核心：</strong>由中值定理，</p>
+  <div class="math">\[
+  |x_&#123;n+1&#125;-x_n|
+  \le q|x_n-x_&#123;n-1&#125;|
+  \le \cdots
+  \le q^n|x_1-x_0|.
+  \]</div>
+  <p>于是 (m&gt;n) 时，</p>
+  <div class="math">\[
+  |x_m-x_n|
+  \le
+  \frac&#123;q^n&#125;&#123;1-q&#125;|x_1-x_0|
+  \to0,
+  \]</div>
+  <p>所以 ({x_n}) 是 Cauchy 数列，从而收敛。</p>
+
+  <p class="note"><strong>关键：</strong>不能只看某一点有 (|f'|&lt;1)。严格使用压缩映射时，要在一个不变区间 (I) 上统一满足 (|f'(x)|\le q&lt;1)。</p>
 </section>
 
 <script is:inline>
