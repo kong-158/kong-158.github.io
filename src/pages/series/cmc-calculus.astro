@@ -226,164 +226,337 @@ const formulaRows = [
       </article>
 
       <article class="living-note mistake-note" id="ch1-error-01">
-        <div class="note-label">错题 01 · 极限</div>
-        <h3>无穷远处：必须区分 +∞ 与 −∞</h3>
+        <div class="note-label">错题 01 · 极限方向</div>
+        <h3>先看清 \(+\infty\)、\(-\infty\) 与 \(|x|\to\infty\)</h3>
+
         <div class="mistake-summary">
           <strong>错误点</strong>
-          <p>把“无穷远处”当成一个方向处理，忘记在题目要求考察两端无穷（即 |x|→∞）时，必须分别计算 x→+∞ 与 x→−∞。只有两端极限相同，整体极限才存在。</p>
+          <p>无穷远处的题，第一步不是立刻做等价替换，而是先确认极限方向。标准记号中 \(x\to\infty\) 就是 \(x\to+\infty\)；只有题目写成 \(|x|\to\infty\)、\(x\to\pm\infty\)，或明确要求“两端无穷”时，才需要把正、负无穷分别计算后比较。</p>
         </div>
 
-        <h4>题目</h4>
-        <div class="formula-block">f(x) = (eˣ − x·arctan x) / (eˣ + x)</div>
+        <h4>题目提取</h4>
+        <div class="math-display">\[
+          \lim_{x\to+\infty}
+          \frac{e^x-x\arctan x}{e^x+x}.
+        \]</div>
 
-        <h4>正确处理</h4>
-        <div class="solution-steps">
-          <div>
-            <strong>① x → +∞</strong>
-            <code>(eˣ − x·arctan x)/(eˣ + x) = [1 − x·e^(−x)·arctan x]/[1 + x·e^(−x)] → 1</code>
-            <p>因为 x·e^(−x) → 0。</p>
-          </div>
-          <div>
-            <strong>② x → −∞</strong>
-            <code>(eˣ − x·arctan x)/(eˣ + x) = [eˣ/x − arctan x]/[eˣ/x + 1] → π/2</code>
-            <p>因为 eˣ/x → 0，且 arctan x → −π/2。</p>
-          </div>
+        <h4>本题：\(x\to+\infty\)</h4>
+        <div class="math-display">\[
+        \begin{aligned}
+        \frac{e^x-x\arctan x}{e^x+x}
+        &=\frac{1-xe^{-x}\arctan x}{1+xe^{-x}}\\
+        &\longrightarrow 1,
+        \end{aligned}
+        \qquad
+        xe^{-x}\to0.
+        \]</div>
+        <div class="memory-box">
+          <strong>本题答案：</strong>
+          <span>\(\displaystyle 1\)。如果题面只写 \(x\to\infty\)，到这里就结束。</span>
         </div>
+
+        <h4>易错提醒：若题目要求“两端无穷”</h4>
+        <p>这时再补算负无穷方向：</p>
+        <div class="math-display">\[
+        \begin{aligned}
+        \lim_{x\to-\infty}
+        \frac{e^x-x\arctan x}{e^x+x}
+        &=
+        \lim_{x\to-\infty}
+        \frac{\frac{e^x}{x}-\arctan x}
+             {\frac{e^x}{x}+1}\\
+        &=\frac{\pi}{2}.
+        \end{aligned}
+        \]</div>
+        <p>因此若考察的是 \(|x|\to\infty\)，则两端分别为</p>
+        <div class="math-display">\[
+        1\neq \frac{\pi}{2},
+        \]</div>
+        <p>所以共同的“两端无穷极限”不存在。</p>
 
         <div class="memory-box">
-          <strong>结论：</strong>
-          <span>两端分别得到 1 与 π/2，不相等。因此若题目考察的是 |x|→∞ 的两端极限，则极限不存在。</span>
+          <strong>固定检查：</strong>
+          <span>先识别方向，再计算。\(x\to+\infty\) 与 \(x\to-\infty\) 是两个独立极限；只有题目要求把两端合在一起时才比较二者。</span>
         </div>
       </article>
 
       <article class="living-note mistake-note" id="ch1-error-02">
         <div class="note-label">错题 02 · 张宇1000题 17题</div>
-        <h3>三阶泰勒多项式：先把所有因子都化成 x 的幂</h3>
+        <h3>三阶泰勒多项式：所有非多项式因子先统一成 \(x\) 的幂</h3>
+
         <div class="mistake-summary">
           <strong>错误点</strong>
-          <p>记得 tan x 的展开，却没有把分母 1/(1+x²) 同样展开，导致不能正确做乘法截断。遇到乘、除、复合结构时，应先把所有非多项式因子统一化成 Σaₜxᵗ 的形式，再按目标阶数保留。</p>
+          <p>只想到了 \(\tan x\) 的 Maclaurin 展开，却忘了 \(\frac{1}{1+x^2}\) 也必须处理。乘积、商或复合结构中，最好先把所有非多项式部分统一写成</p>
+          <div class="math-display compact">\[
+            \sum_{t=0}^{n} a_t x^t+o(x^n),
+          \]</div>
+          <p>再进行乘法、合并同次幂与截断。</p>
         </div>
 
-        <h4>题目</h4>
-        <div class="formula-block">f(x) = tan x / (1+x²)，求 x=0 处的 3 次泰勒多项式。</div>
+        <h4>题目提取</h4>
+        <div class="math-display">\[
+          f(x)=\frac{\tan x}{1+x^2},
+          \qquad
+          \text{求 }x=0\text{ 处的三次泰勒多项式。}
+        \]</div>
 
         <h4>解法</h4>
-        <div class="compact-formulas">
-          <code>tan x = x + x³/3 + o(x³)</code>
-          <code>1/(1+x²) = 1 − x² + o(x²)</code>
-          <code>f(x) = (x + x³/3)(1 − x²) + o(x³)</code>
-          <code>= x + x³/3 − x³ + o(x³)</code>
-          <code>= x − 2x³/3 + o(x³)</code>
-        </div>
+        <div class="math-display">\[
+        \tan x=x+\frac{x^3}{3}+o(x^3),
+        \qquad
+        \frac1{1+x^2}=1-x^2+o(x^2).
+        \]</div>
+        <div class="math-display">\[
+        \begin{aligned}
+        f(x)
+        &=
+        \left(x+\frac{x^3}{3}+o(x^3)\right)
+        \left(1-x^2+o(x^2)\right)\\
+        &=x-x^3+\frac{x^3}{3}+o(x^3)\\
+        &=x-\frac23x^3+o(x^3).
+        \end{aligned}
+        \]</div>
         <div class="memory-box">
           <strong>答案：</strong>
-          <span>P₃(x) = x − 2x³/3。</span>
+          <span>\(\displaystyle P_3(x)=x-\frac23x^3\)。</span>
         </div>
 
         <h4>泰勒乘法的固定流程</h4>
         <ol class="rule-list">
-          <li>先看题目要求到几阶，例如“三阶”意味着最终只保留 x⁰、x¹、x²、x³。</li>
-          <li>把每个非多项式因子都展开成 x 的幂级数。</li>
-          <li>相乘后把总次数大于目标阶数的项全部丢掉。</li>
-          <li>最后再合并同次幂系数，不要在展开前凭感觉约掉高阶项。</li>
+          <li>先确定目标阶数 \(n\)。三阶就只关心 \(x^0,x^1,x^2,x^3\)。</li>
+          <li>把所有非多项式因子统一展开成 \(\sum_{t=0}^n a_tx^t+o(x^n)\) 的形式。</li>
+          <li>相乘或相除后按“总次数”筛项，次数 \(>n\) 的项直接丢弃。</li>
+          <li>最后合并同次幂，得到 Taylor 多项式；不要在展开前凭感觉删项。</li>
         </ol>
 
-        <h4>本题额外要记</h4>
-        <div class="compact-formulas">
-          <code>tan x = x + x³/3 + 2x⁵/15 + …</code>
-          <code>1/(1+x²) = 1 − x² + x⁴ − x⁶ + …</code>
-        </div>
-        <p>上面的“常见麦克劳林展开”表已经补入 tan x；做类似题时优先从那张表调用。</p>
+        <h4>本题直接调用的 Maclaurin 公式</h4>
+        <div class="math-display">\[
+        \tan x
+        =x+\frac{x^3}{3}+\frac{2x^5}{15}
+        +\frac{17x^7}{315}+\cdots,
+        \]</div>
+        <div class="math-display">\[
+        \frac1{1+x^2}
+        =1-x^2+x^4-x^6+\cdots.
+        \]</div>
+        <p>这些公式已经并入本章前面的“常见麦克劳林展开”速查区。</p>
       </article>
 
       <article class="living-note mistake-note" id="ch1-error-03">
         <div class="note-label">错题 03 · 张宇1000题 21题</div>
-        <h3>可去间断点：先找候选点，再逐点算极限</h3>
+        <h3>间断点第一原则：先把所有候选点提全，再逐点分类</h3>
+
+        <div class="knowledge-card">
+          <strong>候选点提取模板</strong>
+          <p>遇到“间断点个数 / 类型”问题，不要看到一个 \(0/0\) 就立刻算。先从表达式结构中一次性列出所有可能破坏定义或连续性的点，组成候选集合 \(\mathcal C\)：</p>
+          <ol class="rule-list">
+            <li><b>分母：</b>令分母为 \(0\)。</li>
+            <li><b>对数：</b>\(\ln g(x)\) 要求 \(g(x)>0\)；\(\ln|g(x)|\) 要求 \(g(x)\neq0\)。</li>
+            <li><b>偶次根式：</b>检查根号内为 \(0\) 的边界点，以及定义域边界。</li>
+            <li><b>三角函数：</b>检查 \(\tan,\cot,\sec,\csc\) 的无定义点。</li>
+            <li><b>分段函数：</b>所有分段连接点必须加入。</li>
+          </ol>
+          <p>候选集合列全以后，才逐点计算左右极限并分类。这样能避免“只盯着分母零点，却漏掉对数或定义域异常点”。</p>
+        </div>
 
         <div class="knowledge-card">
           <strong>间断点分类速查</strong>
           <div class="discontinuity-grid">
-            <div><b>可去间断点</b><span>左右极限都存在、有限且相等，但函数未定义或函数值不等于该极限。</span></div>
-            <div><b>跳跃间断点</b><span>左右极限都存在且有限，但不相等。</span></div>
-            <div><b>无穷间断点</b><span>至少一个单侧极限为 ±∞。</span></div>
+            <div><b>可去间断点</b><span>左右极限存在、有限且相等，但函数在该点未定义，或函数值不等于该极限。</span></div>
+            <div><b>跳跃间断点</b><span>左右极限都存在且有限，但二者不相等。</span></div>
+            <div><b>无穷间断点</b><span>至少一个单侧极限为 \(+\infty\) 或 \(-\infty\)。</span></div>
             <div><b>振荡间断点</b><span>至少一个单侧极限因振荡而不存在。</span></div>
           </div>
-          <p>前两类属于第一类间断点；无穷、振荡等属于第二类间断点。看到“0/0”只能说明需要继续算极限，不能直接判断为可去。</p>
+          <p>可去、跳跃属于第一类间断点；无穷、振荡等属于第二类间断点。注意：出现 \(0/0\) 只说明是未定式，绝不等于“可去”。</p>
         </div>
 
-        <h4>题目</h4>
-        <div class="formula-block">f(x) = (|x|ˣ − 1) / [x(x+1)ln|x|]，求可去间断点的个数。</div>
+        <h4>题目提取</h4>
+        <div class="math-display">\[
+          f(x)=
+          \frac{|x|^x-1}
+               {x(x+1)\ln|x|},
+          \qquad
+          \text{求可去间断点的个数。}
+        \]</div>
 
-        <h4>第一步：找所有候选间断点</h4>
-        <p>由分母与对数定义域得到候选点 x = −1、0、1。分别判断。</p>
+        <h4>Step 1：先提取全部候选点</h4>
+        <p>从定义域和分母同时检查：</p>
+        <div class="math-display">\[
+        \begin{cases}
+        x\neq0, & |x|^x=e^{x\ln|x|}\text{ 要求 }\ln|x|\text{ 有定义},\\
+        x\neq-1, & x+1\neq0,\\
+        \ln|x|\neq0
+        \iff |x|\neq1
+        \iff x\neq\pm1.
+        \end{cases}
+        \]</div>
+        <p>因此所有候选间断点一次性列为</p>
+        <div class="math-display">\[
+          \boxed{\mathcal C=\{-1,\,0,\,1\}}.
+        \]</div>
 
+        <h4>Step 2：逐点判断</h4>
         <div class="solution-steps">
           <div>
-            <strong>① x → 0</strong>
-            <code>|x|ˣ − 1 = e^(x ln|x|) − 1 ~ x ln|x|</code>
-            <code>f(x) ~ [x ln|x|]/[x(x+1)ln|x|] = 1/(x+1) → 1</code>
-            <p>极限有限，x=0 处原式无定义，因此 x=0 是可去间断点。</p>
+            <strong>① \(x\to0\)</strong>
+            <div class="math-display compact">\[
+              x\ln|x|\to0,
+              \qquad
+              |x|^x-1=e^{x\ln|x|}-1\sim x\ln|x|.
+            \]</div>
+            <div class="math-display compact">\[
+              f(x)\sim
+              \frac{x\ln|x|}
+                   {x(x+1)\ln|x|}
+              =\frac1{x+1}\to1.
+            \]</div>
+            <p>极限存在且有限，而原函数在 \(x=0\) 处无定义，所以 \(x=0\) 是可去间断点。</p>
           </div>
+
           <div>
-            <strong>② x → 1</strong>
-            <code>|x|ˣ − 1 = e^(x ln x) − 1 ~ x ln x</code>
-            <code>f(x) ~ [x ln x]/[x(x+1)ln x] = 1/(x+1) → 1/2</code>
-            <p>极限有限，x=1 是可去间断点。</p>
+            <strong>② \(x\to1\)</strong>
+            <div class="math-display compact">\[
+              |x|^x-1=x^x-1=e^{x\ln x}-1\sim x\ln x.
+            \]</div>
+            <div class="math-display compact">\[
+              f(x)\sim
+              \frac{x\ln x}{x(x+1)\ln x}
+              =\frac1{x+1}\to\frac12.
+            \]</div>
+            <p>因此 \(x=1\) 也是可去间断点。</p>
           </div>
+
           <div>
-            <strong>③ x → −1</strong>
-            <p>令 x = −1+h，则 |x| = 1−h。</p>
-            <code>x ln|x| = (−1+h)ln(1−h) ~ h</code>
-            <code>|x|ˣ − 1 ~ h</code>
-            <code>x(x+1)ln|x| ~ (−1)·h·(−h) = h²</code>
-            <code>f(x) ~ 1/h</code>
-            <p>左右分别趋于 ±∞，所以 x=−1 为第二类间断点，不可去。</p>
+            <strong>③ \(x\to-1\)</strong>
+            <p>令 \(x=-1+h\)，则 \(h\to0\) 且 \(|x|=1-h\)。</p>
+            <div class="math-display compact">\[
+            x\ln|x|
+            =(-1+h)\ln(1-h)
+            \sim h.
+            \]</div>
+            <div class="math-display compact">\[
+            |x|^x-1
+            =e^{x\ln|x|}-1
+            \sim h,
+            \]</div>
+            <div class="math-display compact">\[
+            x(x+1)\ln|x|
+            \sim(-1)\cdot h\cdot(-h)=h^2.
+            \]</div>
+            <div class="math-display compact">\[
+              f(x)\sim\frac1h.
+            \]</div>
+            <p>左右分别趋于异号无穷，所以 \(x=-1\) 是无穷间断点，属于第二类，不可去。</p>
           </div>
         </div>
 
         <div class="memory-box">
-          <strong>答案：</strong>
-          <span>可去间断点为 x=0、x=1，共 2 个，选 C。</span>
+          <strong>结论：</strong>
+          <span>可去间断点为 \(x=0,1\)，共 \(\boxed{2}\) 个，选 C。</span>
         </div>
       </article>
 
       <article class="living-note mistake-note" id="ch1-error-04">
         <div class="note-label">错题 04 · 张宇1000题 22题</div>
-        <h3>第二类间断点：定义域异常点全部列出，一个都别漏</h3>
+        <h3>第二类间断点：候选点不仅来自分母，也来自对数定义域</h3>
 
-        <h4>题目</h4>
-        <div class="formula-block">f(x) = ln|1−x| / [(eˣ−1)(x+2)]，求第二类间断点的个数。</div>
+        <h4>题目提取</h4>
+        <div class="math-display">\[
+          f(x)=
+          \frac{\ln|1-x|}
+               {(e^x-1)(x+2)},
+          \qquad
+          \text{求第二类间断点的个数。}
+        \]</div>
 
-        <h4>第一步：找候选点</h4>
-        <p>分母给出 x=0、x=−2；对数 ln|1−x| 在 x=1 无定义。因此必须检查 −2、0、1 三个点。</p>
+        <h4>Step 1：先提取全部候选点</h4>
+        <p>分别检查对数和分母：</p>
+        <div class="math-display">\[
+        \begin{aligned}
+        \ln|1-x|&:\quad |1-x|>0
+        \iff x\neq1,\\
+        e^x-1&=0
+        \iff x=0,\\
+        x+2&=0
+        \iff x=-2.
+        \end{aligned}
+        \]</div>
+        <p>所以候选集合为</p>
+        <div class="math-display">\[
+          \boxed{\mathcal C=\{-2,\,0,\,1\}}.
+        \]</div>
 
+        <h4>Step 2：逐点判断</h4>
         <div class="solution-steps">
           <div>
-            <strong>① x → 0</strong>
-            <code>ln|1−x| = ln(1−x) ~ −x，eˣ−1 ~ x</code>
-            <code>f(x) ~ (−x)/(2x) → −1/2</code>
-            <p>极限有限，因此 x=0 是可去间断点，不属于第二类。</p>
+            <strong>① \(x\to0\)</strong>
+            <div class="math-display compact">\[
+              \ln|1-x|=\ln(1-x)\sim-x,
+              \qquad
+              e^x-1\sim x.
+            \]</div>
+            <div class="math-display compact">\[
+              f(x)\sim
+              \frac{-x}{x\cdot2}
+              \to-\frac12.
+            \]</div>
+            <p>极限有限，因此 \(x=0\) 是可去间断点，属于第一类，不计入本题答案。</p>
           </div>
+
           <div>
-            <strong>② x → −2</strong>
-            <code>ln|1−x| → ln3，eˣ−1 → e^(−2)−1 ≠ 0</code>
-            <p>只剩下因子 x+2 → 0，所以函数按 1/(x+2) 型发散；左右单侧极限为异号无穷。x=−2 是无穷间断点，属于第二类。</p>
+            <strong>② \(x\to-2\)</strong>
+            <div class="math-display compact">\[
+              \ln|1-x|\to\ln3\neq0,
+              \qquad
+              e^x-1\to e^{-2}-1\neq0.
+            \]</div>
+            <p>只有 \(x+2\to0\)，所以本质上是 \(C/(x+2)\) 型：</p>
+            <div class="math-display compact">\[
+              f(x)\sim
+              \frac{\ln3}{(e^{-2}-1)(x+2)}.
+            \]</div>
+            <p>两个单侧极限分别为异号无穷，因此 \(x=-2\) 是无穷间断点，属于第二类。</p>
           </div>
+
           <div>
-            <strong>③ x → 1</strong>
-            <code>ln|1−x| → −∞</code>
-            <code>(eˣ−1)(x+2) → 3(e−1) &gt; 0</code>
-            <p>因此 f(x) → −∞。x=1 是无穷间断点，属于第二类。</p>
+            <strong>③ \(x\to1\)</strong>
+            <div class="math-display compact">\[
+              \ln|1-x|\to-\infty,
+              \qquad
+              (e^x-1)(x+2)\to3(e-1)>0.
+            \]</div>
+            <div class="math-display compact">\[
+              f(x)\to-\infty.
+            \]</div>
+            <p>所以 \(x=1\) 也是无穷间断点，属于第二类。</p>
           </div>
         </div>
 
         <div class="memory-box">
-          <strong>答案：</strong>
-          <span>第二类间断点为 x=−2、x=1，共 2 个，选 C。</span>
+          <strong>结论：</strong>
+          <span>第二类间断点为 \(x=-2,1\)，共 \(\boxed{2}\) 个，选 C。</span>
         </div>
       </article>
     </div>
   </section>
+
+  <script is:inline>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script
+    is:inline
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+  ></script>
 
   <style>
     .cmc-hero { padding-bottom: 54px; }
@@ -540,6 +713,22 @@ const formulaRows = [
     .living-note p,
     .living-note li {
       color: var(--ink);
+    }
+    .math-display {
+      overflow-x: auto;
+      margin: 14px 0;
+      padding: 14px 18px;
+      color: var(--ink);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--navy);
+    }
+    .math-display.compact {
+      margin: 8px 0;
+      padding: 10px 14px;
+    }
+    .math-display mjx-container[display="true"] {
+      margin: .35em 0 !important;
     }
     .formula-block {
       overflow-x: auto;
