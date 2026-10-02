@@ -20,348 +20,137 @@ const chapters = [
   ['多元函数积分学', 107, 341]
 ];
 ---
-
 <section class="cmc-notes">
-  <p><strong>当前资料：</strong>张宇1000题 · 高等数学。</p>
-
-  <nav class="article-toc" aria-label="本文目录">
-    <strong>本文目录</strong>
-    <a href="#toc">张宇1000题目录</a>
-    <a href="#chapter-1">第一章 函数极限与连续</a>
-    <a href="#maclaurin">麦克劳林展开</a>
-    <a href="#error-1">错题1 · 无穷方向</a>
-    <a href="#error-2">错题2 · 17题泰勒</a>
-    <a href="#discontinuity">间断点速记</a>
-    <a href="#error-3">错题3 · 21题</a>
-    <a href="#error-4">错题4 · 22题</a>
-    <a href="#chapter-2">第二章 数列极限</a>
-    <a href="#sequence-convergence">收敛证明</a>
-    <a href="#contraction">压缩映射</a>
-    <a href="#chapter-3">第三章 一元函数微分学的概念</a>
-    <a href="#c1-relations">连续 / 可导 / 导数连续</a>
-    <a href="#c1-proof-order">一点性质证明顺序</a>
-    <a href="#chapter-4">第四章 一元函数微分学的计算</a>
-    <a href="#error-5">错题5 · 第6题 · 绝对值隐函数与极值</a>
-    <a href="#error-6">错题6 · 第11题 · 高阶乘积求导</a>
-    <a href="#error-7">错题7 · 第14题 · max 分段点不可导</a>
-  </nav>
-
-  <h2 id="toc">张宇1000题目录</h2>
-  <div class="toc-wrap">
-    <table>
-      <thead><tr><th>章节</th><th>基础篇</th><th>强化篇</th></tr></thead>
-      <tbody>
-        {chapters.map(([title, basic, advanced], i) => (
-          <tr>
-            <td>
-              {i === 0
-                ? <a href="#chapter-1">{i + 1}. {title}</a>
-                : i === 1
-                  ? <a href="#chapter-2">{i + 1}. {title}</a>
-                  : i === 2
-                    ? <a href="#chapter-3">{i + 1}. {title}</a>
-                    : i === 3
-                      ? <a href="#chapter-4">{i + 1}. {title}</a>
-                      : `${i + 1}. ${title}`}
-            </td>
-            <td>P.{basic}</td>
-            <td>P.{advanced}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-
-  <h2 id="chapter-1">第一章 函数极限与连续</h2>
-
-  <h3 id="maclaurin">常见麦克劳林展开</h3>
-  <div class="formula-list">
-    <div class="math">\[e^x=1+x+\frac&#123;x^2&#125;&#123;2!&#125;+\frac&#123;x^3&#125;&#123;3!&#125;+\cdots\]</div>
-    <div class="math">\[\sin x=x-\frac&#123;x^3&#125;&#123;3!&#125;+\frac&#123;x^5&#125;&#123;5!&#125;-\cdots\]</div>
-    <div class="math">\[\cos x=1-\frac&#123;x^2&#125;&#123;2!&#125;+\frac&#123;x^4&#125;&#123;4!&#125;-\cdots\]</div>
-    <div class="math">\[\tan x=x+\frac&#123;x^3&#125;&#123;3&#125;+\frac&#123;2x^5&#125;&#123;15&#125;+\cdots\]</div>
-    <div class="math">\[\ln(1+x)=x-\frac&#123;x^2&#125;&#123;2&#125;+\frac&#123;x^3&#125;&#123;3&#125;-\cdots\]</div>
-    <div class="math">\[\frac1&#123;1-x&#125;=1+x+x^2+x^3+\cdots\]</div>
-    <div class="math">\[\frac1&#123;1+x&#125;=1-x+x^2-x^3+\cdots\]</div>
-    <div class="math">\[(1+x)^\alpha=1+\alpha x+\frac&#123;\alpha(\alpha-1)&#125;&#123;2&#125;x^2+\frac&#123;\alpha(\alpha-1)(\alpha-2)&#125;&#123;6&#125;x^3+\cdots\]</div>
-    <div class="math">\[\arctan x=x-\frac&#123;x^3&#125;&#123;3&#125;+\frac&#123;x^5&#125;&#123;5&#125;-\cdots\]</div>
-  </div>
-
-  <h3 id="error-1">错题 1：无穷方向</h3>
-  <div class="math">\[
-  f(x)=\frac&#123;e^x-x\arctan x&#125;&#123;e^x+x&#125;.
-  \]</div>
-  <p><strong>错因：</strong>涉及 \(x\to\pm\infty\) 时忘记分两个方向。</p>
-  <div class="math">\[
-  \lim_&#123;x\to+\infty&#125;f(x)=1,\qquad
-  \lim_&#123;x\to-\infty&#125;f(x)=\frac&#123;\pi&#125;&#123;2&#125;.
-  \]</div>
-  <div class="math">\[
-  1\neq\frac&#123;\pi&#125;&#123;2&#125;
-  \Longrightarrow
-  \lim_&#123;|x|\to\infty&#125;f(x)\text&#123; 不存在&#125;.
-  \]</div>
-  <p class="note">若原题只写 \(x\to+\infty\)，答案就是 \(1\)。</p>
-
-  <h3 id="error-2">错题 2：17题 · 三阶泰勒多项式</h3>
-  <div class="math">\[
-  f(x)=\frac&#123;\tan x&#125;&#123;1+x^2&#125;.
-  \]</div>
-  <p><strong>错因：</strong>所有非多项式部分先写成 \(\sum_&#123;t=0&#125;^n a_tx^t\) 的形式，再统一乘开、截断。</p>
-  <div class="math">\[
-  \tan x=x+\frac&#123;x^3&#125;&#123;3&#125;+o(x^3),\qquad
-  \frac1&#123;1+x^2&#125;=1-x^2+o(x^2).
-  \]</div>
-  <div class="math">\[
-  f(x)=\left(x+\frac&#123;x^3&#125;&#123;3&#125;\right)(1-x^2)+o(x^3)
-  =x-\frac23x^3+o(x^3).
-  \]</div>
-  <div class="math">\[\boxed&#123;P_3(x)=x-\frac23x^3&#125;\]</div>
-
-  <h3 id="discontinuity">间断点速记</h3>
-  <table class="small-table">
-    <tbody>
-      <tr><td>可去</td><td>左右极限有限且相等，但函数未定义或函数值不等于极限</td></tr>
-      <tr><td>跳跃</td><td>左右极限都有限，但不相等</td></tr>
-      <tr><td>无穷</td><td>至少一个单侧极限为 \(\pm\infty\)</td></tr>
-      <tr><td>振荡</td><td>至少一个单侧极限因振荡不存在</td></tr>
-    </tbody>
-  </table>
-
-  <h3 id="error-3">错题 3：21题 · 可去间断点</h3>
-  <div class="math">\[
-  f(x)=\frac&#123;|x|^x-1&#125;&#123;x(x+1)\ln|x|&#125;.
-  \]</div>
-  <p><strong>候选点：</strong>先检查分母和对数定义域，得到 \(\mathcal C=\&#123;-1,0,1\&#125;\)。</p>
-  <div class="math">\[
-  \begin&#123;aligned&#125;
-  x\to0:&\quad |x|^x-1=e^&#123;x\ln|x|&#125;-1\sim x\ln|x|,
-  &&f(x)\to1;\\
-  x\to1:&\quad |x|^x-1\sim x\ln x,
-  &&f(x)\to\frac12;\\
-  x\to-1:&\quad x=-1+h,\ f(x)\sim\frac1h,
-  &&|f(x)|\to\infty.
-  \end&#123;aligned&#125;
-  \]</div>
-  <div class="math">\[\boxed&#123;\text&#123;可去间断点为 &#125;0,1\text&#123;，共 2 个&#125;&#125;\]</div>
-
-  <h3 id="error-4">错题 4：22题 · 第二类间断点</h3>
-  <div class="math">\[
-  f(x)=\frac&#123;\ln|1-x|&#125;&#123;(e^x-1)(x+2)&#125;.
-  \]</div>
-  <p><strong>候选点：</strong>分母给出 \(0,-2\)，对数定义域再给出 \(1\)，所以 \(\mathcal C=\&#123;-2,0,1\&#125;\)。</p>
-  <div class="math">\[
-  \begin&#123;aligned&#125;
-  x\to0:&\quad \ln(1-x)\sim-x,\ e^x-1\sim x,
-  &&f(x)\to-\frac12;\\
-  x\to-2:&\quad f(x)\sim
-  \frac&#123;\ln3&#125;&#123;(e^&#123;-2&#125;-1)(x+2)&#125;,
-  &&|f(x)|\to\infty;\\
-  x\to1:&\quad \ln|1-x|\to-\infty,
-  &&f(x)\to-\infty.
-  \end&#123;aligned&#125;
-  \]</div>
-  <div class="math">\[\boxed&#123;\text&#123;第二类间断点为 &#125;-2,1\text&#123;，共 2 个&#125;&#125;\]</div>
-
-  <h2 id="chapter-2">第二章 数列极限</h2>
-  <p>本章无错题。核心是：<strong>怎么证明一个数列收敛。</strong></p>
-
-  <h3 id="sequence-convergence">收敛证明</h3>
-  <p>常用方法：</p>
-  <ul>
-    <li><strong>单调有界：</strong>单调递增 + 有上界，或单调递减 + 有下界。</li>
-    <li><strong>夹逼：</strong>找到同极限的上下界。</li>
-    <li><strong>Cauchy：</strong>证明任意充分大的两项彼此足够接近。</li>
-  </ul>
-
-  <p>对递推数列</p>
-  <div class="math">\[
-  x_&#123;n+1&#125;=f(x_n),
-  \]</div>
-  <p>可以先画 \(y=f(x)\) 与 \(y=x\) 的<strong>蛛网图</strong>探路，再决定证明方式。蛛网图只负责判断趋势，不代替证明。</p>
-
-  <table class="small-table">
-    <tbody>
-      <tr><td>逐步靠近</td><td>优先尝试单调有界</td></tr>
-      <tr><td>两侧来回靠近</td><td>优先尝试压缩映射</td></tr>
-    </tbody>
-  </table>
-
-  <h3>单调有界</h3>
-  <div class="math">\[
-  x_&#123;n+1&#125;\ge x_n,\qquad x_n\le M
-  \quad\Longrightarrow\quad
-  \text&#123;数列收敛&#125;.
-  \]</div>
-  <p>先证明收敛，再设极限为 \(L\)。若 \(f\) 连续，则由递推式得到</p>
-  <div class="math">\[
-  L=f(L),
-  \]</div>
-  <p>再解不动点方程求极限。</p>
-
-  <h3 id="contraction">压缩映射</h3>
-  <p>设存在区间 \(I\)，满足</p>
-  <div class="math">\[
-  f(I)\subset I,
-  \qquad
-  |f'(x)|\le q&lt;1\quad (x\in I).
-  \]</div>
-  <p>若 \(x_0\in I\)，则递推</p>
-  <div class="math">\[
-  x_&#123;n+1&#125;=f(x_n)
-  \]</div>
-  <p>收敛到 \(I\) 内唯一的不动点 \(L\)，即</p>
-  <div class="math">\[
-  L=f(L).
-  \]</div>
-
-  <p><strong>证明核心：</strong>由中值定理，</p>
-  <div class="math">\[
-  |x_&#123;n+1&#125;-x_n|
-  \le q|x_n-x_&#123;n-1&#125;|
-  \le \cdots
-  \le q^n|x_1-x_0|.
-  \]</div>
-  <p>于是 \(m&gt;n\) 时，</p>
-  <div class="math">\[
-  |x_m-x_n|
-  \le
-  \frac&#123;q^n&#125;&#123;1-q&#125;|x_1-x_0|
-  \to0.
-  \]</div>
-  <p>所以该数列是 Cauchy 数列，从而收敛。</p>
-
-  <p class="note"><strong>关键：</strong>不能只验证某一点有 \(|f'(x)|&lt;1\)。严格使用压缩映射时，要在一个不变区间 \(I\) 上统一满足 \(|f'(x)|\le q&lt;1\)。</p>
-
-  <h2 id="chapter-3">第三章 一元函数微分学的概念</h2>
-  <p>本章无错题。核心是连续、可导、导数连续三个层次，以及一点处的证明顺序。</p>
-
-  <h3 id="c1-relations">连续、可导、导数连续</h3>
-  <div class="math">\[
-  \boxed&#123;\text&#123;导数连续&#125;\Longrightarrow\text&#123;可导&#125;\Longrightarrow\text&#123;连续&#125;&#125;
-  \]</div>
-  <p>条件强度从“连续”到“可导”再到“导数连续”依次增强；反向一般不成立。</p>
-
-  <h3 id="c1-proof-order">一点性质：按定义逐层处理</h3>
-
-  <p><strong>1. 证明 \(f\) 在 \(x=a\) 连续：</strong></p>
-  <div class="math">\[
-  \lim_&#123;x\to a^-&#125;f(x)
-  =
-  \lim_&#123;x\to a^+&#125;f(x)
-  =
-  f(a).
-  \]</div>
-
-  <p><strong>2. 证明 \(f\) 在 \(x=a\) 可导：</strong></p>
-  <p>先有连续性，再用导数定义检查左右差商：</p>
-  <div class="math">\[
-  f'_-(a)
-  =
-  \lim_&#123;x\to a^-&#125;
-  \frac&#123;f(x)-f(a)&#125;&#123;x-a&#125;,
-  \qquad
-  f'_+(a)
-  =
-  \lim_&#123;x\to a^+&#125;
-  \frac&#123;f(x)-f(a)&#125;&#123;x-a&#125;.
-  \]</div>
-  <div class="math">\[
-  f'_-(a)=f'_+(a)
-  \quad\Longrightarrow\quad
-  f'(a)\text&#123; 存在&#125;.
-  \]</div>
-
-  <p><strong>3. 证明 \(f'\) 在 \(x=a\) 连续：</strong></p>
-  <p>先由导数定义求出 \(f'(a)\)，再在 \(x\ne a\) 时用求导公式得到 \(f'(x)\)，最后看</p>
-  <div class="math">\[
-  \lim_&#123;x\to a^-&#125;f'(x)
-  =
-  \lim_&#123;x\to a^+&#125;f'(x)
-  =
-  f'(a).
-  \]</div>
-
-  <h3>为什么“可导必连续”</h3>
-  <div class="math">\[
-  f(x)-f(a)
-  =
-  \frac&#123;f(x)-f(a)&#125;&#123;x-a&#125;(x-a).
-  \]</div>
-  <p>若 \(f'(a)\) 存在，则令 \(x\to a\)：</p>
-  <div class="math">\[
-  \lim_&#123;x\to a&#125;[f(x)-f(a)]
-  =
-  f'(a)\cdot0
-  =0,
-  \]</div>
-  <p>所以 \(\lim_&#123;x\to a&#125;f(x)=f(a)\)，即 \(f\) 在 \(a\) 连续。</p>
-
-  <p class="note"><strong>做题顺序：</strong>连续看函数极限；可导看差商极限；导数连续先求 \(f'(a)\)，再看 \(f'(x)\) 的极限。后两步本质上最终仍然都是极限问题。</p>
-
-
-  <h2 id="chapter-4">第四章 一元函数微分学的计算</h2>
-  <p>本章重点：<strong>分段点要单独检查；高阶乘积求导别漏组合数。</strong></p>
-
-  <h3 id="error-5">错题 5：第 6 题 · 绝对值隐函数</h3>
-  <div class="math">\[
-  |x|y^3+y-1=0.
-  \]</div>
-  <p><strong>错误点：</strong>分段求导没错，漏的是 \(x=0\) 要单独处理，不能把它当普通可导点。</p>
-  <div class="math">\[
-  x&gt;0:\quad y'=-\frac&#123;y^3&#125;&#123;1+3xy^2&#125;&lt;0,
-  \qquad
-  x&lt;0:\quad y'=\frac&#123;y^3&#125;&#123;1-3xy^2&#125;&gt;0.
-  \]</div>
-  <p>所以左增右减，且 \(f(0)=1\)，故</p>
-  <div class="math">\[
-  \boxed&#123;f_&#123;\max&#125;=1&#125;.
-  \]</div>
-  <p><strong>书上方法：</strong>设 \(F(x,y)=|x|y^3+y-1\)，直接用 \(y'=-F_x/F_y\)。</p>
-  <p class="note"><strong>对比：</strong>两种方法本质一样；我的方法更直观，书上写法更简洁。关键是分界点 \(x=0\) 必须单独检查。</p>
-
-  <h3 id="error-6">错题 6：第 11 题 · 高阶导漏组合数</h3>
-  <div class="math">\[
-  f(x)=x^2\ln(1-x),\qquad n\ge3.
-  \]</div>
-  <p><strong>错误点：</strong>“只有 \(x^2\) 求到二阶那项留下”是对的，但漏了组合数 \(\binom&#123;n&#125;&#123;2&#125;\)。</p>
-  <div class="math">\[
-  f^&#123;(n)&#125;(0)
-  =
-  \binom&#123;n&#125;&#123;2&#125;\cdot2\cdot[-(n-3)!]
-  =
-  \boxed&#123;-\frac&#123;n!&#125;&#123;n-2&#125;&#125;.
-  \]</div>
-  <p><strong>书上方法：</strong></p>
-  <div class="math">\[
-  \ln(1-x)=-\sum_&#123;k=1&#125;^\infty\frac&#123;x^k&#125;&#123;k&#125;
-  \Rightarrow
-  f(x)=-\sum_&#123;n=3&#125;^\infty\frac&#123;x^n&#125;&#123;n-2&#125;,
-  \]</div>
-  <p>直接读 \(x^n\) 系数即可。</p>
-  <p class="note"><strong>对比：</strong>乘积法可以做，但要记得组合数；在 \(x=0\) 求高阶导时，书上的幂级数法更快。</p>
-
-  <h3 id="error-7">错题 7：第 14 题 · 漏检查分界点</h3>
-  <div class="math">\[
-  f(x)=\max\&#123;x,x^2\&#125;,\qquad 0&lt;x&lt;2.
-  \]</div>
-  <p><strong>错误点：</strong>分段正确，但漏了 \(x=1\) 处是否可导。</p>
-  <div class="math">\[
-  f'(x)=
-  \begin&#123;cases&#125;
-  1,&0&lt;x&lt;1,\\
-  \text&#123;不存在&#125;,&x=1,\\
-  2x,&1&lt;x&lt;2.
-  \end&#123;cases&#125;
-  \]</div>
-  <p>因为</p>
-  <div class="math">\[
-  f'_-(1)=1,\qquad f'_+(1)=2.
-  \]</div>
-  <p class="note"><strong>记忆：</strong>遇到 \(\max/\min\)、绝对值、分段函数：先分段，再求导，最后单独检查分界点。</p>
-
+<p class="lead">张宇1000题 · 高等数学｜公式速查、方法模板与已记录错题。当前整理至第五章。</p>
+<nav class="article-toc" aria-label="本文目录"><strong>章节导航</strong>
+{chapters.slice(0, 5).map(([title], i) => <a href={`#chapter-${i + 1}`}><span>0{i + 1}</span>{title}</a>)}
+<a href="#toc">全书页码索引</a></nav>
+<details class="page-index" open><summary id="toc">张宇1000题目录 · 页码索引</summary><div class="toc-wrap"><table><thead><tr><th>章节</th><th>基础篇</th><th>强化篇</th></tr></thead><tbody>
+{chapters.map(([title, basic, advanced], i) => <tr><td>{i < 5 ? <a href={`#chapter-${i + 1}`}>{i + 1}. {title}</a> : `${i + 1}. ${title}`}</td><td>P.{basic}</td><td>P.{advanced}</td></tr>)}
+</tbody></table>
+</div>
+</details>
+<h2 id="chapter-1">第一章 函数极限与连续</h2>
+<p><strong>先定方向，再定阶数。</strong> \(x\to+\infty\) 与 \(x\to-\infty\) 分开；相消型极限展开到首个不为零的项。</p>
+<h3 id="maclaurin">Taylor / Maclaurin 速查</h3>
+<p class="note">下式均为 x → 0 的局部展开；余项阶数随计算目标选择。</p>
+<div class="formula-list"><div class="math">\[e^x=1+x+\frac&#123;x^2&#125;&#123;2&#125;+\frac&#123;x^3&#125;&#123;6&#125;+o(x^3)\]</div>
+<div class="math">\[\sin x=x-\frac&#123;x^3&#125;&#123;6&#125;+\frac&#123;x^5&#125;&#123;120&#125;+o(x^5)\]</div>
+<div class="math">\[\cos x=1-\frac&#123;x^2&#125;&#123;2&#125;+\frac&#123;x^4&#125;&#123;24&#125;+o(x^4)\]</div>
+<div class="math">\[\tan x=x+\frac&#123;x^3&#125;&#123;3&#125;+\frac&#123;2x^5&#125;&#123;15&#125;+o(x^5)\]</div>
+<div class="math">\[\ln(1+x)=x-\frac&#123;x^2&#125;&#123;2&#125;+\frac&#123;x^3&#125;&#123;3&#125;+o(x^3)\]</div>
+<div class="math">\[\frac1&#123;1\pm x&#125;=1\mp x+x^2\mp x^3+o(x^3)\]</div>
+<div class="math">\[(1+x)^\alpha=1+\alpha x+\frac&#123;\alpha(\alpha-1)&#125;2x^2+o(x^2)\]</div>
+<div class="math">\[\arctan x=x-\frac&#123;x^3&#125;&#123;3&#125;+\frac&#123;x^5&#125;&#123;5&#125;+o(x^5)\]</div>
+</div>
+<h3 id="discontinuity">间断点速查</h3>
+<table><tbody><tr><th>第一类</th><td>可去：两侧极限有限且相等，但未定义或不等于函数值。<br/>跳跃：两侧极限有限但不相等。</td></tr><tr><th>第二类</th><td>无穷：至少一侧趋于无穷。振荡：至少一侧因振荡无极限。</td></tr></tbody></table>
+<section class="error-note" aria-labelledby="error-1"><h3 id="error-1">错题 1 · 无穷方向</h3>
+<p><strong>题目</strong> \(f(x)=\frac&#123;e^x-x\arctan x&#125;&#123;e^x+x&#125;\)，求无穷远极限。</p>
+<p><strong>错误点</strong> 漏分正、负无穷。</p>
+<div class="solution"><strong>最短解法</strong><div class="math">\[\lim_&#123;x\to+\infty&#125;f(x)=1,\qquad\lim_&#123;x\to-\infty&#125;f(x)=\frac\pi2.\]</div>
+<p>正向由 \(e^x\) 主导；负向分子分母除以 \(x\)。两侧不同，\(|x|\to\infty\) 时极限不存在。</p>
+</div>
+<p><strong>一句话方法</strong> 无穷远先写方向。</p>
 </section>
-
+<section class="error-note" aria-labelledby="error-2"><h3 id="error-2">错题 2 · 第 17 题 · 三阶 Taylor</h3>
+<p><strong>题目</strong> 求 \(f(x)=\tan x/(1+x^2)\) 的三阶 Taylor 多项式。</p>
+<p><strong>错误点</strong> 未统一展开各因子、按阶截断。</p>
+<div class="solution"><strong>最短解法</strong><div class="math">\[f(x)=\left(x+\frac&#123;x^3&#125;3+o(x^3)\right)\left(1-x^2+o(x^2)\right)=x-\frac23x^3+o(x^3).\]</div>
+</div>
+<p><strong>一句话方法</strong> 各因子先展开，乘开后只留目标阶数。</p>
+</section>
+<section class="error-note" aria-labelledby="error-3"><h3 id="error-3">错题 3 · 第 21 题 · 可去间断点</h3>
+<p><strong>题目</strong> \(f(x)=\frac&#123;|x|^x-1&#125;&#123;x(x+1)\ln|x|&#125;\)，找可去间断点。</p>
+<p><strong>错误点</strong> 候选点要同时查分母与定义域。</p>
+<div class="solution"><strong>最短解法</strong><p>候选 \(-1,0,1\)。用 \(|x|^x=e^&#123;x\ln|x|&#125;\)：</p>
+<div class="math">\[\lim_&#123;x\to0&#125;f(x)=1,\quad\lim_&#123;x\to1&#125;f(x)=\frac12,\quad f(x)\sim\frac1&#123;x+1&#125;\ (x\to-1).\]</div>
+<p>可去点为 0、1，共 2 个。</p>
+</div>
+<p><strong>一句话方法</strong> 先列候选，再用左右极限分类。</p>
+</section>
+<section class="error-note" aria-labelledby="error-4"><h3 id="error-4">错题 4 · 第 22 题 · 第二类间断点</h3>
+<p><strong>题目</strong> \(f(x)=\frac&#123;\ln|1-x|&#125;&#123;(e^x-1)(x+2)&#125;\)，找第二类间断点。</p>
+<p><strong>错误点</strong> 除分母零点外，还要检查对数边界。</p>
+<div class="solution"><strong>最短解法</strong><div class="math">\[\lim_&#123;x\to0&#125;f(x)=-\frac12,\quad |f(x)|\to\infty\ (x\to-2),\quad\lim_&#123;x\to1&#125;f(x)=-\infty.\]</div>
+<p>候选 −2、0、1；第二类为 −2、1，共 2 个。</p>
+</div>
+<p><strong>一句话方法</strong> 定义域边界不能漏。</p>
+</section>
+<h2 id="chapter-2">第二章 数列极限</h2>
+<p class="note">暂无错题；只保留收敛路线。</p>
+<h3 id="sequence-convergence">蛛网图探路 → 严格证明 → 求极限</h3>
+<p>对 \(x_&#123;n+1&#125;=f(x_n)\)，先画 \(y=f(x)\) 与 \(y=x\)：同侧靠近试单调有界，两侧交替试压缩。图只判趋势，不能代替证明。</p>
+<p><strong>单调有界：</strong>递增且有上界，或递减且有下界 ⇒ 收敛。先证收敛；再在 \(f\) 于极限点连续时解 \(L=f(L)\)。也可用夹逼或 Cauchy 准则。</p>
+<h3 id="contraction">压缩映射：检查整个不变区间</h3>
+<p>取非空闭区间 \(I\)，\(x_0\in I\)，\(f(I)\subseteq I\)。若 \(f\) 连续、内部可导，且统一有 \(|f^&#123;\prime&#125;(x)|\le q&lt;1\)，则迭代收敛到 \(I\) 内唯一不动点。</p>
+<div class="math">\[|x_m-x_n|\le\frac&#123;q^n&#125;&#123;1-q&#125;|x_1-x_0|\to0\quad(m&gt;n).\]</div>
+<p><strong>易漏：</strong>闭区间、不变性、统一压缩常数；只验某一点的导数不够。</p>
+<h2 id="chapter-3">第三章 一元函数微分学的概念</h2>
+<h3 id="c1-relations">关系与反例</h3>
+<div class="math">\[\text&#123;导数连续&#125;\Longrightarrow\text&#123;可导&#125;\Longrightarrow\text&#123;连续&#125;\qquad\text&#123;（逆向一般不成立）&#125;\]</div>
+<p>\(|x|\) 在 0 连续但不可导；\(f(x)=x^2\sin(1/x)\)、\(f(0)=0\) 在 0 可导，但 \(f^&#123;\prime&#125;\) 不连续。</p>
+<h3 id="c1-proof-order">一点性质：按定义逐层检查</h3>
+<ol><li><strong>连续：</strong>左右函数极限均等于 \(f(a)\)。</li><li><strong>可导：</strong>左右差商 \(\frac&#123;f(x)-f(a)&#125;&#123;x-a&#125;\) 极限有限且相等。</li><li><strong>导数连续：</strong>先由定义求 \(f^&#123;\prime&#125;(a)\)，再求邻域内 \(f^&#123;\prime&#125;(x)\)，最后验证 \(\lim_&#123;x\to a&#125;f^&#123;\prime&#125;(x)=f^&#123;\prime&#125;(a)\)。</li></ol>
+<h2 id="chapter-4">第四章 一元函数微分学的计算</h2>
+<section class="error-note" aria-labelledby="error-5"><h3 id="error-5">错题 5 · 第 6 题 · 绝对值隐函数</h3>
+<p><strong>题目</strong> \(|x|y^3+y-1=0\)，判断极值。</p>
+<p><strong>错误点</strong> 分段没错，漏查分界点 0。</p>
+<div class="solution"><strong>最短解法</strong><div class="math">\[x&lt;0:\ y^&#123;\prime&#125;=\frac&#123;y^3&#125;&#123;1-3xy^2&#125;&gt;0;\qquad x&gt;0:\ y^&#123;\prime&#125;=-\frac&#123;y^3&#125;&#123;1+3xy^2&#125;&lt;0.\]</div>
+<p>由方程知 \(0&lt;y\le1\)，\(f(0)=1\)；左右导数为 1、−1，故 0 不可导但取最大值 1。</p>
+</div>
+<p><strong>一句话方法</strong> 分段求导后，分界点单独检查；极值点不一定可导。</p>
+</section>
+<section class="error-note" aria-labelledby="error-6"><h3 id="error-6">错题 6 · 第 11 题 · 高阶乘积求导</h3>
+<p><strong>题目</strong> \(f(x)=x^2\ln(1-x)\)，求 \(f^&#123;(n)&#125;(0)\)，\(n\ge3\)。</p>
+<p><strong>错误点</strong> Leibniz 公式漏掉组合数 \(\binom n2\)。</p>
+<div class="solution"><strong>最短解法</strong><div class="math">\[f^&#123;(n)&#125;(0)=\binom n2\cdot2\cdot[-(n-3)!]=-\frac&#123;n!&#125;&#123;n-2&#125;.\]</div>
+<p>书上幂级数更快：</p>
+<div class="math">\[x^2\ln(1-x)=-\sum_&#123;n=3&#125;^\infty\frac&#123;x^n&#125;&#123;n-2&#125;\quad(|x|&lt;1).\]</div>
+</div>
+<p><strong>一句话方法</strong> 零点高阶导优先读系数；乘积法别漏组合数。</p>
+</section>
+<section class="error-note" aria-labelledby="error-7"><h3 id="error-7">错题 7 · 第 14 题 · max 分界点</h3>
+<p><strong>题目</strong> \(f(x)=\max\&#123;x,x^2\&#125;\)，\(0&lt;x&lt;2\)，求导。</p>
+<p><strong>错误点</strong> 漏检查 x=1 左右导数。</p>
+<div class="solution"><strong>最短解法</strong><div class="math">\[f^&#123;\prime&#125;(x)=1\ (0&lt;x&lt;1),\qquad f^&#123;\prime&#125;(x)=2x\ (1&lt;x&lt;2).\]</div>
+<p>\(f^&#123;\prime&#125;_-(1)=1\ne2=f^&#123;\prime&#125;_+(1)\)，故 \(f^&#123;\prime&#125;(1)\) 不存在。</p>
+</div>
+<p><strong>一句话方法</strong> max / min、绝对值、分段函数：分段 → 求导 → 查分界点。</p>
+</section>
+<h2 id="chapter-5">第五章 一元函数微分学的应用（一）——几何应用</h2>
+<nav class="section-links" aria-label="第五章速查"><a href="#local-taylor">局部 Taylor</a><a href="#asymptotes">渐近线</a><a href="#curvature">曲率</a><a href="#inflection">拐点</a><a href="#error-8">第 15 题</a></nav>
+<h3 id="local-taylor">方法模板 · 局部 Taylor</h3>
+<p>只关心 \(x\to x_0\) 附近时，令 \(h=x-x_0\)。在二阶 Taylor 条件下（如 \(f\) 在 \(x_0\) 二阶可导）：</p>
+<div class="math">\[f(x)=f(x_0)+f^&#123;\prime&#125;(x_0)h+\frac12f^&#123;\prime\prime&#125;(x_0)h^2+o(h^2),\qquad h=x-x_0.\]</div>
+<p><strong>隐式关系 / 微分方程 → 求 \(f(x_0),f^&#123;\prime&#125;(x_0),f^&#123;\prime\prime&#125;(x_0)\) → 展开 → 代入目标式。</strong>只算所需阶数；系数在特殊点退化时，先用极限恢复信息。</p>
+<h3 id="asymptotes">渐近线 · 先看趋近位置</h3>
+<div class="toc-wrap"><table class="asymptotes"><thead><tr><th>类型</th><th>判定</th><th>直线</th></tr></thead><tbody><tr><th>水平</th><td><div class="math">\[\lim_&#123;x\to\pm\infty&#125;f(x)=b\in\mathbb R\]</div>
+</td><td>\(y=b\)</td></tr><tr><th>竖直</th><td><div class="math">\[\lim_&#123;x\to x_0^+&#125;f(x)=\pm\infty\ \text&#123;或&#125;\ \lim_&#123;x\to x_0^-&#125;f(x)=\pm\infty\]</div>
+</td><td>\(x=x_0\)</td></tr><tr><th>斜</th><td><div class="math">\[a=\lim_&#123;x\to\pm\infty&#125;\frac&#123;f(x)&#125;x,\quad b=\lim_&#123;x\to\pm\infty&#125;[f(x)-ax]\]</div>
+</td><td>\(y=ax+b\)</td></tr></tbody></table>
+</div>
+<p><strong>判定限制：</strong>斜线要求 \(a\ne0\) 且 \(a,b\) 均有限；只算出斜率不够。无穷远的正、负方向分别计算；竖直渐近线只需一侧发散。</p>
+<div class="concept-grid"><section><h3 id="curvature">曲率与曲率半径</h3>
+<div class="math">\[K=\frac&#123;|f^&#123;\prime\prime&#125;(x)|&#125;&#123;[1+(f^&#123;\prime&#125;(x))^2]^&#123;3/2&#125;&#125;,\qquad R=\frac1K\ (K&gt;0).\]</div>
+<p>曲率越大，弯得越急；半径为 R 的圆，其曲率为 1/R。K=0 时无有限曲率半径。</p>
+</section>
+<section><h3 id="inflection">拐点与极值点</h3>
+<p><strong>拐点：</strong>曲线上连续且左右凹凸性改变的点。\(f^&#123;\prime\prime&#125;(x_0)=0\) 只是候选；二阶导不存在处也要检查。通常看两侧 \(f^&#123;\prime\prime&#125;\) 是否变号，点必须在曲线上有定义。</p>
+<p><strong>极值：</strong>内部可导极值点才必有 \(f^&#123;\prime&#125;=0\)；不可导点也可能取极值，如 \(|x|\) 在 0。</p>
+</section>
+</div>
+<section class="error-note" aria-labelledby="error-8"><h3 id="error-8">错题 8 · 第 15 题第二问 · 退化系数</h3>
+<p><strong>题目</strong> \(xf^&#123;\prime\prime&#125;(x)+5x^2[f^&#123;\prime&#125;(x)]^2=2(1-e^&#123;-x&#125;)\)，求 \(f^&#123;\prime\prime&#125;(0)\)。</p>
+<p><strong>错误点</strong> 直接代 x=0 只得 0=0，信息消失。</p>
+<div class="solution"><strong>最短解法</strong><div class="math">\[f^&#123;\prime\prime&#125;(x)=2\frac&#123;1-e^&#123;-x&#125;&#125;x-5x[f^&#123;\prime&#125;(x)]^2\longrightarrow2\quad(x\to0,\ x\ne0).\]</div>
+<p>条件：\(f^&#123;\prime&#125;\) 在 0 邻域连续，去心邻域可导。对 \(f^&#123;\prime&#125;\) 在 0 与 x 之间用中值定理：</p>
+<div class="math">\[\frac&#123;f^&#123;\prime&#125;(x)-f^&#123;\prime&#125;(0)&#125;x=f^&#123;\prime\prime&#125;(\xi_x)\longrightarrow2\quad(\xi_x\text&#123; 在 &#125;0\text&#123; 与 &#125;x\text&#123; 之间&#125;).\]</div>
+<p>由二阶导定义，\(f^&#123;\prime\prime&#125;(0)=2\)。若另知 \(f^&#123;\prime&#125;(0)=0\)，则 0 为极小值点。</p>
+</div>
+<p><strong>一句话方法</strong> 系数把高阶导“压没”时，先除掉退化因子，再取极限 / 回定义。</p>
+</section>
+</section>
 <script is:inline>
   window.MathJax = {
     tex: {
@@ -373,43 +162,41 @@ const chapters = [
 <script is:inline async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
 <style>
-  .cmc-notes h2 { margin-top: 2.2rem; scroll-margin-top: 88px; }
-  .cmc-notes h3 { margin-top: 1.9rem; scroll-margin-top: 88px; }
-  .article-toc {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .45rem .9rem;
-    margin: 1.2rem 0 1.8rem;
-    padding: .8rem 0;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-  }
-  .article-toc strong { width: 100%; }
-  .article-toc a { font-size: .95rem; }
-  .cmc-notes p { line-height: 1.8; }
-  .toc-wrap { overflow-x: auto; }
-  .cmc-notes table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1rem 0 1.5rem;
-  }
-  .cmc-notes th,
-  .cmc-notes td {
-    padding: .55rem .7rem;
-    border-bottom: 1px solid var(--line);
-    text-align: left;
-    vertical-align: top;
-  }
-  .formula-list {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 2rem;
-  }
-  .math { overflow-x: auto; margin: .4rem 0; }
-  .math mjx-container[display="true"] { margin: .55em 0 !important; text-align: left !important; }
-  .note { color: var(--muted); }
-  .small-table td:first-child { width: 5rem; font-weight: 700; }
-  @media (max-width: 720px) {
-    .formula-list { grid-template-columns: 1fr; }
-  }
+.cmc-notes { min-width: 0; font-size: .95rem; }
+.cmc-notes :is(h2,h3,summary) { scroll-margin-top: 90px; }
+.cmc-notes h2 { margin: 2.4rem 0 1rem; font-size: 1.4rem; }
+.cmc-notes h3 { margin: 1.2rem 0 .6rem; font-size: 1.08rem; }
+.cmc-notes p { margin: .55rem 0; line-height: 1.75; color: var(--ink); }
+.cmc-notes .note, .cmc-notes .lead { color: var(--muted); font-size: .88rem; }
+.article-toc { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .5rem 1.4rem; margin: 1rem 0; padding: 1rem; background: var(--blue-pale); border-block: 1px solid var(--line); }
+.article-toc strong { grid-column: 1 / -1; color: var(--navy-deep); }
+.article-toc a { font-size: .9rem; line-height: 1.6; }
+.article-toc span { color: var(--muted); margin-right: .6rem; font-variant-numeric: tabular-nums; }
+.cmc-notes a:focus-visible, summary:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; }
+.page-index { margin: 1.2rem 0; }
+.page-index summary { cursor: pointer; color: var(--navy-deep); font-weight: 600; }
+.toc-wrap { overflow-x: auto; }
+.cmc-notes table { width: 100%; margin: .7rem 0; font-size: .86rem; }
+.cmc-notes :is(th,td) { padding: .45rem .6rem; border: 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.cmc-notes th { background: var(--blue-pale); color: var(--navy-deep); text-align: left; }
+.page-index td:not(:first-child) { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.formula-list, .concept-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .25rem 1.2rem; padding: .6rem .8rem; background: var(--blue-pale); border: 1px solid var(--line); }
+.formula-list > *, .concept-grid > * { min-width: 0; }
+.math { max-width: 100%; overflow-x: auto; overflow-y: hidden; margin: .35rem 0; }
+.math :global(mjx-container[display="true"]) { margin: .5em 0 !important; text-align: left !important; }
+.error-note { margin: 1rem 0; padding: .2rem 0 .7rem .9rem; border-left: 2px solid var(--line-strong); border-bottom: 1px solid var(--line); }
+.error-note h3 { margin-top: .5rem; }
+.error-note p > strong { color: var(--navy-deep); margin-right: .4rem; font-size: .84rem; }
+.error-note p:nth-of-type(2) > strong { color: var(--red); }
+.solution > strong { font-size: .84rem; color: var(--navy-deep); }
+.section-links { display: flex; flex-wrap: wrap; gap: .4rem 1rem; font-size: .86rem; }
+.asymptotes { table-layout: fixed; }
+.asymptotes th:first-child { width: 3.5rem; }
+.asymptotes th:last-child { width: 5.5rem; }
+@media(max-width: 720px) {
+.article-toc, .formula-list, .concept-grid { grid-template-columns: 1fr; }
+.cmc-notes h2 { font-size: 1.2rem; }
+.cmc-notes { font-size: .9rem; }
+.asymptotes { min-width: 580px; }
+}
 </style>

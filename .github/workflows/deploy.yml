@@ -74,7 +74,9 @@ jobs:
               && printf '%s' "$cmc" | grep -q 'CMC备考｜高数重点及错题整理' \
               && printf '%s' "$cmc" | grep -q '张宇1000题' \
               && printf '%s' "$cmc" | grep -q '第二章 数列极限' \
-              && printf '%s' "$cmc" | grep -q '第三章 一元函数微分学的概念'; then
+              && printf '%s' "$cmc" | grep -q '第三章 一元函数微分学的概念' \
+              && printf '%s' "$cmc" | grep -q '第五章 一元函数微分学的应用（一）——几何应用' \
+              && printf '%s' "$cmc" | grep -q 'id="chapter-5"'; then
               echo 'Homepage, topics, CMC writing note, and legacy redirect are live.'
               exit 0
             fi
