@@ -21,12 +21,12 @@ const chapters = [
 ];
 ---
 <section class="cmc-notes">
-<p class="lead">张宇1000题 · 高等数学｜公式速查、方法模板与已记录错题。当前整理至第五章。</p>
+<p class="lead">张宇1000题 · 高等数学｜公式速查、方法模板与已记录错题。第一至五章笔记 · 第六章中值定理 · 基础公式速查。</p>
 <nav class="article-toc" aria-label="本文目录"><strong>章节导航</strong>
-{chapters.slice(0, 5).map(([title], i) => <a href={`#chapter-${i + 1}`}><span>0{i + 1}</span>{title}</a>)}
-<a href="#toc">全书页码索引</a></nav>
+{chapters.slice(0, 6).map(([title], i) => <a href={`#chapter-${i + 1}`}><span>0{i + 1}</span>{title}</a>)}
+<a href="#basic-formulas">基础公式速查</a><a href="#condition-10-11">第 10 / 11 题 · 条件辨析</a><a href="#mean-value-theorems">中值定理条件表</a><a href="#toc">全书页码索引</a></nav>
 <details class="page-index" open><summary id="toc">张宇1000题目录 · 页码索引</summary><div class="toc-wrap"><table><thead><tr><th>章节</th><th>基础篇</th><th>强化篇</th></tr></thead><tbody>
-{chapters.map(([title, basic, advanced], i) => <tr><td>{i < 5 ? <a href={`#chapter-${i + 1}`}>{i + 1}. {title}</a> : `${i + 1}. ${title}`}</td><td>P.{basic}</td><td>P.{advanced}</td></tr>)}
+{chapters.map(([title, basic, advanced], i) => <tr><td>{i < 6 ? <a href={`#chapter-${i + 1}`}>{i + 1}. {title}</a> : `${i + 1}. ${title}`}</td><td>P.{basic}</td><td>P.{advanced}</td></tr>)}
 </tbody></table>
 </div>
 </details>
@@ -150,6 +150,80 @@ const chapters = [
 </div>
 <p><strong>一句话方法</strong> 系数把高阶导“压没”时，先除掉退化因子，再取极限 / 回定义。</p>
 </section>
+
+<h2 id="chapter-6">第六章 一元函数微分学的应用（二）——中值定理、微分等式与微分不等式</h2>
+<nav class="section-links" aria-label="第六章速查"><a href="#condition-10-11">第 10 / 11 题</a><a href="#mean-value-theorems">中值定理条件</a></nav>
+<section class="error-note" aria-labelledby="condition-10-11"><h3 id="condition-10-11">第 10 / 11 题 · 导数定义 vs 更强条件</h3>
+<p><strong>同一目标</strong> \(\displaystyle\lim_&#123;x\to1^+&#125;\frac&#123;f(x)-f(1)&#125;&#123;\ln x&#125;\)。两题均给 \(f'(1)=2\)；第 10 题另给 \(f'\) 在 1 处连续。</p>
+<p><strong>易混点</strong> 一点可导，不保证邻域内可导，更不保证导数连续。</p>
+<div class="solution"><strong>第 11 题 · 直接用定义</strong>
+<div class="math">\[f'(1)=2\iff\lim_&#123;x\to1&#125;\frac&#123;f(x)-f(1)&#125;&#123;x-1&#125;=2.\]</div>
+<div class="math">\[\frac&#123;f(x)-f(1)&#125;&#123;\ln x&#125;=\frac&#123;\dfrac&#123;f(x)-f(1)&#125;&#123;x-1&#125;&#125;&#123;\dfrac&#123;\ln x-\ln1&#125;&#123;x-1&#125;&#125;\longrightarrow\frac21=2\quad(x\to1^+).\]</div>
+<p>仅此不能推出 \(\lim_&#123;x\to1&#125;f'(x)=2\)，也不能推出 \(f'\) 在 1 的某邻域存在或连续；不可直接套洛必达。</p>
+<strong>第 10 题 · 导数连续，条件更强</strong>
+<div class="math">\[\lim_&#123;x\to1&#125;f'(x)=f'(1)=2\quad\Longrightarrow\quad\lim_&#123;x\to1^+&#125;\frac&#123;f'(x)&#125;&#123;1/x&#125;=\lim_&#123;x\to1^+&#125;xf'(x)=2.\]</div>
+<p>满足洛必达条件；也可对 \(f,\ln x\) 在 \([1,x]\) 用柯西中值定理。导数定义仍可直接做。</p></div>
+<p><strong>一句话方法</strong> 一点可导 → 导数定义 / 一阶局部展开；邻域或区间条件充分 → 再考虑洛必达 / 中值定理。</p>
+</section>
+<h3 id="mean-value-theorems">中值定理 · 条件与结论</h3>
+<p class="note">约定 \(a&lt;b\)；\(C[a,b]\) 表示在闭区间上连续。各行均有 \(\xi\in(a,b)\)。</p>
+<div class="toc-wrap"><table><thead><tr><th>定理</th><th>条件</th><th>结论：存在 ξ</th></tr></thead><tbody>
+<tr><th>Rolle · 罗尔</th><td>\(f\in C[a,b]\)，在 \((a,b)\) 可导；\(f(a)=f(b)\)</td><td>\(f'(\xi)=0\)</td></tr>
+<tr><th>Lagrange · 拉格朗日</th><td>\(f\in C[a,b]\)，在 \((a,b)\) 可导</td><td>\(\displaystyle f'(\xi)=\frac&#123;f(b)-f(a)&#125;&#123;b-a&#125;\)</td></tr>
+<tr><th>Cauchy · 柯西</th><td>\(f,g\in C[a,b]\)，均在 \((a,b)\) 可导</td><td>\([f(b)-f(a)]g'(\xi)\)<br/>\(=[g(b)-g(a)]f'(\xi)\)</td></tr>
+</tbody></table></div>
+<p class="note">柯西优先用无除法形式。写成增量比 = 导数比，需 \(g(b)-g(a)\ne0\) 且 \(g'(\xi)\ne0\)；常用充分条件为区间内 \(g'\ne0\)。</p>
+<p><strong>关系：</strong>Rolle 是 Lagrange 加 \(f(a)=f(b)\) 的特殊情形；Lagrange 是 Cauchy 取 \(g(x)=x\) 的特殊情形。</p>
+<p><strong>识别：</strong>看到“存在 \(\xi\in(a,b)\)” → 先查闭区间连续 + 开区间可导 → 再查附加条件。</p>
+<h2 id="basic-formulas">基础公式速查</h2>
+<nav class="section-links" aria-label="公式速查"><a href="#derivative-formulas">常见求导</a><a href="#derivative-rules">求导法则</a><a href="#integral-formulas">常见积分</a><a href="#integral-patterns">积分结构与方法</a></nav>
+<p class="note">均在实数定义域内使用；\(a&gt;0,\ a\ne1\)。实幂一般取底数 &gt; 0；对数真数 &gt; 0，分母非零。arcsin / arccos 的导数要求 \(|x|&lt;1\)。不定积分在各适用区间内成立，\(C\) 为任意常数。</p>
+<h3 id="derivative-formulas">常见求导</h3>
+<div class="formula-list">
+<div class="math">\[(C)'=0\]</div>
+<div class="math">\[(x^\alpha)'=\alpha x^&#123;\alpha-1&#125;\]</div>
+<div class="math">\[(e^x)'=e^x\]</div>
+<div class="math">\[(a^x)'=a^x\ln a\]</div>
+<div class="math">\[(\ln x)'=\frac1x\]</div>
+<div class="math">\[(\log_a x)'=\frac1&#123;x\ln a&#125;\]</div>
+<div class="math">\[(\sin x)'=\cos x\]</div>
+<div class="math">\[(\cos x)'=-\sin x\]</div>
+<div class="math">\[(\tan x)'=\sec^2x\]</div>
+<div class="math">\[(\cot x)'=-\csc^2x\]</div>
+<div class="math">\[(\arcsin x)'=\frac1&#123;\sqrt&#123;1-x^2&#125;&#125;\]</div>
+<div class="math">\[(\arccos x)'=-\frac1&#123;\sqrt&#123;1-x^2&#125;&#125;\]</div>
+<div class="math">\[(\arctan x)'=\frac1&#123;1+x^2&#125;\]</div>
+</div>
+<h3 id="derivative-rules">求导法则 · 复合函数别漏内层导数</h3>
+<div class="formula-list">
+<div class="math">\[(uv)'=u'v+uv'\]</div>
+<div class="math">\[\left(\frac uv\right)'=\frac&#123;u'v-uv'&#125;&#123;v^2&#125;\]</div>
+<div class="math">\[[f(g(x))]'=f'(g(x))g'(x)\]</div>
+<div class="math">\[(u^\alpha)'=\alpha u^&#123;\alpha-1&#125;u'\]</div>
+<div class="math">\[(e^u)'=e^u u'\]</div>
+<div class="math">\[(\ln u)'=\frac&#123;u'&#125;u\]</div>
+</div>
+<h3 id="integral-formulas">常见不定积分</h3>
+<div class="formula-list">
+<div class="math">\[\int x^\alpha\,dx=\frac&#123;x^&#123;\alpha+1&#125;&#125;&#123;\alpha+1&#125;+C\quad(\alpha\ne-1)\]</div>
+<div class="math">\[\int\frac1x\,dx=\ln|x|+C\]</div>
+<div class="math">\[\int e^x\,dx=e^x+C\]</div>
+<div class="math">\[\int a^x\,dx=\frac&#123;a^x&#125;&#123;\ln a&#125;+C\]</div>
+<div class="math">\[\int\sin x\,dx=-\cos x+C\]</div>
+<div class="math">\[\int\cos x\,dx=\sin x+C\]</div>
+<div class="math">\[\int\sec^2x\,dx=\tan x+C\]</div>
+<div class="math">\[\int\csc^2x\,dx=-\cot x+C\]</div>
+<div class="math">\[\int\frac1&#123;1+x^2&#125;\,dx=\arctan x+C\]</div>
+<div class="math">\[\int\frac1&#123;\sqrt&#123;1-x^2&#125;&#125;\,dx=\arcsin x+C\]</div>
+</div>
+<h3 id="integral-patterns">积分结构识别与方法</h3>
+<div class="formula-list">
+<div class="math">\[\int\frac&#123;f'(x)&#125;&#123;f(x)&#125;\,dx=\ln|f(x)|+C\]</div>
+<div class="math">\[\int f'(x)e^&#123;f(x)&#125;\,dx=e^&#123;f(x)&#125;+C\]</div>
+<div class="math">\[\int\frac&#123;f'(x)&#125;&#123;1+[f(x)]^2&#125;\,dx=\arctan(f(x))+C\]</div>
+<div class="math">\[u=g(x),\quad du=g'(x)\,dx\]</div>
+<div class="math">\[\int u\,dv=uv-\int v\,du\]</div>
+</div>
 </section>
 <script is:inline>
   window.MathJax = {
