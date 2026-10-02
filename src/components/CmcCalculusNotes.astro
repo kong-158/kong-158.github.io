@@ -60,7 +60,9 @@ const chapters = [
                   ? <a href="#chapter-2">{i + 1}. {title}</a>
                   : i === 2
                     ? <a href="#chapter-3">{i + 1}. {title}</a>
-                    : `${i + 1}. ${title}`}
+                    : i === 3
+                      ? <a href="#chapter-4">{i + 1}. {title}</a>
+                      : `${i + 1}. ${title}`}
             </td>
             <td>P.{basic}</td>
             <td>P.{advanced}</td>
