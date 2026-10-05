@@ -21,12 +21,13 @@ const chapters = [
 ];
 ---
 <section class="cmc-notes">
-<p class="lead">张宇1000题 · 高等数学｜公式速查、方法模板与已记录错题。第一至五章笔记 · 第六章中值定理 · 基础公式速查。</p>
+<p class="lead">张宇1000题 · 高等数学｜按“定义 → 判定 → 方法 → 错题”整理。当前已系统整理第一至六章与第八章积分概念、反常积分和定积分性质。</p>
 <nav class="article-toc" aria-label="本文目录"><strong>章节导航</strong>
 {chapters.slice(0, 6).map(([title], i) => <a href={`#chapter-${i + 1}`}><span>0{i + 1}</span>{title}</a>)}
-<a href="#basic-formulas">基础公式速查</a><a href="#condition-10-11">第 10 / 11 题 · 条件辨析</a><a href="#mean-value-theorems">中值定理条件表</a><a href="#toc">全书页码索引</a></nav>
+<a href="#chapter-8"><span>08</span>{chapters[7][0]}</a>
+<a href="#basic-formulas">基础公式速查</a><a href="#condition-10-11">第 10 / 11 题 · 条件辨析</a><a href="#chapter-8-errors">第八章错题索引</a><a href="#toc">全书页码索引</a></nav>
 <details class="page-index" open><summary id="toc">张宇1000题目录 · 页码索引</summary><div class="toc-wrap"><table><thead><tr><th>章节</th><th>基础篇</th><th>强化篇</th></tr></thead><tbody>
-{chapters.map(([title, basic, advanced], i) => <tr><td>{i < 6 ? <a href={`#chapter-${i + 1}`}>{i + 1}. {title}</a> : `${i + 1}. ${title}`}</td><td>P.{basic}</td><td>P.{advanced}</td></tr>)}
+{chapters.map(([title, basic, advanced], i) => <tr><td>{(i < 6 || i === 7) ? <a href={`#chapter-${i + 1}`}>{i + 1}. {title}</a> : `${i + 1}. ${title}`}</td><td>P.{basic}</td><td>P.{advanced}</td></tr>)}
 </tbody></table>
 </div>
 </details>
@@ -175,6 +176,136 @@ const chapters = [
 <p class="note">柯西优先用无除法形式。写成增量比 = 导数比，需 \(g(b)-g(a)\ne0\) 且 \(g'(\xi)\ne0\)；常用充分条件为区间内 \(g'\ne0\)。</p>
 <p><strong>关系：</strong>Rolle 是 Lagrange 加 \(f(a)=f(b)\) 的特殊情形；Lagrange 是 Cauchy 取 \(g(x)=x\) 的特殊情形。</p>
 <p><strong>识别：</strong>看到“存在 \(\xi\in(a,b)\)” → 先查闭区间连续 + 开区间可导 → 再查附加条件。</p>
+
+<h2 id="chapter-8">第八章 一元函数积分学的概念与性质</h2>
+<nav class="section-links" aria-label="第八章速查">
+<a href="#integral-map">总框架</a><a href="#variable-limit">变限积分求导</a><a href="#improper-def">反常积分定义</a><a href="#improper-tests">判敛工具</a><a href="#integral-symmetry">奇偶与周期</a><a href="#primitive-relation">原函数关系</a><a href="#chapter-8-errors">错题索引</a>
+</nav>
+
+<h3 id="integral-map">先把这一章分成四层</h3>
+<div class="toc-wrap"><table><thead><tr><th>看到什么</th><th>先问什么</th><th>核心工具</th></tr></thead><tbody>
+<tr><th>普通定积分</th><td>积分是否存在？区间是否对称？函数有无周期？</td><td>奇偶性、换元对称、周期性</td></tr>
+<tr><th>变上限 / 变下限积分</th><td>谁是积分变量？上下限是否含 x？被积函数是否也显含 x？</td><td>微积分基本定理 + 链式法则</td></tr>
+<tr><th>反常积分</th><td>所有“坏点”在哪里？每一段是否分别收敛？</td><td>按坏点拆分、比较 / 极限比较、等价无穷小、p 型积分</td></tr>
+<tr><th>原函数判断</th><td>题目给的是连续、可积，还是“某函数的导数”？</td><td>连续 ⇒ 有原函数；可积 ⇏ 有原函数；导数有 Darboux 性质</td></tr>
+</tbody></table></div>
+<p><strong>考试顺序：</strong>先认类型，再找定义域和坏点；反常积分先判收敛，普通定积分再用奇偶 / 周期；涉及“原函数”时不要把“可积”和“可作导数”混为一谈。</p>
+
+<h3 id="variable-limit">第 9 题类 · 变限积分求导</h3>
+<p><strong>最常用三式：</strong>积分变量用 t，x 只控制积分上下限。</p>
+<div class="formula-list">
+<div class="math">\[F(x)=\int_a^x f(t)\,dt\quad\Longrightarrow\quad F'(x)=f(x)\]</div>
+<div class="math">\[\frac{d}{dx}\int_a^{g(x)}f(t)\,dt=f(g(x))g'(x)\]</div>
+<div class="math">\[\frac{d}{dx}\int_{u(x)}^{v(x)}f(t)\,dt=f(v(x))v'(x)-f(u(x))u'(x)\]</div>
+</div>
+<p class="note">上述结论在相应点要求 f 连续。下限的项带负号；上下限是复合函数时必须乘内层导数。</p>
+<p>若被积函数本身还显含 x，例如 \(\int_{u(x)}^{v(x)}F(x,t)\,dt\)，则还要加参数变化项：</p>
+<div class="math">\[\frac{d}{dx}\int_{u(x)}^{v(x)}F(x,t)\,dt
+=F(x,v(x))v'(x)-F(x,u(x))u'(x)+\int_{u(x)}^{v(x)}\frac{\partial F}{\partial x}(x,t)\,dt.\]</div>
+<p><strong>一句话检查：</strong>上限贡献 − 下限贡献？不是。应是<strong>上限贡献减去下限贡献</strong>；每个移动边界再乘自己的导数。</p>
+
+<h3 id="improper-def">反常积分 · 先按定义找“坏点”</h3>
+<p>反常只有两类来源：<strong>区间无穷</strong>，或<strong>被积函数在端点 / 内点无界或无定义</strong>。一个积分里出现几个独立坏点，就必须分别检查几段。</p>
+<div class="formula-list">
+<div class="math">\[\int_a^{+\infty}f(x)\,dx:=\lim_{R\to+\infty}\int_a^R f(x)\,dx\]</div>
+<div class="math">\[\int_{-\infty}^{+\infty}f(x)\,dx:=\int_{-\infty}^{c}f(x)\,dx+\int_c^{+\infty}f(x)\,dx\]</div>
+<div class="math">\[\int_a^b f(x)\,dx:=\lim_{\varepsilon\to0^+}\int_{a+\varepsilon}^{b}f(x)\,dx\quad(a\text{ 为瑕点})\]</div>
+<div class="math">\[\int_a^b f(x)\,dx:=\int_a^c f(x)\,dx+\int_c^b f(x)\,dx\quad(c\text{ 为内部瑕点})\]</div>
+</div>
+<p><strong>什么时候必须拆？</strong> 不是看“算起来方不方便”，而是看<strong>定义</strong>：两个无穷端点、内部瑕点、多个瑕点都必须拆；每一段都收敛，原积分才收敛。拆分点若只是普通有限点，可以任取方便的位置。</p>
+<p><strong>为什么不能让左右互相抵消？</strong> 因为反常积分要求各段极限独立存在。若只取对称截断 \(\lim_{R\to\infty}\int_{-R}^{R}f(x)\,dx\)，得到的是 Cauchy 主值，不能代替通常意义下的反常积分。</p>
+<section class="error-note" aria-labelledby="error-13"><h3 id="error-13">第 13 题 · 奇函数也可能反常发散</h3>
+<p><strong>关键例子</strong> \(\displaystyle\int_{-\infty}^{+\infty}\frac{x}{1+x^2}\,dx\)。</p>
+<p><strong>错误点</strong> 看到奇函数就直接写 0。</p>
+<div class="solution"><strong>正确处理</strong>
+<div class="math">\[\int_{-\infty}^{0}\frac{x}{1+x^2}\,dx=-\infty,\qquad
+\int_{0}^{+\infty}\frac{x}{1+x^2}\,dx=+\infty.\]</div>
+<p>两段都不收敛，因此原反常积分发散。虽然对称主值为 0，但那不是本题的反常积分。</p>
+</div>
+<p><strong>一句话方法</strong> 反常积分：先收敛，后奇偶。</p>
+</section>
+
+<h3 id="improper-tests">反常积分判敛 · 先化成标准模型</h3>
+<div class="toc-wrap"><table><thead><tr><th>位置</th><th>标准模型</th><th>收敛条件</th></tr></thead><tbody>
+<tr><th>\(+\infty\)</th><td>\(\displaystyle\int_1^{+\infty}\frac{dx}{x^p}\)</td><td>\(p&gt;1\)</td></tr>
+<tr><th>\(0^+\)</th><td>\(\displaystyle\int_0^1\frac{dx}{x^p}\)</td><td>\(p&lt;1\)</td></tr>
+<tr><th>\(+\infty\)</th><td>\(\displaystyle\int_e^{+\infty}\frac{dx}{x(\ln x)^q}\)</td><td>\(q&gt;1\)</td></tr>
+<tr><th>\(0^+\)</th><td>\(\displaystyle\int_0^1 x^\alpha|\ln x|^m\,dx\)</td><td>固定 \(m\ge0\) 时，\(\alpha&gt;-1\)</td></tr>
+</tbody></table></div>
+<p><strong>极限比较：</strong>若坏点附近 \(f(x),g(x)&gt;0\)，且 \(\displaystyle\lim f/g=L\in(0,+\infty)\)，则两积分同敛散。常用等价无穷小：</p>
+<div class="formula-list">
+<div class="math">\[\sin x\sim x\]</div>
+<div class="math">\[\ln(1+x)\sim x\]</div>
+<div class="math">\[e^x-1\sim x\]</div>
+<div class="math">\[1-\cos x\sim\frac{x^2}{2}\qquad(x\to0)\]</div>
+</div>
+
+<section class="error-note" aria-labelledby="error-14"><h3 id="error-14">第 14 题 · 一个积分同时检查 0 与 \(+\infty\)</h3>
+<p><strong>题型</strong> \(\displaystyle I(p)=\int_0^{+\infty}\frac{\ln x}{(1+x)x^{1-p}}\,dx\)。</p>
+<p><strong>错误点</strong> 没把两个坏点分开，或只判断一端。</p>
+<div class="solution"><strong>路线</strong>
+<p>0 与 \(+\infty\) 都是坏点，所以在普通点 1 拆开：</p>
+<div class="math">\[I(p)=\int_0^1\frac{\ln x}{(1+x)x^{1-p}}\,dx+\int_1^{+\infty}\frac{\ln x}{(1+x)x^{1-p}}\,dx.\]</div>
+<p>\(x\to0^+\)：原式 \(\sim x^{p-1}\ln x\)，要求 \(p&gt;0\)。</p>
+<p>\(x\to+\infty\)：原式 \(\sim \dfrac{\ln x}{x^{2-p}}\)，要求 \(2-p&gt;1\)，即 \(p&lt;1\)。</p>
+<div class="math">\[\boxed&#123;0&lt;p&lt;1&#125;\]</div>
+</div>
+<p><strong>一句话方法</strong> 多坏点问题取交集：每一端的收敛条件都必须满足。</p>
+</section>
+
+<section class="error-note" aria-labelledby="error-15"><h3 id="error-15">第 15 题 · 四个典型判敛模型</h3>
+<p><strong>A</strong> \(\displaystyle\int_2^{+\infty}\frac{dx}{x\ln x}\) 发散，因为原函数为 \(\ln\ln x\)，等价于对数修正的临界情形 \(q=1\)。</p>
+<p><strong>B</strong> \(\displaystyle\int_0^{+\infty}e^{-x^2}\,dx\) 收敛（值为 \(\sqrt\pi/2\)）。</p>
+<p><strong>C</strong> \(\displaystyle\int_{-1}^{1}\frac{dx}{\sin x}\) 在 0 有内部瑕点；\(\sin x\sim x\)，两侧都按 \(1/x\) 发散。奇函数不能救它。</p>
+<p><strong>D</strong> \(\displaystyle\int_0^1\frac{x}{\ln^2(1+x)}\,dx\sim\int_0^1\frac{dx}{x}\)，发散。</p>
+<p><strong>一句话方法</strong> 不要先求原函数；先定位坏点，再看能否直接比较到标准模型。</p>
+</section>
+
+<h3 id="integral-symmetry">普通定积分 · 奇偶、对称、周期</h3>
+<div class="formula-list">
+<div class="math">\[f(-x)=-f(x)\Longrightarrow\int_{-a}^{a}f(x)\,dx=0\]</div>
+<div class="math">\[f(-x)=f(x)\Longrightarrow\int_{-a}^{a}f(x)\,dx=2\int_0^a f(x)\,dx\]</div>
+<div class="math">\[\int_0^a f(x)\,dx=\int_0^a f(a-x)\,dx\]</div>
+<div class="math">\[f(x+T)=f(x)\Longrightarrow\int_a^{a+T}f(x)\,dx=\int_0^T f(x)\,dx\]</div>
+</div>
+<p class="note">前两条默认相应积分存在。若是反常积分，必须先按反常积分定义验证收敛，再使用奇偶性。</p>
+<p><strong>乘积奇偶性：</strong>奇×奇=偶，偶×偶=偶，奇×偶=奇。先逐项判奇偶，往往比真正积分快得多。</p>
+<section class="error-note" aria-labelledby="error-20"><h3 id="error-20">第 20 题 · 不算积分，先判奇偶与符号</h3>
+<div class="solution">
+<p>\(\displaystyle M=\int_{-\pi/2}^{\pi/2}\frac{x}{1+x^2}\cos^5x\,dx\)：奇×偶=奇，所以 \(M=0\)。</p>
+<p>\(\displaystyle N=\int_{-\pi/2}^{\pi/2}(x^2\sin x+\sin^2x\cos x)\,dx\)：第一项奇，第二项偶且在该区间非负，故 \(N&gt;0\)。</p>
+<p>\(\displaystyle P=\int_{-\pi/2}^{\pi/2}(\sin^3x-\cos^4x)\,dx\)：第一项奇，第二项为负的偶函数贡献，故 \(P&lt;0\)。</p>
+<div class="math">\[\boxed&#123;P&lt;M&lt;N&#125;\]</div>
+</div>
+<p><strong>一句话方法</strong> 对称区间先消奇函数项，再看剩余偶函数的符号；能比较就别硬算。</p>
+</section>
+
+<h3 id="primitive-relation">原函数、可积、连续 · 别混成一件事</h3>
+<div class="toc-wrap"><table><thead><tr><th>条件</th><th>能推出什么</th><th>不能反推什么</th></tr></thead><tbody>
+<tr><th>f 在区间连续</th><td>f 一定有原函数；\(\int_a^x f(t)\,dt\) 就是一个原函数</td><td>—</td></tr>
+<tr><th>f 在 [a,b] 可积</th><td>\(F(x)=\int_a^x f(t)\,dt\) 连续；f 在某点连续时 \(F'(x)=f(x)\)</td><td>不能推出 f 在整个区间有原函数</td></tr>
+<tr><th>f 是某函数的导数</th><td>f 具有 Darboux（介值）性质</td><td>导数未必连续</td></tr>
+</tbody></table></div>
+<p><strong>Darboux 性质：</strong>导函数即使不连续，也不能发生普通跳跃；因此“可积但带跳跃”的函数可以作为反例说明：可积 \(\not\Rightarrow\) 有原函数。</p>
+<section class="error-note" aria-labelledby="error-23"><h3 id="error-23">第 23 题 · 四条性质放回各自前提</h3>
+<p><strong>变上限积分：</strong>在连续条件下，\(\displaystyle\left[\int_a^x f(t)\,dt\right]'=f(x)\)，因此它是 f 的一个原函数。</p>
+<p><strong>奇函数：</strong>普通对称定积分存在时，\(\displaystyle\int_{-a}^{a}f(x)\,dx=0\)。</p>
+<p><strong>周期函数：</strong>若周期为 T，则任意长度为一个周期的积分相同：\(\displaystyle\int_a^{a+T}f(x)\,dx=\int_0^T f(x)\,dx\)。</p>
+<p><strong>“可积 ⇒ 有原函数”错误：</strong>例如 \(f(x)=x\,\operatorname&#123;sgn&#125;(\cos x)\) 在 \([0,\pi]\) 可积，但在 \(\pi/2\) 有跳跃，不可能是导函数，因此不一定有原函数。</p>
+<p><strong>一句话方法</strong> 做性质判断题时，把每条结论的前提一起背：连续、可积、导函数、普通积分 / 反常积分不能混用。</p>
+</section>
+
+<h3 id="chapter-8-errors">第八章错题索引 · 这轮真正缺的是哪些模块</h3>
+<div class="toc-wrap"><table><thead><tr><th>题号</th><th>错误根源</th><th>以后第一反应</th></tr></thead><tbody>
+<tr><th>9</th><td>变限积分求导公式记混</td><td>上限项 − 下限项；每个边界乘自身导数；被积函数显含 x 再加参数项</td></tr>
+<tr><th>13</th><td>把反常奇函数当普通对称积分</td><td>先拆 \((-\infty,c)\) 与 \((c,+\infty)\)，分别判敛</td></tr>
+<tr><th>14</th><td>不知道什么时候拆、只看一端</td><td>列出全部坏点；每个坏点单独给出收敛条件，最后取交集</td></tr>
+<tr><th>15</th><td>p 型积分、等价无穷小和内部瑕点遗忘</td><td>先比较到 \(1/x^p\)、\(1/[x(\ln x)^q]\) 等标准模型</td></tr>
+<tr><th>20</th><td>奇偶乘法与对称积分性质遗忘</td><td>逐项标奇 / 偶，先消掉奇项，再判断偶项符号</td></tr>
+<tr><th>23</th><td>连续、可积、原函数、周期性质混在一起</td><td>每条结论先写前提；尤其记住“可积 ⇏ 有原函数”</td></tr>
+</tbody></table></div>
+<p><strong>本章总流程：</strong>变限积分看求导规则；普通定积分看对称 / 周期；反常积分先找坏点并按定义拆开，再判敛；涉及原函数时回到“连续 / 可积 / 导函数”三种不同条件。</p>
+
 <h2 id="basic-formulas">基础公式速查</h2>
 <nav class="section-links" aria-label="公式速查"><a href="#derivative-formulas">常见求导</a><a href="#derivative-rules">求导法则</a><a href="#integral-formulas">常见积分</a><a href="#integral-patterns">积分结构与方法</a></nav>
 <p class="note">均在实数定义域内使用；\(a&gt;0,\ a\ne1\)。实幂一般取底数 &gt; 0；对数真数 &gt; 0，分母非零。arcsin / arccos 的导数要求 \(|x|&lt;1\)。不定积分在各适用区间内成立，\(C\) 为任意常数。</p>
