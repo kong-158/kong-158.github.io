@@ -195,31 +195,31 @@ const chapters = [
 <p><strong>最常用三式：</strong>积分变量用 t，x 只控制积分上下限。</p>
 <div class="formula-list">
 <div class="math">\[F(x)=\int_a^x f(t)\,dt\quad\Longrightarrow\quad F'(x)=f(x)\]</div>
-<div class="math">\[\frac{d}{dx}\int_a^{g(x)}f(t)\,dt=f(g(x))g'(x)\]</div>
-<div class="math">\[\frac{d}{dx}\int_{u(x)}^{v(x)}f(t)\,dt=f(v(x))v'(x)-f(u(x))u'(x)\]</div>
+<div class="math">\[\frac&#123;d&#125;&#123;dx&#125;\int_a^&#123;g(x)&#125;f(t)\,dt=f(g(x))g'(x)\]</div>
+<div class="math">\[\frac&#123;d&#125;&#123;dx&#125;\int_&#123;u(x)&#125;^&#123;v(x)&#125;f(t)\,dt=f(v(x))v'(x)-f(u(x))u'(x)\]</div>
 </div>
 <p class="note">上述结论在相应点要求 f 连续。下限的项带负号；上下限是复合函数时必须乘内层导数。</p>
-<p>若被积函数本身还显含 x，例如 \(\int_{u(x)}^{v(x)}F(x,t)\,dt\)，则还要加参数变化项：</p>
-<div class="math">\[\frac{d}{dx}\int_{u(x)}^{v(x)}F(x,t)\,dt
-=F(x,v(x))v'(x)-F(x,u(x))u'(x)+\int_{u(x)}^{v(x)}\frac{\partial F}{\partial x}(x,t)\,dt.\]</div>
+<p>若被积函数本身还显含 x，例如 \(\int_&#123;u(x)&#125;^&#123;v(x)&#125;F(x,t)\,dt\)，则还要加参数变化项：</p>
+<div class="math">\[\frac&#123;d&#125;&#123;dx&#125;\int_&#123;u(x)&#125;^&#123;v(x)&#125;F(x,t)\,dt
+=F(x,v(x))v'(x)-F(x,u(x))u'(x)+\int_&#123;u(x)&#125;^&#123;v(x)&#125;\frac&#123;\partial F&#125;&#123;\partial x&#125;(x,t)\,dt.\]</div>
 <p><strong>一句话检查：</strong>上限贡献 − 下限贡献？不是。应是<strong>上限贡献减去下限贡献</strong>；每个移动边界再乘自己的导数。</p>
 
 <h3 id="improper-def">反常积分 · 先按定义找“坏点”</h3>
 <p>反常只有两类来源：<strong>区间无穷</strong>，或<strong>被积函数在端点 / 内点无界或无定义</strong>。一个积分里出现几个独立坏点，就必须分别检查几段。</p>
 <div class="formula-list">
-<div class="math">\[\int_a^{+\infty}f(x)\,dx:=\lim_{R\to+\infty}\int_a^R f(x)\,dx\]</div>
-<div class="math">\[\int_{-\infty}^{+\infty}f(x)\,dx:=\int_{-\infty}^{c}f(x)\,dx+\int_c^{+\infty}f(x)\,dx\]</div>
-<div class="math">\[\int_a^b f(x)\,dx:=\lim_{\varepsilon\to0^+}\int_{a+\varepsilon}^{b}f(x)\,dx\quad(a\text{ 为瑕点})\]</div>
-<div class="math">\[\int_a^b f(x)\,dx:=\int_a^c f(x)\,dx+\int_c^b f(x)\,dx\quad(c\text{ 为内部瑕点})\]</div>
+<div class="math">\[\int_a^&#123;+\infty&#125;f(x)\,dx:=\lim_&#123;R\to+\infty&#125;\int_a^R f(x)\,dx\]</div>
+<div class="math">\[\int_&#123;-\infty&#125;^&#123;+\infty&#125;f(x)\,dx:=\int_&#123;-\infty&#125;^&#123;c&#125;f(x)\,dx+\int_c^&#123;+\infty&#125;f(x)\,dx\]</div>
+<div class="math">\[\int_a^b f(x)\,dx:=\lim_&#123;\varepsilon\to0^+&#125;\int_&#123;a+\varepsilon&#125;^&#123;b&#125;f(x)\,dx\quad(a\text&#123; 为瑕点&#125;)\]</div>
+<div class="math">\[\int_a^b f(x)\,dx:=\int_a^c f(x)\,dx+\int_c^b f(x)\,dx\quad(c\text&#123; 为内部瑕点&#125;)\]</div>
 </div>
 <p><strong>什么时候必须拆？</strong> 不是看“算起来方不方便”，而是看<strong>定义</strong>：两个无穷端点、内部瑕点、多个瑕点都必须拆；每一段都收敛，原积分才收敛。拆分点若只是普通有限点，可以任取方便的位置。</p>
-<p><strong>为什么不能让左右互相抵消？</strong> 因为反常积分要求各段极限独立存在。若只取对称截断 \(\lim_{R\to\infty}\int_{-R}^{R}f(x)\,dx\)，得到的是 Cauchy 主值，不能代替通常意义下的反常积分。</p>
+<p><strong>为什么不能让左右互相抵消？</strong> 因为反常积分要求各段极限独立存在。若只取对称截断 \(\lim_&#123;R\to\infty&#125;\int_&#123;-R&#125;^&#123;R&#125;f(x)\,dx\)，得到的是 Cauchy 主值，不能代替通常意义下的反常积分。</p>
 <section class="error-note" aria-labelledby="error-13"><h3 id="error-13">第 13 题 · 奇函数也可能反常发散</h3>
-<p><strong>关键例子</strong> \(\displaystyle\int_{-\infty}^{+\infty}\frac{x}{1+x^2}\,dx\)。</p>
+<p><strong>关键例子</strong> \(\displaystyle\int_&#123;-\infty&#125;^&#123;+\infty&#125;\frac&#123;x&#125;&#123;1+x^2&#125;\,dx\)。</p>
 <p><strong>错误点</strong> 看到奇函数就直接写 0。</p>
 <div class="solution"><strong>正确处理</strong>
-<div class="math">\[\int_{-\infty}^{0}\frac{x}{1+x^2}\,dx=-\infty,\qquad
-\int_{0}^{+\infty}\frac{x}{1+x^2}\,dx=+\infty.\]</div>
+<div class="math">\[\int_&#123;-\infty&#125;^&#123;0&#125;\frac&#123;x&#125;&#123;1+x^2&#125;\,dx=-\infty,\qquad
+\int_&#123;0&#125;^&#123;+\infty&#125;\frac&#123;x&#125;&#123;1+x^2&#125;\,dx=+\infty.\]</div>
 <p>两段都不收敛，因此原反常积分发散。虽然对称主值为 0，但那不是本题的反常积分。</p>
 </div>
 <p><strong>一句话方法</strong> 反常积分：先收敛，后奇偶。</p>
@@ -227,9 +227,9 @@ const chapters = [
 
 <h3 id="improper-tests">反常积分判敛 · 先化成标准模型</h3>
 <div class="toc-wrap"><table><thead><tr><th>位置</th><th>标准模型</th><th>收敛条件</th></tr></thead><tbody>
-<tr><th>\(+\infty\)</th><td>\(\displaystyle\int_1^{+\infty}\frac{dx}{x^p}\)</td><td>\(p&gt;1\)</td></tr>
-<tr><th>\(0^+\)</th><td>\(\displaystyle\int_0^1\frac{dx}{x^p}\)</td><td>\(p&lt;1\)</td></tr>
-<tr><th>\(+\infty\)</th><td>\(\displaystyle\int_e^{+\infty}\frac{dx}{x(\ln x)^q}\)</td><td>\(q&gt;1\)</td></tr>
+<tr><th>\(+\infty\)</th><td>\(\displaystyle\int_1^&#123;+\infty&#125;\frac&#123;dx&#125;&#123;x^p&#125;\)</td><td>\(p&gt;1\)</td></tr>
+<tr><th>\(0^+\)</th><td>\(\displaystyle\int_0^1\frac&#123;dx&#125;&#123;x^p&#125;\)</td><td>\(p&lt;1\)</td></tr>
+<tr><th>\(+\infty\)</th><td>\(\displaystyle\int_e^&#123;+\infty&#125;\frac&#123;dx&#125;&#123;x(\ln x)^q&#125;\)</td><td>\(q&gt;1\)</td></tr>
 <tr><th>\(0^+\)</th><td>\(\displaystyle\int_0^1 x^\alpha|\ln x|^m\,dx\)</td><td>固定 \(m\ge0\) 时，\(\alpha&gt;-1\)</td></tr>
 </tbody></table></div>
 <p><strong>极限比较：</strong>若坏点附近 \(f(x),g(x)&gt;0\)，且 \(\displaystyle\lim f/g=L\in(0,+\infty)\)，则两积分同敛散。常用等价无穷小：</p>
@@ -237,44 +237,44 @@ const chapters = [
 <div class="math">\[\sin x\sim x\]</div>
 <div class="math">\[\ln(1+x)\sim x\]</div>
 <div class="math">\[e^x-1\sim x\]</div>
-<div class="math">\[1-\cos x\sim\frac{x^2}{2}\qquad(x\to0)\]</div>
+<div class="math">\[1-\cos x\sim\frac&#123;x^2&#125;&#123;2&#125;\qquad(x\to0)\]</div>
 </div>
 
 <section class="error-note" aria-labelledby="error-14"><h3 id="error-14">第 14 题 · 一个积分同时检查 0 与 \(+\infty\)</h3>
-<p><strong>题型</strong> \(\displaystyle I(p)=\int_0^{+\infty}\frac{\ln x}{(1+x)x^{1-p}}\,dx\)。</p>
+<p><strong>题型</strong> \(\displaystyle I(p)=\int_0^&#123;+\infty&#125;\frac&#123;\ln x&#125;&#123;(1+x)x^&#123;1-p&#125;&#125;\,dx\)。</p>
 <p><strong>错误点</strong> 没把两个坏点分开，或只判断一端。</p>
 <div class="solution"><strong>路线</strong>
 <p>0 与 \(+\infty\) 都是坏点，所以在普通点 1 拆开：</p>
-<div class="math">\[I(p)=\int_0^1\frac{\ln x}{(1+x)x^{1-p}}\,dx+\int_1^{+\infty}\frac{\ln x}{(1+x)x^{1-p}}\,dx.\]</div>
-<p>\(x\to0^+\)：原式 \(\sim x^{p-1}\ln x\)，要求 \(p&gt;0\)。</p>
-<p>\(x\to+\infty\)：原式 \(\sim \dfrac{\ln x}{x^{2-p}}\)，要求 \(2-p&gt;1\)，即 \(p&lt;1\)。</p>
+<div class="math">\[I(p)=\int_0^1\frac&#123;\ln x&#125;&#123;(1+x)x^&#123;1-p&#125;&#125;\,dx+\int_1^&#123;+\infty&#125;\frac&#123;\ln x&#125;&#123;(1+x)x^&#123;1-p&#125;&#125;\,dx.\]</div>
+<p>\(x\to0^+\)：原式 \(\sim x^&#123;p-1&#125;\ln x\)，要求 \(p&gt;0\)。</p>
+<p>\(x\to+\infty\)：原式 \(\sim \dfrac&#123;\ln x&#125;&#123;x^&#123;2-p&#125;&#125;\)，要求 \(2-p&gt;1\)，即 \(p&lt;1\)。</p>
 <div class="math">\[\boxed&#123;0&lt;p&lt;1&#125;\]</div>
 </div>
 <p><strong>一句话方法</strong> 多坏点问题取交集：每一端的收敛条件都必须满足。</p>
 </section>
 
 <section class="error-note" aria-labelledby="error-15"><h3 id="error-15">第 15 题 · 四个典型判敛模型</h3>
-<p><strong>A</strong> \(\displaystyle\int_2^{+\infty}\frac{dx}{x\ln x}\) 发散，因为原函数为 \(\ln\ln x\)，等价于对数修正的临界情形 \(q=1\)。</p>
-<p><strong>B</strong> \(\displaystyle\int_0^{+\infty}e^{-x^2}\,dx\) 收敛（值为 \(\sqrt\pi/2\)）。</p>
-<p><strong>C</strong> \(\displaystyle\int_{-1}^{1}\frac{dx}{\sin x}\) 在 0 有内部瑕点；\(\sin x\sim x\)，两侧都按 \(1/x\) 发散。奇函数不能救它。</p>
-<p><strong>D</strong> \(\displaystyle\int_0^1\frac{x}{\ln^2(1+x)}\,dx\sim\int_0^1\frac{dx}{x}\)，发散。</p>
+<p><strong>A</strong> \(\displaystyle\int_2^&#123;+\infty&#125;\frac&#123;dx&#125;&#123;x\ln x&#125;\) 发散，因为原函数为 \(\ln\ln x\)，等价于对数修正的临界情形 \(q=1\)。</p>
+<p><strong>B</strong> \(\displaystyle\int_0^&#123;+\infty&#125;e^&#123;-x^2&#125;\,dx\) 收敛（值为 \(\sqrt\pi/2\)）。</p>
+<p><strong>C</strong> \(\displaystyle\int_&#123;-1&#125;^&#123;1&#125;\frac&#123;dx&#125;&#123;\sin x&#125;\) 在 0 有内部瑕点；\(\sin x\sim x\)，两侧都按 \(1/x\) 发散。奇函数不能救它。</p>
+<p><strong>D</strong> \(\displaystyle\int_0^1\frac&#123;x&#125;&#123;\ln^2(1+x)&#125;\,dx\sim\int_0^1\frac&#123;dx&#125;&#123;x&#125;\)，发散。</p>
 <p><strong>一句话方法</strong> 不要先求原函数；先定位坏点，再看能否直接比较到标准模型。</p>
 </section>
 
 <h3 id="integral-symmetry">普通定积分 · 奇偶、对称、周期</h3>
 <div class="formula-list">
-<div class="math">\[f(-x)=-f(x)\Longrightarrow\int_{-a}^{a}f(x)\,dx=0\]</div>
-<div class="math">\[f(-x)=f(x)\Longrightarrow\int_{-a}^{a}f(x)\,dx=2\int_0^a f(x)\,dx\]</div>
+<div class="math">\[f(-x)=-f(x)\Longrightarrow\int_&#123;-a&#125;^&#123;a&#125;f(x)\,dx=0\]</div>
+<div class="math">\[f(-x)=f(x)\Longrightarrow\int_&#123;-a&#125;^&#123;a&#125;f(x)\,dx=2\int_0^a f(x)\,dx\]</div>
 <div class="math">\[\int_0^a f(x)\,dx=\int_0^a f(a-x)\,dx\]</div>
-<div class="math">\[f(x+T)=f(x)\Longrightarrow\int_a^{a+T}f(x)\,dx=\int_0^T f(x)\,dx\]</div>
+<div class="math">\[f(x+T)=f(x)\Longrightarrow\int_a^&#123;a+T&#125;f(x)\,dx=\int_0^T f(x)\,dx\]</div>
 </div>
 <p class="note">前两条默认相应积分存在。若是反常积分，必须先按反常积分定义验证收敛，再使用奇偶性。</p>
 <p><strong>乘积奇偶性：</strong>奇×奇=偶，偶×偶=偶，奇×偶=奇。先逐项判奇偶，往往比真正积分快得多。</p>
 <section class="error-note" aria-labelledby="error-20"><h3 id="error-20">第 20 题 · 不算积分，先判奇偶与符号</h3>
 <div class="solution">
-<p>\(\displaystyle M=\int_{-\pi/2}^{\pi/2}\frac{x}{1+x^2}\cos^5x\,dx\)：奇×偶=奇，所以 \(M=0\)。</p>
-<p>\(\displaystyle N=\int_{-\pi/2}^{\pi/2}(x^2\sin x+\sin^2x\cos x)\,dx\)：第一项奇，第二项偶且在该区间非负，故 \(N&gt;0\)。</p>
-<p>\(\displaystyle P=\int_{-\pi/2}^{\pi/2}(\sin^3x-\cos^4x)\,dx\)：第一项奇，第二项为负的偶函数贡献，故 \(P&lt;0\)。</p>
+<p>\(\displaystyle M=\int_&#123;-\pi/2&#125;^&#123;\pi/2&#125;\frac&#123;x&#125;&#123;1+x^2&#125;\cos^5x\,dx\)：奇×偶=奇，所以 \(M=0\)。</p>
+<p>\(\displaystyle N=\int_&#123;-\pi/2&#125;^&#123;\pi/2&#125;(x^2\sin x+\sin^2x\cos x)\,dx\)：第一项奇，第二项偶且在该区间非负，故 \(N&gt;0\)。</p>
+<p>\(\displaystyle P=\int_&#123;-\pi/2&#125;^&#123;\pi/2&#125;(\sin^3x-\cos^4x)\,dx\)：第一项奇，第二项为负的偶函数贡献，故 \(P&lt;0\)。</p>
 <div class="math">\[\boxed&#123;P&lt;M&lt;N&#125;\]</div>
 </div>
 <p><strong>一句话方法</strong> 对称区间先消奇函数项，再看剩余偶函数的符号；能比较就别硬算。</p>
@@ -289,8 +289,8 @@ const chapters = [
 <p><strong>Darboux 性质：</strong>导函数即使不连续，也不能发生普通跳跃；因此“可积但带跳跃”的函数可以作为反例说明：可积 \(\not\Rightarrow\) 有原函数。</p>
 <section class="error-note" aria-labelledby="error-23"><h3 id="error-23">第 23 题 · 四条性质放回各自前提</h3>
 <p><strong>变上限积分：</strong>在连续条件下，\(\displaystyle\left[\int_a^x f(t)\,dt\right]'=f(x)\)，因此它是 f 的一个原函数。</p>
-<p><strong>奇函数：</strong>普通对称定积分存在时，\(\displaystyle\int_{-a}^{a}f(x)\,dx=0\)。</p>
-<p><strong>周期函数：</strong>若周期为 T，则任意长度为一个周期的积分相同：\(\displaystyle\int_a^{a+T}f(x)\,dx=\int_0^T f(x)\,dx\)。</p>
+<p><strong>奇函数：</strong>普通对称定积分存在时，\(\displaystyle\int_&#123;-a&#125;^&#123;a&#125;f(x)\,dx=0\)。</p>
+<p><strong>周期函数：</strong>若周期为 T，则任意长度为一个周期的积分相同：\(\displaystyle\int_a^&#123;a+T&#125;f(x)\,dx=\int_0^T f(x)\,dx\)。</p>
 <p><strong>“可积 ⇒ 有原函数”错误：</strong>例如 \(f(x)=x\,\operatorname&#123;sgn&#125;(\cos x)\) 在 \([0,\pi]\) 可积，但在 \(\pi/2\) 有跳跃，不可能是导函数，因此不一定有原函数。</p>
 <p><strong>一句话方法</strong> 做性质判断题时，把每条结论的前提一起背：连续、可积、导函数、普通积分 / 反常积分不能混用。</p>
 </section>
