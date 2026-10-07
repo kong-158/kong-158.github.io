@@ -21,13 +21,14 @@ const chapters = [
 ];
 ---
 <section class="cmc-notes">
-<p class="lead">张宇1000题 · 高等数学｜按“定义 → 判定 → 方法 → 错题”整理。当前已系统整理第一至六章与第八章积分概念、反常积分和定积分性质。</p>
+<p class="lead">张宇1000题 · 高等数学｜按“定义 → 判定 → 方法 → 错题”整理。当前已系统整理第一至六章、第八章，以及第九章积分计算中的基础三角积分框架。</p>
 <nav class="article-toc" aria-label="本文目录"><strong>章节导航</strong>
 {chapters.slice(0, 6).map(([title], i) => <a href={`#chapter-${i + 1}`}><span>0{i + 1}</span>{title}</a>)}
 <a href="#chapter-8"><span>08</span>{chapters[7][0]}</a>
+<a href="#chapter-9"><span>09</span>{chapters[8][0]}</a>
 <a href="#basic-formulas">基础公式速查</a><a href="#condition-10-11">第 10 / 11 题 · 条件辨析</a><a href="#chapter-8-errors">第八章错题索引</a><a href="#toc">全书页码索引</a></nav>
 <details class="page-index" open><summary id="toc">张宇1000题目录 · 页码索引</summary><div class="toc-wrap"><table><thead><tr><th>章节</th><th>基础篇</th><th>强化篇</th></tr></thead><tbody>
-{chapters.map(([title, basic, advanced], i) => <tr><td>{(i < 6 || i === 7) ? <a href={`#chapter-${i + 1}`}>{i + 1}. {title}</a> : `${i + 1}. ${title}`}</td><td>P.{basic}</td><td>P.{advanced}</td></tr>)}
+{chapters.map(([title, basic, advanced], i) => <tr><td>{(i < 6 || i === 7 || i === 8) ? <a href={`#chapter-${i + 1}`}>{i + 1}. {title}</a> : `${i + 1}. ${title}`}</td><td>P.{basic}</td><td>P.{advanced}</td></tr>)}
 </tbody></table>
 </div>
 </details>
@@ -305,6 +306,69 @@ const chapters = [
 <tr><th>23</th><td>连续、可积、原函数、周期性质混在一起</td><td>每条结论先写前提；尤其记住“可积 ⇏ 有原函数”</td></tr>
 </tbody></table></div>
 <p><strong>本章总流程：</strong>变限积分看求导规则；普通定积分看对称 / 周期；反常积分先找坏点并按定义拆开，再判敛；涉及原函数时回到“连续 / 可积 / 导函数”三种不同条件。</p>
+
+
+<h2 id="chapter-9">第九章 一元函数积分学的计算</h2>
+<nav class="section-links" aria-label="第九章速查">
+<a href="#trig-two-ones">两个 1</a><a href="#trig-pairs">tan–sec / cot–csc</a><a href="#weierstrass">万能换元</a><a href="#sin-cos-shift">sin / cos 平移</a>
+</nav>
+<p><strong>第一大题的核心：</strong>三角积分不要只背结果。先看能否用恒等式“造出导数”，再看求导配对；普通方法不顺时才用万能换元。下面四点构成这一组题的主框架。</p>
+
+<h3 id="trig-two-ones">1. 两个“1” · 恒等变形是为了造导数</h3>
+<div class="formula-list">
+<div class="math">\[1=\sin^2x+\cos^2x\]</div>
+<div class="math">\[1=\sec^2x-\tan^2x=\csc^2x-\cot^2x\]</div>
+</div>
+<p><strong>sin / cos：</strong>某个幂次为奇数时，通常留一个因子凑微分，其余平方用 \(1-\) 另一个函数的平方。例如</p>
+<div class="math">\[\cos^3x\,dx=\cos x(1-\sin^2x)\,dx,\qquad u=\sin x.\]</div>
+<p><strong>tan / cot：</strong>看到平方时优先改写为导数型：</p>
+<div class="math">\[\tan^2x=\sec^2x-1,\qquad \cot^2x=\csc^2x-1.\]</div>
+<p><strong>一句话方法</strong> 恒等式不是为了“看起来更简单”，而是为了把被积式改造成某个函数的导数。</p>
+
+<h3 id="trig-pairs">2. tan–sec 与 cot–csc · 求导配对</h3>
+<div class="formula-list">
+<div class="math">\[(\tan x)'=\sec^2x\]</div>
+<div class="math">\[(\sec x)'=\sec x\tan x\]</div>
+<div class="math">\[(\cot x)'=-\csc^2x\]</div>
+<div class="math">\[(\csc x)'=-\csc x\cot x\]</div>
+</div>
+<p><strong>记忆：</strong>tan–sec 这一组求导为正；cot–csc 这一组带负号。对应积分：</p>
+<div class="formula-list">
+<div class="math">\[\int\sec^2x\,dx=\tan x+C\]</div>
+<div class="math">\[\int\sec x\tan x\,dx=\sec x+C\]</div>
+<div class="math">\[\int\csc^2x\,dx=-\cot x+C\]</div>
+<div class="math">\[\int\csc x\cot x\,dx=-\csc x+C\]</div>
+</div>
+<p><strong>一句话方法</strong> 看到 \(\sec^2\)、\(\sec\tan\)、\(\csc^2\)、\(\csc\cot\)，先反向识别它是谁的导数。</p>
+
+<h3 id="weierstrass">3. 万能换元 · \(t=\tan\frac{x}{2}\)</h3>
+<div class="formula-list">
+<div class="math">\[t=\tan\frac{x}{2}\]</div>
+<div class="math">\[\sin x=\frac{2t}{1+t^2}\]</div>
+<div class="math">\[\cos x=\frac{1-t^2}{1+t^2}\]</div>
+<div class="math">\[dx=\frac{2}{1+t^2}\,dt\]</div>
+</div>
+<p>因此关于 \(\sin x,\cos x\) 的有理式 \(R(\sin x,\cos x)\) 可以化成关于 t 的有理函数积分。尤其适合 \(1/(a+b\sin x)\)、\(1/(a+b\cos x)\) 一类普通凑微分不顺的形式。</p>
+<p><strong>注意：</strong>万能换元是兜底方案，不是首选。像 \(\int\cos^3x\,dx\) 这类题直接用 \(1-\sin^2x\) 更快。</p>
+
+<h3 id="sin-cos-shift">4. sin / cos 互换 · 平移 \(\pi/2\)</h3>
+<div class="formula-list">
+<div class="math">\[\cos x=\sin\left(x+\frac{\pi}{2}\right)\]</div>
+<div class="math">\[\sin x=\cos\left(x-\frac{\pi}{2}\right)\]</div>
+<div class="math">\[\sin\left(x+\frac{\pi}{2}\right)=\cos x\]</div>
+<div class="math">\[\cos\left(x+\frac{\pi}{2}\right)=-\sin x\]</div>
+</div>
+<p>若某一类只含 sin 的积分已经会做，而题目换成 cos，不必重新学一套；令 \(u=x+\pi/2\) 或 \(u=x-\pi/2\) 即可把两类互相转化。</p>
+<p><strong>一句话方法</strong> sin 与 cos 是同一波形相差 \(\pi/2\) 的相位；积分中可用平移把问题统一到更熟悉的一类。</p>
+
+<h3 id="trig-integral-flow">第一反应 · 四步识别</h3>
+<div class="toc-wrap"><table><thead><tr><th>看到的结构</th><th>优先反应</th></tr></thead><tbody>
+<tr><th>sin / cos 的奇次幂</th><td>留一个因子凑微分，其余平方用 \(\sin^2x+\cos^2x=1\)</td></tr>
+<tr><th>tan / sec 或 cot / csc 混合</th><td>先找 \(\tan'\)、\(\sec'\)、\(\cot'\)、\(\csc'\) 的配对</td></tr>
+<tr><th>sin 与 cos 只差一种形式</th><td>考虑平移 \(\pi/2\) 统一形式</td></tr>
+<tr><th>\(R(\sin x,\cos x)\) 且普通方法不顺</th><td>最后用 \(t=\tan(x/2)\) 化成有理函数</td></tr>
+</tbody></table></div>
+<p><strong>本节总原则：</strong>先恒等变形 → 再凑导数 → 能平移就统一 → 最后万能换元。</p>
 
 <h2 id="basic-formulas">基础公式速查</h2>
 <nav class="section-links" aria-label="公式速查"><a href="#derivative-formulas">常见求导</a><a href="#derivative-rules">求导法则</a><a href="#integral-formulas">常见积分</a><a href="#integral-patterns">积分结构与方法</a></nav>
