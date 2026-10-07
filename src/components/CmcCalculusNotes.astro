@@ -310,9 +310,15 @@ const chapters = [
 
 <h2 id="chapter-9">第九章 一元函数积分学的计算</h2>
 <nav class="section-links" aria-label="第九章速查">
-<a href="#trig-two-ones">两个 1</a><a href="#trig-pairs">tan–sec / cot–csc</a><a href="#weierstrass">万能换元</a><a href="#sin-cos-shift">sin / cos 平移</a>
+<a href="#indefinite-c">不定积分 +C</a><a href="#trig-two-ones">两个 1</a><a href="#trig-pairs">tan–sec / cot–csc</a><a href="#weierstrass">万能换元</a><a href="#sin-cos-shift">sin / cos 平移</a>
 </nav>
-<p><strong>第一大题的核心：</strong>三角积分不要只背结果。先看能否用恒等式“造出导数”，再看求导配对；普通方法不顺时才用万能换元。下面四点构成这一组题的主框架。</p>
+<p><strong>第一大题的核心：</strong>先把不定积分的书写规范记牢，再处理三角结构。三角积分不要只背结果：先看能否用恒等式“造出导数”，再看求导配对；普通方法不顺时才用万能换元。</p>
+
+<h3 id="indefinite-c">0. 不定积分 · 结果必须加 \(C\)</h3>
+<p><strong>不定积分表示一族原函数，不是某一个原函数。</strong>若 \(F'(x)=f(x)\)，则</p>
+<div class="math">\[\int f(x)\,dx=F(x)+C,\qquad C\in\mathbb R.\]</div>
+<p>因此做不定积分时，最终答案必须写 \(+C\)。不同原函数之间只差一个常数；漏写 \(C\) 就只写出了其中一个原函数。<strong>定积分有上下限，结果不加 \(C\)。</strong></p>
+<p><strong>一句话方法</strong> 看到“\(\int f(x)\,dx\)”且没有上下限，收尾先检查：有没有 \(+C\)。</p>
 
 <h3 id="trig-two-ones">1. 两个“1” · 恒等变形是为了造导数</h3>
 <div class="formula-list">
