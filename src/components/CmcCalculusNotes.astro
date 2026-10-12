@@ -367,6 +367,33 @@ const chapters = [
 <p>若某一类只含 sin 的积分已经会做，而题目换成 cos，不必重新学一套；令 \(u=x+\pi/2\) 或 \(u=x-\pi/2\) 即可把两类互相转化。</p>
 <p><strong>一句话方法</strong> sin 与 cos 是同一波形相差 \(\pi/2\) 的相位；积分中可用平移把问题统一到更熟悉的一类。</p>
 
+<h3 id="reciprocal-substitution">5. 什么时候考虑倒数换元？· 第 35 题</h3>
+<p><strong>核心作用：</strong>交换 0 与无穷，将关于 x 的高次式改写成关于 1/x 的低次式。优先检查 <strong>区间、次数、对称性</strong>，但是否采用仍要看换元后有没有变简单。</p>
+<div class="math">\[t=\frac&#123;1&#125;&#123;x&#125;,\quad dx=-\frac&#123;1&#125;&#123;t^2&#125;dt,\quad \int_a^\infty f(x)\,dx=\int_0^&#123;1/a&#125;\frac&#123;f(1/t)&#125;&#123;t^2&#125;dt\quad(a>0).\]</div>
+<div class="toc-wrap"><table><thead><tr><th>识别信号</th><th>如何判断</th></tr></thead><tbody>
+<tr><th>无穷区间</th><td>\([1,+\infty)\) 能转成 \((0,1]\)；这只是提示，不能单凭端点选择换元。</td></tr>
+<tr><th>分母含高次式</th><td>特别是 \(x\sqrt&#123;x^2+ax+b&#125;\) 一类，提取 x 的幂后看能否凑出 \(dx/x^2=-dt\)。</td></tr>
+<tr><th>倒数对称</th><td>出现 \(x+1/x\)、\(x^2+1/x^2\)，或 \((0,+\infty)\) 上的积分，可尝试 \(x\leftrightarrow1/x\) 比较前后表达式。</td></tr>
+</tbody></table></div>
+<section class="error-note"><h3 id="integral-error-35">第 35 题 · 倒数换元把反常积分化为配平方</h3>
+<div class="math">\[I=\int_1^\infty\frac&#123;dx&#125;&#123;x\sqrt&#123;x^2+2x-1&#125;&#125;=\int_1^\infty\frac&#123;dx/x^2&#125;&#123;\sqrt&#123;1+2/x-1/x^2&#125;&#125;.\]</div>
+<p>因 \(x\ge 1\)，提取根式内的 \(x^2\) 不引入符号问题；再令 \(t=1/x\)：</p>
+<div class="math">\[I=\int_0^1\frac&#123;dt&#125;&#123;\sqrt&#123;1+2t-t^2&#125;&#125;=\int_0^1\frac&#123;dt&#125;&#123;\sqrt&#123;2-(t-1)^2&#125;&#125;=\frac&#123;\pi&#125;&#123;4&#125;.\]</div>
+<p><strong>记忆重点</strong> 看见 \(dx/x^2\) 与根式中的 \(1/x\) 幂相配，是比“区间有无穷”更强的倒数换元信号。</p>
+</section>
+
+<h3 id="rationalize-one">6. 根式相减先“凑 1” · 第 36 题</h3>
+<p><strong>这不是换 \(t=1/x\)，而是表达式有理化。</strong>看到 \(\sqrt&#123;x^2+a^2&#125;-x\)，先算平方差：</p>
+<div class="math">\[(\sqrt&#123;x^2+a^2&#125;-x)(\sqrt&#123;x^2+a^2&#125;+x)=a^2,\qquad \sqrt&#123;x^2+a^2&#125;-x=\frac&#123;a^2&#125;&#123;\sqrt&#123;x^2+a^2&#125;+x&#125;.\]</div>
+<section class="error-note"><h3 id="integral-error-36">第 36 题 · 有理化后再选换元</h3>
+<div class="math">\[I=\int_0^\infty(\sqrt&#123;x^2+1&#125;-x)^2\,dx=\int_0^\infty\frac&#123;dx&#125;&#123;(\sqrt&#123;x^2+1&#125;+x)^2&#125;.\]</div>
+<p><strong>沿三角万能换元：</strong>取 \(x=\tan\theta\)，再令 \(u=\tan(\theta/2)\)，得</p>
+<div class="math">\[I=2\int_0^1\frac&#123;1+u^2&#125;&#123;(1+u)^4&#125;du=\frac&#123;2&#125;&#123;3&#125;.\]</div>
+<p><strong>更短的换元：</strong>直接取 \(t=\sqrt&#123;x^2+1&#125;+x\)，则 \(x=(t-t^&#123;-1&#125;)/2\)，</p>
+<div class="math">\[I=\frac12\int_1^\infty(t^&#123;-2&#125;+t^&#123;-4&#125;)\,dt=\frac23.\]</div>
+<p><strong>记忆重点</strong> 根式相减且平方差为常数 → 先有理化；再比较三角万能换元与直接整体换元，选更短的。</p>
+</section>
+
 <h3 id="trig-integral-flow">第一反应 · 四步识别</h3>
 <div class="toc-wrap"><table><thead><tr><th>看到的结构</th><th>优先反应</th></tr></thead><tbody>
 <tr><th>sin / cos 的奇次幂</th><td>留一个因子凑微分，其余平方用 \(\sin^2x+\cos^2x=1\)</td></tr>
