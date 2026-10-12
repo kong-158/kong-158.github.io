@@ -22,3 +22,8 @@ Maintain this repository as Liu Kehong's long-term public writing and archive we
 - Categories are navigation tools, not claims about the author's identity or priorities.
 - Do not add invented projects, metrics, achievements, current focus, or promotional copy.
 - Preserve the author's original reasoning and writing style.
+
+## CMC content source (important)
+- The public `/writing/cmc-calculus/` page renders `src/components/CmcCalculusNotes.astro` via a special branch in `src/pages/writing/[...id].astro`.
+- `src/content/writing/cmc-calculus.md` is **metadata only**; its Markdown body is **not rendered**. Never put CMC chapter content or worked examples there. Put all CMC chapters, formulas, question notes, and navigation anchors in the Astro component.
+- When changing CMC notes, verify that the heading and linked anchor exist in the rendered component, and check build/deployment status before claiming the published page is updated.
