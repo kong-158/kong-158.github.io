@@ -76,7 +76,11 @@ jobs:
               && printf '%s' "$cmc" | grep -q '第二章 数列极限' \
               && printf '%s' "$cmc" | grep -q '第三章 一元函数微分学的概念' \
               && printf '%s' "$cmc" | grep -q '第五章 一元函数微分学的应用（一）——几何应用' \
-              && printf '%s' "$cmc" | grep -q 'id="chapter-5"'; then
+              && [[ "$cmc" == *'id="chapter-5"'* ]] \
+              && [[ "$cmc" == *'id="chapter-9"'* ]] \
+              && [[ "$cmc" == *'id="trig-two-ones"'* ]] \
+              && [[ "$cmc" == *'id="integral-error-35"'* ]] \
+              && [[ "$cmc" == *'id="integral-error-36"'* ]]; then
               echo 'Homepage, topics, CMC writing note, and legacy redirect are live.'
               exit 0
             fi
