@@ -7,16 +7,19 @@
   width: 48px;
   height: 48px;
   padding: 3px;
-  background: rgba(255, 255, 255, .88);
-  border: 1px solid rgba(73, 111, 143, .22);
-  box-shadow: 0 8px 18px rgba(28, 62, 91, .12);
+  background: var(--glass-strong);
+  border: 1px solid var(--glass-line-strong);
+  border-radius: 10px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, .3), inset 0 1px 0 var(--glass-highlight);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   transform: rotate(2deg);
   transition: transform .18s ease, box-shadow .18s ease;
 }
 
 .kt-easter-egg:hover {
   transform: rotate(0deg) translateY(-2px);
-  box-shadow: 0 11px 24px rgba(28, 62, 91, .16);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, .36), inset 0 1px 0 var(--glass-highlight);
 }
 
 .kt-easter-egg img {
