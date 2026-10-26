@@ -41,6 +41,20 @@
   --radius-lg: 22px;
   --radius-md: 16px;
   --radius-sm: 12px;
+
+  /* 旧主题变量别名（report 皮肤遗留，供旧组件如 CmcCalculusNotes 使用） */
+  --navy: var(--accent);
+  --navy-deep: var(--accent-strong);
+  --blue: var(--accent);
+  --blue-soft: var(--glass);
+  --blue-pale: var(--glass);
+  --red: var(--seal);
+  --line: var(--glass-line);
+  --line-strong: var(--glass-line-strong);
+  --white: var(--glass-strong);
+  --surface: transparent;
+  --surface-soft: var(--glass);
+  --code-bg: var(--panel);
 }
 
 html[data-theme="light"] {
