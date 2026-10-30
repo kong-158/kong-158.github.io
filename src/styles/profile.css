@@ -32,15 +32,22 @@
 
 .hero-copy h1 {
   margin: 14px 0 0;
-  font-size: clamp(64px, 9vw, 108px);
+  font-size: clamp(68px, 9.5vw, 116px);
   font-weight: 800;
   line-height: .95;
   letter-spacing: -.045em;
-  background: linear-gradient(180deg, var(--ink) 28%, color-mix(in srgb, var(--accent-deep) 58%, var(--ink)) 108%);
+  background: linear-gradient(115deg, var(--ink) 28%, color-mix(in srgb, var(--accent-deep) 64%, var(--ink)) 50%, var(--ink) 72%);
+  background-size: 230% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
+  animation: title-sheen 9s ease-in-out infinite;
+}
+
+@keyframes title-sheen {
+  0%, 100% { background-position: 0% 0; }
+  50% { background-position: 100% 0; }
 }
 
 .hero-lead {
@@ -68,7 +75,7 @@
   margin-top: 32px;
 }
 
-/* ---------- 题词卡（玻璃卡 + 内衬细线） ---------- */
+/* ---------- 题词卡：正在播放封面 + 探出的旋转唱片 ---------- */
 
 .ink-card {
   position: relative;
@@ -84,7 +91,39 @@
   box-shadow: inset 0 1px 0 var(--glass-highlight), var(--shadow-card);
   backdrop-filter: blur(24px) saturate(150%);
   -webkit-backdrop-filter: blur(24px) saturate(150%);
-  overflow: hidden;
+}
+
+/* 唱片从封面卡后探出；透过毛玻璃的部分会被模糊成色块 */
+.ink-card .vinyl {
+  position: absolute;
+  top: 50%;
+  left: -138px;
+  z-index: -1;
+  width: 224px;
+  height: 224px;
+  margin-top: -112px;
+  border-radius: 50%;
+  background:
+    conic-gradient(from 0turn, transparent 0 62%, rgba(255, 255, 255, .09) 70%, transparent 78%),
+    repeating-radial-gradient(circle, #101018 0 2.5px, #191a26 2.5px 5px);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, .08),
+    0 22px 50px rgba(0, 0, 0, .45),
+    0 0 44px -6px var(--glow-accent);
+  animation: vinyl-spin 20s linear infinite;
+}
+
+.ink-card .vinyl::after {
+  content: "";
+  position: absolute;
+  inset: 31%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #0c0c12 0 30%, color-mix(in srgb, var(--accent-deep) 88%, #fff) 30% 100%);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, .1), 0 0 18px var(--glow-accent);
+}
+
+@keyframes vinyl-spin {
+  to { transform: rotate(1turn); }
 }
 
 .ink-card::before {
@@ -113,25 +152,7 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* 唱片小彩蛋：呼应播放器的旋转唱片（20s/圈） */
-.ink-card-bottom > span:last-child {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.ink-card-bottom > span:last-child::before {
-  content: "";
-  flex: 0 0 auto;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background:
-    conic-gradient(from 0turn, transparent 0 72%, rgba(255, 255, 255, .2) 80%, transparent 86%),
-    radial-gradient(circle, color-mix(in srgb, var(--accent-deep) 82%, #fff) 0 2.5px, #14151d 2.5px 100%);
-  box-shadow: inset 0 0 0 1px var(--glass-line-strong);
-  animation: vinyl-spin 20s linear infinite;
-}
+/* 唱片小彩蛋由 .ink-card .vinyl 承担 */
 
 @keyframes vinyl-spin {
   to { transform: rotate(1turn); }
@@ -169,6 +190,15 @@
 .profile-motto-script .motto-column:nth-child(1) { transform: rotate(2deg) translateY(-2px); }
 .profile-motto-script .motto-column:nth-child(2) { transform: rotate(-2deg) translateY(17px); }
 .profile-motto-script.is-randomized { animation: ink-in .48s cubic-bezier(.2, .72, .2, 1) both; }
+
+/* 歌词式逐行显现 */
+.profile-motto-script.is-randomized .motto-column { animation: lyric-in .55s ease both; }
+.profile-motto-script.is-randomized .motto-column:nth-child(2) { animation-delay: .16s; }
+
+@keyframes lyric-in {
+  from { opacity: 0; filter: blur(10px); }
+  to { opacity: 1; filter: blur(0); }
+}
 
 .ink-seal {
   display: grid;
@@ -269,13 +299,14 @@
   box-shadow: inset 0 1px 0 var(--glass-highlight);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  transition: transform .18s ease, border-color .18s ease, background .18s ease;
+  transition: transform .35s var(--ease-spring), border-color .18s ease, background .18s ease, box-shadow .35s ease;
 }
 
 .home-post-list > a:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   background: var(--glass-hover);
   border-color: var(--hover-line);
+  box-shadow: inset 0 1px 0 var(--glass-highlight), 0 18px 44px -14px var(--glow-accent);
 }
 
 .home-post-list time { padding-top: 3px; color: var(--faint); font-size: 12px; }
@@ -307,13 +338,14 @@
   box-shadow: inset 0 1px 0 var(--glass-highlight);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  transition: transform .18s ease, border-color .18s ease, background .18s ease;
+  transition: transform .35s var(--ease-spring), border-color .18s ease, background .18s ease, box-shadow .35s ease;
 }
 
 .topic-pills a:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   background: var(--glass-hover);
   border-color: var(--hover-line);
+  box-shadow: inset 0 1px 0 var(--glass-highlight), 0 18px 44px -14px var(--glow-accent);
 }
 
 .topic-pills span { color: var(--accent); font-size: 11px; font-weight: 800; font-variant-numeric: tabular-nums; }
@@ -402,6 +434,7 @@
   .hero-copy { min-height: auto; padding: 60px 0 30px; }
   .hero-copy h1 { font-size: 68px; }
   .ink-card { min-height: 360px; margin: 0 0 46px; }
+  .ink-card .vinyl { display: none; }
   .profile-motto-script { min-height: 240px; }
   .profile-motto-script.motto-font-long .motto-column { font-size: 37px; }
   .profile-motto-script.motto-font-sweep .motto-column { font-size: 43px; }

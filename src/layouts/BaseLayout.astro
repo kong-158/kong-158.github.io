@@ -44,5 +44,31 @@ const {
     <Header />
     <main><slot /></main>
     <Footer />
+    <script is:inline>
+      // 列表类元素滚动渐入（歌词式上浮），无 JS 或偏好减动效时直接显示
+      (() => {
+        const items = document.querySelectorAll(
+          '.home-post-list > a, .topic-pills > a, .article-row, .compact-list > a, .quiet-empty, .writing-start, .topic-section, .year-group'
+        );
+        if (!items.length || !('IntersectionObserver' in window)) return;
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        items.forEach((el, i) => {
+          el.classList.add('reveal');
+          el.style.setProperty('--reveal-delay', `${(i % 6) * 55}ms`);
+        });
+
+        const io = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-in');
+              io.unobserve(entry.target);
+            }
+          }
+        }, { rootMargin: '0px 0px -6% 0px' });
+
+        items.forEach((el) => io.observe(el));
+      })();
+    </script>
   </body>
 </html>
