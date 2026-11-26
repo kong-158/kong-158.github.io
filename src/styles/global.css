@@ -45,7 +45,7 @@
   --ease-out: cubic-bezier(.22, 1, .36, 1);
   --grain-opacity: .055;
 
-  /* 旧主题变量别名（report 皮肤遗留，供旧组件如 CmcCalculusNotes 使用） */
+  /* 旧主题变量别名（report 皮肤遗留） */
   --navy: var(--accent);
   --navy-deep: var(--accent-strong);
   --blue: var(--accent);

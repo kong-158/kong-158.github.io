@@ -64,24 +64,15 @@ jobs:
             home="$(curl -fsSL --max-time 20 https://kong-158.github.io/ || true)"
             topics="$(curl -fsSL --max-time 20 https://kong-158.github.io/topics/ || true)"
             legacy="$(curl -fsSL --max-time 20 https://kong-158.github.io/notes/ || true)"
-            cmc="$(curl -fsSL --max-time 20 https://kong-158.github.io/writing/cmc-calculus/ || true)"
+            removed_status="$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 https://kong-158.github.io/writing/cmc-calculus/ || true)"
 
             if printf '%s' "$home" | grep -q 'SJTU · FINANCE × COMPUTER SCIENCE' \
               && printf '%s' "$home" | grep -q 'data-random-motto' \
               && printf '%s' "$home" | grep -q 'ink-seal">空' \
               && printf '%s' "$topics" | grep -q 'SECTIONS / 内容栏目' \
               && printf '%s' "$legacy" | grep -q "location.replace('/topics/'" \
-              && printf '%s' "$cmc" | grep -q 'CMC备考｜高数重点及错题整理' \
-              && printf '%s' "$cmc" | grep -q '张宇1000题' \
-              && printf '%s' "$cmc" | grep -q '第二章 数列极限' \
-              && printf '%s' "$cmc" | grep -q '第三章 一元函数微分学的概念' \
-              && printf '%s' "$cmc" | grep -q '第五章 一元函数微分学的应用（一）——几何应用' \
-              && [[ "$cmc" == *'id="chapter-5"'* ]] \
-              && [[ "$cmc" == *'id="chapter-9"'* ]] \
-              && [[ "$cmc" == *'id="trig-two-ones"'* ]] \
-              && [[ "$cmc" == *'id="integral-error-35"'* ]] \
-              && [[ "$cmc" == *'id="integral-error-36"'* ]]; then
-              echo 'Homepage, topics, CMC writing note, and legacy redirect are live.'
+              && [[ "$removed_status" == '404' ]]; then
+              echo 'Homepage, topics, and legacy redirect are live; removed page returns 404.'
               exit 0
             fi
             sleep 10

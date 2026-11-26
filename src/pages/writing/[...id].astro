@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import CmcCalculusNotes from '@/components/CmcCalculusNotes.astro';
 import { getCollection, render } from 'astro:content';
 import { topicLabels, kindLabels, formatDate } from '@/data/site';
 
@@ -13,7 +12,6 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const isCmcCalculus = post.id === 'cmc-calculus';
 ---
 <BaseLayout title={`${post.data.title}｜KONG`} description={post.data.summary}>
   <article class="report-article">
@@ -32,7 +30,7 @@ const isCmcCalculus = post.id === 'cmc-calculus';
       </div>
     </header>
     <div class="shell-narrow prose">
-      {isCmcCalculus ? <CmcCalculusNotes /> : <Content />}
+      <Content />
     </div>
   </article>
 </BaseLayout>
